@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxx Motors | Bid. Buy. Ship.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #111214;
+    --card-bg: #16181c;
+    --blue: #29abe2;
+    --blue-light: #4dc3f5;
+    --blue-dark: #1a8abf;
+    --white: #f5f5f5;
+    --grey: #888;
+    --border: rgba(41,171,226,0.15);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 72px;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo svg { height: 36px; }
+  .nav-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.08em; }
+  .nav-logo-text span { color: var(--blue); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; opacity: 0.75;
+    transition: opacity .2s, color .2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--blue); }
+
+  .nav-cta {
+    background: var(--blue); color: var(--black) !important;
+    padding: 8px 22px; opacity: 1 !important; font-weight: 700 !important;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--blue-light) !important; }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 26px; height: 2px; background: var(--white); transition: .3s; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 5vw 8vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(41,171,226,0.07) 0%, transparent 70%),
+      linear-gradient(160deg, #0a0a0a 0%, #0d1117 50%, #0a0a0a 100%);
+  }
+
+  /* animated grid lines */
+  .hero-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(41,171,226,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(41,171,226,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridScroll 20s linear infinite;
+  }
+  @keyframes gridScroll {
+    0% { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
+  }
+
+  /* big decorative car silhouette */
+  .hero-car-deco {
+    position: absolute;
+    right: -2vw; top: 50%; transform: translateY(-52%);
+    width: 64vw; max-width: 900px;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+
+  .hero-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-tag::before {
+    content: ''; width: 36px; height: 1px; background: var(--blue);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    line-height: 0.95; letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+  }
+  h1 span { color: var(--blue); }
+
+  .hero-sub {
+    font-size: 1.05rem; font-weight: 300; line-height: 1.7;
+    color: rgba(245,245,245,0.65); max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; text-decoration: none;
+    padding: 14px 36px; display: inline-flex; align-items: center; gap: 10px;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: all .25s;
+  }
+  .btn-primary { background: var(--blue); color: var(--black); }
+  .btn-primary:hover { background: var(--blue-light); transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.2); clip-path: none; }
+  .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+
+  .hero-stats {
+    position: absolute; right: 5vw; bottom: 8vh;
+    display: flex; gap: 3rem; z-index: 2;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem; color: var(--blue); line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--grey);
+    margin-top: 4px;
+  }
+
+  .scroll-line {
+    position: absolute; left: 5vw; bottom: 6vh;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    z-index: 2;
+  }
+  .scroll-line span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--grey);
+    writing-mode: vertical-rl;
+  }
+  .scroll-line::after {
+    content: ''; width: 1px; height: 60px;
+    background: linear-gradient(var(--blue), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%,100% { opacity: 0.3; } 50% { opacity: 1; }
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--dark);
+    overflow: hidden;
+    padding: 14px 0;
+  }
+  .marquee-track {
+    display: flex; gap: 0;
+    animation: marquee 30s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--grey); padding: 0 2.5rem;
+    flex-shrink: 0;
+  }
+  .marquee-item span { color: var(--blue); margin-right: 2.5rem; }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 5vw; }
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-tag::before { content: ''; width: 28px; height: 1px; background: var(--blue); }
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    letter-spacing: 0.03em; line-height: 1;
+    margin-bottom: 1.2rem;
+  }
+  h2 span { color: var(--blue); }
+  .section-sub {
+    font-size: 1rem; font-weight: 300; line-height: 1.75;
+    color: rgba(245,245,245,0.55); max-width: 520px;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how { background: var(--dark); }
+  .how-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px; margin-top: 4rem;
+  }
+  .step {
+    background: var(--card-bg);
+    padding: 2.5rem 2rem; position: relative; overflow: hidden;
+    transition: transform .3s;
+  }
+  .step:hover { transform: translateY(-4px); }
+  .step::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--blue);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .4s;
+  }
+  .step:hover::before { transform: scaleX(1); }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem; line-height: 1; color: rgba(41,171,226,0.12);
+    margin-bottom: 1.2rem;
+  }
+  .step-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+  .step h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 0.6rem; color: var(--white);
+  }
+  .step p { font-size: 0.9rem; color: rgba(245,245,245,0.5); line-height: 1.65; }
+
+  /* ── INVENTORY ── */
+  .inventory-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .filter-tabs { display: flex; gap: 4px; }
+  .filter-tab {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 8px 18px; background: transparent;
+    border: 1px solid var(--border); color: var(--grey);
+    cursor: pointer; transition: all .2s;
+  }
+  .filter-tab.active, .filter-tab:hover {
+    background: var(--blue); color: var(--black); border-color: var(--blue);
+  }
+
+  .cars-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2px;
+  }
+  .car-card {
+    background: var(--card-bg); overflow: hidden;
+    transition: transform .3s;
+    position: relative;
+  }
+  .car-card:hover { transform: translateY(-4px); z-index: 1; }
+  .car-img {
+    width: 100%; aspect-ratio: 16/10;
+    background: linear-gradient(135deg, #1a1e25 0%, #0f1318 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; position: relative; overflow: hidden;
+  }
+  .car-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, var(--card-bg) 0%, transparent 50%);
+  }
+  .car-badge {
+    position: absolute; top: 12px; left: 12px; z-index: 2;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 12px;
+    background: var(--blue); color: var(--black);
+    clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
+  }
+  .car-badge.sold { background: #e25555; }
+  .car-info { padding: 1.5rem; }
+  .car-make {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 4px;
+  }
+  .car-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem; letter-spacing: 0.04em; line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+  .car-specs {
+    display: flex; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap;
+  }
+  .car-spec {
+    font-size: 0.78rem; color: var(--grey);
+    display: flex; align-items: center; gap: 5px;
+  }
+  .car-spec::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--blue); }
+  .car-footer { display: flex; justify-content: space-between; align-items: center; }
+  .car-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; color: var(--blue); letter-spacing: 0.05em;
+  }
+  .car-price-sub { font-size: 0.7rem; color: var(--grey); font-family: 'Barlow', sans-serif; font-weight: 300; }
+  .car-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none;
+    padding: 8px 18px; background: transparent;
+    border: 1px solid var(--border); color: var(--white);
+    cursor: pointer; transition: all .2s;
+  }
+  .car-btn:hover { background: var(--blue); border-color: var(--blue); color: var(--black); }
+
+  /* ── WHY US ── */
+  .why { background: var(--dark); }
+  .why-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center; margin-top: 4rem;
+  }
+  .why-visual {
+    position: relative; aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .why-ring {
+    position: absolute;
+    border-radius: 50%; border: 1px solid var(--border);
+  }
+  .why-ring:nth-child(1) { width: 100%; height: 100%; }
+  .why-ring:nth-child(2) { width: 75%; height: 75%; border-style: dashed; animation: spinSlow 25s linear infinite; }
+  .why-ring:nth-child(3) { width: 50%; height: 50%; }
+  .why-center {
+    z-index: 2; text-align: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 50%; width: 200px; height: 200px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .why-center-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem; color: var(--blue); line-height: 1;
+  }
+  .why-center-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--grey); margin-top: 4px;
+  }
+  .why-dots {
+    position: absolute; inset: 0;
+  }
+  .why-dot {
+    position: absolute; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--blue);
+    transform: translate(-50%, -50%);
+  }
+  @keyframes spinSlow { to { transform: rotate(360deg); } }
+
+  .why-features { display: flex; flex-direction: column; gap: 1.5rem; }
+  .why-feat {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    padding: 1.5rem; background: var(--card-bg);
+    border-left: 2px solid transparent;
+    transition: border-color .2s;
+  }
+  .why-feat:hover { border-left-color: var(--blue); }
+  .why-feat-icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: rgba(41,171,226,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .why-feat h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.95rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .why-feat p { font-size: 0.85rem; color: rgba(245,245,245,0.5); line-height: 1.6; }
+
+  /* ── DESTINATIONS ── */
+  .dest-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 2px; margin-top: 3.5rem;
+  }
+  .dest-card {
+    background: var(--card-bg); padding: 2rem 1.5rem;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; gap: 0.8rem;
+    transition: background .2s;
+    cursor: default;
+  }
+  .dest-card:hover { background: #1d2128; }
+  .dest-flag { font-size: 2.2rem; }
+  .dest-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--white);
+  }
+  .dest-count { font-size: 0.72rem; color: var(--blue); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--dark); }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; margin-top: 3.5rem; }
+  .testi-card { background: var(--card-bg); padding: 2.5rem 2rem; position: relative; }
+  .testi-quote {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem; color: var(--blue); opacity: 0.15;
+    position: absolute; top: 10px; left: 20px; line-height: 1;
+  }
+  .testi-text {
+    font-size: 0.9rem; line-height: 1.75; color: rgba(245,245,245,0.65);
+    margin-bottom: 1.5rem; position: relative; z-index: 1;
+  }
+  .testi-author { display: flex; align-items: center; gap: 1rem; }
+  .testi-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(41,171,226,0.15);
+    border: 1px solid var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--blue);
+  }
+  .testi-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .testi-loc { font-size: 0.75rem; color: var(--grey); }
+  .testi-stars { color: var(--blue); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 1rem; }
+
+  /* ── CONTACT ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 4rem; }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .contact-icon {
+    width: 48px; height: 48px; flex-shrink: 0;
+    background: rgba(41,171,226,0.1);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+  }
+  .contact-item-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--grey); margin-bottom: 4px;
+  }
+  .contact-item-val {
+    font-size: 0.95rem; color: var(--white);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .contact-item-val:hover { color: var(--blue); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-field { display: flex; flex-direction: column; gap: 6px; }
+  .form-field label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--grey);
+  }
+  .form-field input, .form-field select, .form-field textarea {
+    background: var(--card-bg); border: 1px solid var(--border);
+    color: var(--white); padding: 12px 16px;
+    font-family: 'Barlow', sans-serif; font-size: 0.9rem;
+    outline: none; transition: border-color .2s;
+    -webkit-appearance: none;
+  }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+    border-color: var(--blue);
+  }
+  .form-field select option { background: var(--card-bg); }
+  .form-field textarea { resize: vertical; min-height: 120px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #070709;
+    border-top: 1px solid var(--border);
+    padding: 4rem 5vw 2rem;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  .footer-brand p {
+    font-size: 0.88rem; color: rgba(245,245,245,0.4);
+    line-height: 1.75; margin-top: 1rem; max-width: 280px;
+  }
+  .footer-logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem; letter-spacing: 0.08em;
+  }
+  .footer-logo-text span { color: var(--blue); }
+  .footer-slogan {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--blue); margin-top: 4px;
+  }
+  .footer-social { display: flex; gap: 10px; margin-top: 1.5rem; }
+  .social-btn {
+    width: 38px; height: 38px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--grey); text-decoration: none; font-size: 0.9rem;
+    transition: all .2s;
+  }
+  .social-btn:hover { border-color: var(--blue); color: var(--blue); }
+
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--white);
+    margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col ul a {
+    font-size: 0.85rem; color: rgba(245,245,245,0.45);
+    text-decoration: none; transition: color .2s;
+  }
+  .footer-col ul a:hover { color: var(--blue); }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-bottom p { font-size: 0.78rem; color: rgba(245,245,245,0.3); }
+  .footer-bottom a { color: var(--blue); text-decoration: none; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .hero-stats { position: relative; right: auto; bottom: auto; margin-top: 3rem; justify-content: flex-start; }
+    .scroll-line { display: none; }
+    .why-grid { grid-template-columns: 1fr; }
+    .why-visual { display: none; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    h1 { font-size: clamp(3rem, 12vw, 5rem); }
+  }
+  @media (max-width: 540px) {
+    section { padding: 70px 5vw; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; }
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* mobile nav overlay */
+  .mobile-nav {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: var(--black);
+    flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem; letter-spacing: 0.1em;
+    color: var(--white); text-decoration: none;
+    transition: color .2s;
+  }
+  .mobile-nav a:hover { color: var(--blue); }
+  .mobile-nav-close {
+    position: absolute; top: 24px; right: 5vw;
+    font-size: 2rem; color: var(--grey); cursor: pointer; background: none; border: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  <a href="#how">How It Works</a>
+  <a href="#inventory">Inventory</a>
+  <a href="#destinations">Destinations</a>
+  <a href="#about">Why Us</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 32 Q30 10 60 12 Q90 14 110 24" stroke="#29abe2" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M20 34 Q45 20 70 22 Q95 24 108 32" stroke="#0a0a0a" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <path d="M20 34 Q45 20 70 22 Q95 24 108 32" stroke="#29abe2" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>
+    <span class="nav-logo-text">LUXX <span>MOTORS</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#inventory">Inventory</a></li>
+    <li><a href="#destinations">Destinations</a></li>
+    <li><a href="#about">Why Us</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <div class="hamburger" onclick="openMobileNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <svg class="hero-car-deco" viewBox="0 0 900 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M80 280 Q150 180 280 160 Q380 145 480 150 L620 148 Q720 150 800 180 L820 230 Q780 260 700 270 L180 270 Z" fill="white"/>
+    <path d="M200 160 Q240 100 320 90 L500 88 Q580 90 620 130 L640 160 Z" fill="white"/>
+    <ellipse cx="250" cy="275" rx="55" ry="55" fill="white"/>
+    <ellipse cx="650" cy="275" rx="55" ry="55" fill="white"/>
+    <path d="M60 250 Q80 240 120 240" stroke="white" stroke-width="8" stroke-linecap="round"/>
+    <path d="M80 260 L820 260" stroke="white" stroke-width="3"/>
+  </svg>
+  <div class="hero-content fade-up">
+    <div class="hero-tag">Est. 2017 · Atlanta, GA USA</div>
+    <h1>DRIVE THE<br><span>WORLD</span><br>FROM THE US</h1>
+    <p class="hero-sub">Luxx Motors connects West Africa and beyond to America's finest vehicles. We bid, buy, and ship — so you get the car you want, wherever you are.</p>
+    <div class="hero-actions">
+      <a href="#inventory" class="btn btn-primary">Browse Inventory ›</a>
+      <a href="#contact" class="btn btn-outline">Request a Vehicle</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Cars Shipped</div></div>
+    <div class="stat"><div class="stat-num">12+</div><div class="stat-label">Countries Served</div></div>
+    <div class="stat"><div class="stat-num">8+</div><div class="stat-label">Years Experience</div></div>
+  </div>
+  <div class="scroll-line"><span>Scroll</span></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item"><span>★</span> Toyota · Lexus · BMW · Mercedes-Benz · Ford · Chevrolet · Honda · Nissan · Dodge · Jeep · Land Rover · Porsche · Audi · Hyundai · Kia · Infiniti</div>
+    <div class="marquee-item"><span>★</span> Toyota · Lexus · BMW · Mercedes-Benz · Ford · Chevrolet · Honda · Nissan · Dodge · Jeep · Land Rover · Porsche · Audi · Hyundai · Kia · Infiniti</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="how">
+  <div class="section-tag">The Process</div>
+  <h2>BID. BUY. <span>SHIP.</span></h2>
+  <p class="section-sub">Three simple steps. Zero headaches. Your car delivered anywhere in West Africa and beyond.</p>
+  <div class="how-grid">
+    <div class="step fade-up">
+      <div class="step-num">01</div>
+      <div class="step-icon">🔍</div>
+      <h3>Request & Search</h3>
+      <p>Tell us the make, model, year, and budget. We search US auctions and dealer networks to find your exact vehicle at the best price.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">02</div>
+      <div class="step-icon">🏷️</div>
+      <h3>Bid & Secure</h3>
+      <p>We bid competitively on your behalf at top US auctions — Copart, IAAI, Manheim — and secure your vehicle at the right price.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">03</div>
+      <div class="step-icon">🚢</div>
+      <h3>Ship & Track</h3>
+      <p>We handle all export documentation, port logistics, and shipping. You track your vehicle every step of the way to its destination port.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">04</div>
+      <div class="step-icon">🔑</div>
+      <h3>Receive & Drive</h3>
+      <p>Your car arrives at your destination port, cleared and ready. We support you through local customs clearance documentation too.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INVENTORY -->
+<section id="inventory">
+  <div class="inventory-header">
+    <div>
+      <div class="section-tag">Available Now</div>
+      <h2>FEATURED <span>VEHICLES</span></h2>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active">All</button>
+      <button class="filter-tab">SUVs</button>
+      <button class="filter-tab">Sedans</button>
+      <button class="filter-tab">Trucks</button>
+    </div>
+  </div>
+  <div class="cars-grid">
+    <div class="car-card fade-up">
+      <div class="car-img">🚙<div class="car-badge">Available</div></div>
+      <div class="car-info">
+        <div class="car-make">Toyota</div>
+        <div class="car-name">Land Cruiser 200</div>
+        <div class="car-specs">
+          <span class="car-spec">2021</span>
+          <span class="car-spec">4WD</span>
+          <span class="car-spec">V8 Petrol</span>
+          <span class="car-spec">42,000 mi</span>
+        </div>
+        <div class="car-footer">
+          <div><div class="car-price">$58,500</div><div class="car-price-sub">FOB US Port</div></div>
+          <button class="car-btn">Inquire</button>
+        </div>
+      </div>
+    </div>
+    <div class="car-card fade-up">
+      <div class="car-img">🏎️<div class="car-badge">Available</div></div>
+      <div class="car-info">
+        <div class="car-make">Mercedes-Benz</div>
+        <div class="car-name">GLE 450 AMG</div>
+        <div class="car-specs">
+          <span class="car-spec">2022</span>
+          <span class="car-spec">AWD</span>
+          <span class="car-spec">3.0L Turbo</span>
+          <span class="car-spec">28,000 mi</span>
+        </div>
+        <div class="car-footer">
+          <div><div class="car-price">$62,000</div><div class="car-price-sub">FOB US Port</div></div>
+          <button class="car-btn">Inquire</button>
+        </div>
+      </div>
+    </div>
+    <div class="car-card fade-up">
+      <div class="car-img">🚗<div class="car-badge sold">Sold</div></div>
+      <div class="car-info">
+        <div class="car-make">Lexus</div>
+        <div class="car-name">LX 570 Sport</div>
+        <div class="car-specs">
+          <span class="car-spec">2020</span>
+          <span class="car-spec">4WD</span>
+          <span class="car-spec">V8 5.7L</span>
+          <span class="car-spec">55,000 mi</span>
+        </div>
+        <div class="car-footer">
+          <div><div class="car-price">$71,200</div><div class="car-price-sub">FOB US Port</div></div>
+          <button class="car-btn" disabled style="opacity:.4;cursor:default">Sold</button>
+        </div>
+      </div>
+    </div>
+    <div class="car-card fade-up">
+      <div class="car-img">🛻<div class="car-badge">Available</div></div>
+      <div class="car-info">
+        <div class="car-make">Toyota</div>
+        <div class="car-name">Tundra TRD Pro</div>
+        <div class="car-specs">
+          <span class="car-spec">2023</span>
+          <span class="car-spec">4WD</span>
+          <span class="car-spec">3.5L Hybrid</span>
+          <span class="car-spec">12,000 mi</span>
+        </div>
+        <div class="car-footer">
+          <div><div class="car-price">$54,800</div><div class="car-price-sub">FOB US Port</div></div>
+          <button class="car-btn">Inquire</button>
+        </div>
+      </div>
+    </div>
+    <div class="car-card fade-up">
+      <div class="car-img">🚙<div class="car-badge">Available</div></div>
+      <div class="car-info">
+        <div class="car-make">Ford</div>
+        <div class="car-name">Expedition Max</div>
+        <div class="car-specs">
+          <span class="car-spec">2022</span>
+          <span class="car-spec">4WD</span>
+          <span class="car-spec">3.5L EcoBoost</span>
+          <span class="car-spec">38,000 mi</span>
+        </div>
+        <div class="car-footer">
+          <div><div class="car-price">$44,500</div><div class="car-price-sub">FOB US Port</div></div>
+          <button class="car-btn">Inquire</button>
+        </div>
+      </div>
+    </div>
+    <div class="car-card fade-up">
+      <div class="car-img">🏎️<div class="car-badge">Available</div></div>
+      <div class="car-info">
+        <div class="car-make">BMW</div>
+        <div class="car-name">X5 M50i</div>
+        <div class="car-specs">
+          <span class="car-spec">2021</span>
+          <span class="car-spec">xDrive</span>
+          <span class="car-spec">4.4L V8</span>
+          <span class="car-spec">31,000 mi</span>
+        </div>
+        <div class="car-footer">
+          <div><div class="car-price">$67,000</div><div class="car-price-sub">FOB US Port</div></div>
+          <button class="car-btn">Inquire</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:3rem;">
+    <a href="#contact" class="btn btn-primary">Request a Specific Vehicle</a>
+  </div>
+</section>
+
+<!-- WHY LUXX MOTORS -->
+<section id="about" class="why">
+  <div class="section-tag">Why Choose Us</div>
+  <h2>THE LUXX <span>DIFFERENCE</span></h2>
+  <div class="why-grid">
+    <div class="why-visual">
+      <div class="why-ring"></div>
+      <div class="why-ring"></div>
+      <div class="why-ring"></div>
+      <div class="why-dots">
+        <div class="why-dot" style="top:12%;left:50%"></div>
+        <div class="why-dot" style="top:50%;left:96%"></div>
+        <div class="why-dot" style="top:88%;left:50%"></div>
+        <div class="why-dot" style="top:50%;left:4%"></div>
+        <div class="why-dot" style="top:25%;left:85%;background:rgba(41,171,226,.4)"></div>
+        <div class="why-dot" style="top:75%;left:15%;background:rgba(41,171,226,.4)"></div>
+      </div>
+      <div class="why-center">
+        <div class="why-center-num">500+</div>
+        <div class="why-center-label">Happy Clients<br>Worldwide</div>
+      </div>
+    </div>
+    <div class="why-features fade-up">
+      <div class="why-feat">
+        <div class="why-feat-icon">🏆</div>
+        <div>
+          <h4>8+ Years Experience</h4>
+          <p>Established in Atlanta in 2017, we have refined our process across hundreds of successful exports to West Africa and beyond.</p>
+        </div>
+      </div>
+      <div class="why-feat">
+        <div class="why-feat-icon">📋</div>
+        <div>
+          <h4>Full Documentation</h4>
+          <p>We handle titles, export certificates, Bill of Lading, and all shipping documents — everything you need for customs clearance.</p>
+        </div>
+      </div>
+      <div class="why-feat">
+        <div class="why-feat-icon">💰</div>
+        <div>
+          <h4>Competitive Auction Prices</h4>
+          <p>Direct access to Copart, IAAI, and Manheim means we source vehicles at the best possible prices and pass those savings to you.</p>
+        </div>
+      </div>
+      <div class="why-feat">
+        <div class="why-feat-icon">📡</div>
+        <div>
+          <h4>Real-Time Tracking</h4>
+          <p>Track your shipment from the moment it leaves the US auction yard to the moment it arrives at your destination port.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATIONS -->
+<section id="destinations">
+  <div class="section-tag">We Ship To</div>
+  <h2>OUR <span>DESTINATIONS</span></h2>
+  <p class="section-sub">Serving West Africa and beyond. If you don't see your country, contact us — we ship almost everywhere.</p>
+  <div class="dest-grid">
+    <div class="dest-card fade-up"><div class="dest-flag">🇬🇭</div><div class="dest-name">Ghana</div><div class="dest-count">Tema Port</div></div>
+    <div class="dest-card fade-up"><div class="dest-flag">🇳🇬</div><div class="dest-name">Nigeria</div><div class="dest-count">Lagos Port</div></div>
+    <div class="dest-card fade-up"><div class="dest-flag">🇸🇳</div><div class="dest-name">Senegal</div><div class="dest-count">Dakar Port</div></div>
+    <div class="dest-card fade-up"><div class="dest-flag">🇹🇬</div><div class="dest-name">Togo</div><div class="dest-count">Lomé Port</div></div>
+    <div class="dest-card fade-up"><div class="dest-flag">🇨🇮</div><div class="dest-name">Côte d'Ivoire</div><div class="dest-count">Abidjan Port</div></div>
+    <div class="dest-card fade-up"><div class="dest-flag">🇧🇫</div><div class="dest-name">Burkina Faso</div><div class="dest-count">Via Tema</div></div>
+    <div class="dest-card fade-up"><div class="dest-flag">🇲🇱</div><div class="dest-name">Mali</div><div class="dest-count">Via Dakar</div></div>
+    <div class="dest-card fade-up"><div class="dest-flag">🇧🇯</div><div class="dest-name">Benin</div><div class="dest-count">Cotonou Port</div></div>
+    <div class="dest-card fade-up"><div class="dest-flag">🇸🇱</div><div class="dest-name">Sierra Leone</div><div class="dest-count">Freetown Port</div></div>
+    <div class="dest-card fade-up"><div class="dest-flag">🇱🇷</div><div class="dest-name">Liberia</div><div class="dest-count">Monrovia Port</div></div>
+    <div class="dest-card fade-up"><div class="dest-flag">🇬🇳</div><div class="dest-name">Guinea</div><div class="dest-count">Conakry Port</div></div>
+    <div class="dest-card fade-up"><div class="dest-flag">🌍</div><div class="dest-name">Other</div><div class="dest-count">Ask Us</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-tag">Client Reviews</div>
+  <h2>WHAT CLIENTS <span>SAY</span></h2>
+  <div class="testi-grid">
+    <div class="testi-card fade-up">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Luxx Motors shipped my Toyota Land Cruiser from Atlanta to Tema Port without a single issue. The documentation was perfect and the car arrived in pristine condition.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">KA</div>
+        <div><div class="testi-name">Kwame Asante</div><div class="testi-loc">Accra, Ghana</div></div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">I was skeptical at first, but the team walked me through the entire process on WhatsApp. Got my Mercedes GLE delivered to Lagos in 6 weeks. Highly recommended!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">EB</div>
+        <div><div class="testi-name">Emeka Balogun</div><div class="testi-loc">Lagos, Nigeria</div></div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Best price I found for a 2022 Lexus RX350. They bid on my behalf and saved me thousands compared to local dealers. The shipping was seamless to Dakar.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">OD</div>
+        <div><div class="testi-name">Ousmane Diallo</div><div class="testi-loc">Dakar, Senegal</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">Get In Touch</div>
+  <h2>LET'S FIND YOUR <span>CAR</span></h2>
+  <p class="section-sub">Ready to get started? Reach out via the form, call us directly, or message us on WhatsApp. We respond fast.</p>
+  <div class="contact-grid">
+    <div class="contact-info fade-up">
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-item-label">Phone / WhatsApp</div>
+          <a href="tel:+14044511231" class="contact-item-val">+1 (404) 451-1231</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-item-label">Email</div>
+          <a href="mailto:Luxxmotors@gmail.com" class="contact-item-val">Luxxmotors@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-item-label">Based In</div>
+          <span class="contact-item-val">Atlanta, Georgia USA</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📱</div>
+        <div>
+          <div class="contact-item-label">Social Media</div>
+          <a href="https://instagram.com/luxxmotors" target="_blank" class="contact-item-val">@Luxxmotors</a>
+        </div>
+      </div>
+      <div style="margin-top:1rem;">
+        <a href="https://wa.me/14044511231" target="_blank" class="btn btn-primary" style="display:inline-flex;">
+          💬 Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="contact-form fade-up">
+      <div class="form-row">
+        <div class="form-field">
+          <label>First Name</label>
+          <input type="text" placeholder="John">
+        </div>
+        <div class="form-field">
+          <label>Last Name</label>
+          <input type="text" placeholder="Doe">
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Email Address</label>
+        <input type="email" placeholder="john@example.com">
+      </div>
+      <div class="form-field">
+        <label>Phone / WhatsApp</label>
+        <input type="tel" placeholder="+233 __ ___ ____">
+      </div>
+      <div class="form-field">
+        <label>Destination Country</label>
+        <select>
+          <option value="">Select a country...</option>
+          <option>Ghana</option>
+          <option>Nigeria</option>
+          <option>Senegal</option>
+          <option>Togo</option>
+          <option>Côte d'Ivoire</option>
+          <option>Burkina Faso</option>
+          <option>Mali</option>
+          <option>Benin</option>
+          <option>Sierra Leone</option>
+          <option>Liberia</option>
+          <option>Guinea</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Vehicle Request / Message</label>
+        <textarea placeholder="e.g. 2021 Toyota Land Cruiser, V8, under $65,000 — please let me know availability and shipping cost to Tema Port."></textarea>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="handleSubmit(this)">
+        Send Request ›
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo-text">LUXX <span>MOTORS</span></div>
+      <div class="footer-slogan">Bid. Buy. Ship.</div>
+      <p>America's trusted car export partner for West Africa and beyond. Established 2017 in Atlanta, GA.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/luxxmotors" target="_blank" class="social-btn" title="Instagram">IG</a>
+        <a href="https://facebook.com/luxxmotors" target="_blank" class="social-btn" title="Facebook">FB</a>
+        <a href="https://wa.me/14044511231" target="_blank" class="social-btn" title="WhatsApp">WA</a>
+        <a href="https://tiktok.com/@luxxmotors" target="_blank" class="social-btn" title="TikTok">TK</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#inventory">Browse Inventory</a></li>
+        <li><a href="#contact">Request a Vehicle</a></li>
+        <li><a href="#contact">Auction Bidding</a></li>
+        <li><a href="#contact">Export Documentation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Destinations</h4>
+      <ul>
+        <li><a href="#destinations">Ghana</a></li>
+        <li><a href="#destinations">Nigeria</a></li>
+        <li><a href="#destinations">Senegal</a></li>
+        <li><a href="#destinations">Togo</a></li>
+        <li><a href="#destinations">More Countries</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+14044511231">+1 (404) 451-1231</a></li>
+        <li><a href="mailto:Luxxmotors@gmail.com">Luxxmotors@gmail.com</a></li>
+        <li><a href="https://wa.me/14044511231">WhatsApp Us</a></li>
+        <li><a href="#">Atlanta, GA USA</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Luxx Motors. All rights reserved.</p>
+    <p>Designed with ❤️ for West Africa | <a href="mailto:Luxxmotors@gmail.com">Luxxmotors@gmail.com</a></p>
+  </div>
+</footer>
+
+<script>
+  // Scroll animations
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  fadeEls.forEach(el => io.observe(el));
+
+  // First section visible immediately
+  document.querySelectorAll('.hero .fade-up').forEach(el => el.classList.add('visible'));
+
+  // Filter tabs
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // Mobile nav
+  function openMobileNav() { document.getElementById('mobileNav').classList.add('open'); }
+  function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+  document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMobileNav));
+
+  // Form submit
+  function handleSubmit(btn) {
+    btn.textContent = '✓ Request Sent!';
+    btn.style.background = '#1a8abf';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Send Request ›';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3000);
+  }
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.borderBottomColor =
+      window.scrollY > 50 ? 'rgba(41,171,226,0.25)' : 'rgba(41,171,226,0.15)';
+  });
+</script>
+</body>
+</html>
