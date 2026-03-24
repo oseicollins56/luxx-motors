@@ -1,798 +1,1442 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luxx Motors | Bid. Buy. Ship.</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #f4f5f7;
-    --white: #ffffff;
-    --dark: #0f1115;
-    --dark2: #1c1f26;
-    --blue: #29abe2;
-    --blue-dark: #1a8abf;
-    --blue-light: #e8f6fd;
-    --text: #1c1f26;
-    --text-muted: #6b7280;
-    --border: #e2e5ea;
-    --card-shadow: 0 2px 16px rgba(0,0,0,0.07);
-    --card-shadow-hover: 0 12px 40px rgba(0,0,0,0.13);
-  }
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; font-weight: 400; overflow-x: hidden; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luxx Motors – Bid. Buy. Export.</title>
+  <meta name="description" content="Access real U.S. auto auctions and ship your vehicle to Ghana and West Africa with Luxx Motors, a trusted U.S.-based partner." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5vw; height: 70px;
-    background: rgba(255,255,255,0.97);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
-  }
-  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-  .nav-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.08em; color: var(--dark); }
-  .nav-logo-text span { color: var(--blue); }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a { text-decoration: none; color: var(--text-muted); font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: color .2s; }
-  .nav-links a:hover { color: var(--blue); }
-  .nav-cta { background: var(--blue) !important; color: #fff !important; padding: 9px 24px; border-radius: 4px; transition: background .2s !important; }
-  .nav-cta:hover { background: var(--blue-dark) !important; }
-  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-  .hamburger span { width: 26px; height: 2px; background: var(--dark); }
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E2C47A;
+      --gold-dark: #A8882F;
+      --black: #0A0A0A;
+      --dark: #111111;
+      --dark2: #181818;
+      --dark3: #222222;
+      --gray: #888888;
+      --light-gray: #CCCCCC;
+      --white: #FFFFFF;
+      --whatsapp: #25D366;
+      --radius: 6px;
+      --transition: 0.25s ease;
+    }
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0f1115 0%, #1a2535 60%, #0d1822 100%);
-    display: flex; align-items: center;
-    padding: 100px 5vw 60px;
-    position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: ''; position: absolute; inset: 0;
-    background-image: linear-gradient(rgba(41,171,226,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(41,171,226,0.05) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: gridScroll 25s linear infinite;
-  }
-  @keyframes gridScroll { 0% { background-position: 0 0; } 100% { background-position: 60px 60px; } }
-  .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; width: 100%; position: relative; z-index: 2; }
-  .hero-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 10px; }
-  .hero-tag::before { content: ''; width: 30px; height: 1px; background: var(--blue); }
-  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 6vw, 6rem); line-height: 0.95; letter-spacing: 0.02em; color: #fff; margin-bottom: 1.5rem; }
-  .hero h1 span { color: var(--blue); }
-  .hero-sub { font-size: 1.05rem; font-weight: 300; line-height: 1.75; color: rgba(255,255,255,0.65); margin-bottom: 2.5rem; }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .hero-img-wrap { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 4/3; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
-  .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-  .hero-img-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom right, rgba(41,171,226,0.15), transparent); }
-  .hero-badge { position: absolute; top: 16px; left: 16px; z-index: 2; background: var(--blue); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; border-radius: 4px; }
+    html { scroll-behavior: smooth; }
 
-  .hero-stats { display: flex; gap: 0; margin-top: 3rem; }
-  .hero-stat { padding: 1rem 2rem 1rem 0; border-right: 1px solid rgba(255,255,255,0.1); margin-right: 2rem; }
-  .hero-stat:last-child { border-right: none; }
-  .hero-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--blue); line-height: 1; }
-  .hero-stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 3px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  /* BUTTONS */
-  .btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 13px 32px; display: inline-flex; align-items: center; gap: 8px; border-radius: 4px; transition: all .25s; cursor: pointer; border: none; }
-  .btn-primary { background: var(--blue); color: #fff; }
-  .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(41,171,226,0.4); }
-  .btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.3); }
-  .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
-  .btn-dark { background: var(--dark); color: #fff; }
-  .btn-dark:hover { background: var(--dark2); transform: translateY(-1px); }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
 
-  /* MARQUEE */
-  .marquee-wrap { background: var(--dark); overflow: hidden; padding: 14px 0; border-top: 2px solid var(--blue); }
-  .marquee-track { display: flex; animation: marquee 35s linear infinite; white-space: nowrap; }
-  .marquee-item { font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); padding: 0 2.5rem; flex-shrink: 0; }
-  .marquee-item b { color: var(--blue); margin-right: 2rem; }
-  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    /* ─── UTILITY ─── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 96px 0; }
+    .section-sm { padding: 64px 0; }
 
-  /* SECTION */
-  section { padding: 90px 5vw; }
-  .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem; font-weight: 600; }
-  h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: 0.03em; line-height: 1; margin-bottom: 1rem; color: var(--dark); }
-  h2 span { color: var(--blue); }
-  .section-sub { font-size: 1rem; font-weight: 400; line-height: 1.75; color: var(--text-muted); max-width: 560px; }
+    .label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
 
-  /* HOW IT WORKS */
-  .how { background: var(--white); }
-  .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5px; margin-top: 3.5rem; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-  .step { background: var(--white); padding: 2.5rem 2rem; position: relative; transition: background .2s; }
-  .step:hover { background: var(--blue-light); }
-  .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--blue); opacity: 0.2; line-height: 1; margin-bottom: 1rem; }
-  .step-icon { font-size: 2rem; margin-bottom: 0.8rem; }
-  .step h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--dark); }
-  .step p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+    h1, h2, h3, h4 { font-weight: 800; line-height: 1.15; }
 
-  /* INVENTORY */
-  .inventory-section { background: var(--bg); }
-  .inventory-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1.5rem; }
-  .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
-  .filter-tab { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; padding: 8px 20px; background: var(--white); border: 1.5px solid var(--border); color: var(--text-muted); cursor: pointer; border-radius: 4px; transition: all .2s; }
-  .filter-tab.active, .filter-tab:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      margin-bottom: 20px;
+    }
 
-  .cars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-  .car-card { background: var(--white); border-radius: 10px; overflow: hidden; box-shadow: var(--card-shadow); transition: transform .3s, box-shadow .3s; }
-  .car-card:hover { transform: translateY(-6px); box-shadow: var(--card-shadow-hover); }
+    .section-subtitle {
+      font-size: 17px;
+      color: var(--gray);
+      max-width: 560px;
+      line-height: 1.7;
+    }
 
-  .car-img { width: 100%; aspect-ratio: 16/10; overflow: hidden; position: relative; background: #e8edf2; }
-  .car-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform .5s; display: block; }
-  .car-card:hover .car-img img { transform: scale(1.04); }
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--gold);
+      margin: 24px 0 40px;
+      border-radius: 2px;
+    }
 
-  .car-badge { position: absolute; top: 12px; left: 12px; z-index: 2; font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 3px; }
-  .badge-available { background: var(--blue); color: #fff; }
-  .badge-hot { background: #ef4444; color: #fff; }
-  .badge-sold { background: #9ca3af; color: #fff; }
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
 
-  .car-info { padding: 1.4rem; }
-  .car-make { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 3px; }
-  .car-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.04em; line-height: 1; margin-bottom: 0.75rem; color: var(--dark); }
-  .car-specs { display: flex; gap: 0.8rem; margin-bottom: 1.1rem; flex-wrap: wrap; }
-  .car-spec { font-size: 0.76rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
-  .car-spec::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-  .car-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 1.1rem; }
-  .car-footer { display: flex; justify-content: space-between; align-items: center; }
-  .car-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--blue); letter-spacing: 0.04em; line-height: 1; }
-  .car-price-sub { font-size: 0.68rem; color: var(--text-muted); font-family: 'Barlow', sans-serif; margin-top: 2px; }
-  .car-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 9px 20px; background: var(--dark); color: #fff; border-radius: 4px; cursor: pointer; transition: all .2s; border: none; display: inline-block; }
-  .car-btn:hover { background: var(--blue); }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--black);
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
 
-  /* BLUE STRIP */
-  .blue-strip { background: var(--blue); padding: 50px 5vw; }
-  .strip-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
-  .strip-stat { text-align: center; }
-  .strip-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: #fff; line-height: 1; }
-  .strip-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-top: 4px; }
-  .strip-text { max-width: 340px; }
-  .strip-text p { font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; line-height: 1.5; margin-bottom: 1.2rem; }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.25);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
-  /* WHY US */
-  .why { background: var(--white); }
-  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3.5rem; }
-  .why-img { border-radius: 12px; overflow: hidden; aspect-ratio: 4/3; position: relative; box-shadow: var(--card-shadow-hover); }
-  .why-img img { width: 100%; height: 100%; object-fit: cover; }
-  .why-img-label { position: absolute; bottom: 16px; left: 16px; background: var(--blue); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 16px; border-radius: 4px; }
-  .why-features { display: flex; flex-direction: column; gap: 1.2rem; }
-  .why-feat { display: flex; gap: 1.1rem; align-items: flex-start; padding: 1.3rem; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); transition: border-color .2s, box-shadow .2s; }
-  .why-feat:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(41,171,226,0.1); }
-  .why-feat-icon { width: 42px; height: 42px; flex-shrink: 0; background: var(--blue-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-  .why-feat h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.92rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 3px; color: var(--dark); }
-  .why-feat p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+    .btn-whatsapp {
+      background: var(--whatsapp);
+      color: var(--white);
+    }
+    .btn-whatsapp:hover { background: #20B858; transform: translateY(-1px); }
 
-  /* DESTINATIONS */
-  .destinations { background: var(--bg); }
-  .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-top: 3rem; }
-  .dest-card { background: var(--white); border-radius: 10px; padding: 1.8rem 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.7rem; border: 1px solid var(--border); transition: border-color .2s, box-shadow .2s, transform .2s; cursor: default; }
-  .dest-card:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(41,171,226,0.1); transform: translateY(-3px); }
-  .dest-flag { font-size: 2.2rem; }
-  .dest-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--dark); }
-  .dest-port { font-size: 0.72rem; color: var(--blue); font-weight: 500; }
+    .btn-lg { padding: 18px 36px; font-size: 15px; }
 
-  /* TESTIMONIALS */
-  .testimonials { background: var(--dark); }
-  .testimonials h2 { color: #fff; }
-  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 3rem; }
-  .testi-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 2rem; position: relative; }
-  .testi-stars { color: #fbbf24; font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 2px; }
-  .testi-text { font-size: 0.92rem; line-height: 1.78; color: rgba(255,255,255,0.65); margin-bottom: 1.5rem; }
-  .testi-author { display: flex; align-items: center; gap: 1rem; }
-  .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: rgba(41,171,226,0.2); border: 1.5px solid var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--blue); flex-shrink: 0; }
-  .testi-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; }
-  .testi-loc { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
 
-  /* CONTACT */
-  .contact-section { background: var(--white); }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; margin-top: 3.5rem; }
-  .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
-  .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
-  .contact-icon { width: 46px; height: 46px; flex-shrink: 0; background: var(--blue-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-  .contact-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px; }
-  .contact-val { font-size: 0.95rem; color: var(--dark); text-decoration: none; font-weight: 500; transition: color .2s; }
-  .contact-val:hover { color: var(--blue); }
-  .contact-note { background: var(--blue-light); border-left: 3px solid var(--blue); padding: 1.2rem; border-radius: 0 8px 8px 0; }
-  .contact-note p { font-size: 0.88rem; color: var(--dark); line-height: 1.65; }
-  .contact-form { display: flex; flex-direction: column; gap: 1rem; background: var(--bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); }
-  .contact-form h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--dark); letter-spacing: 0.04em; margin-bottom: 0.25rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .form-field { display: flex; flex-direction: column; gap: 5px; }
-  .form-field label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
-  .form-field input, .form-field select, .form-field textarea { background: var(--white); border: 1.5px solid var(--border); color: var(--dark); padding: 11px 14px; font-family: 'Barlow', sans-serif; font-size: 0.9rem; outline: none; border-radius: 6px; transition: border-color .2s; -webkit-appearance: none; }
-  .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--blue); }
-  .form-field textarea { resize: vertical; min-height: 110px; }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
 
-  /* FOOTER */
-  footer { background: var(--dark); color: rgba(255,255,255,0.55); padding: 4rem 5vw 2rem; }
-  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-  .footer-brand p { font-size: 0.87rem; line-height: 1.75; margin-top: 0.75rem; max-width: 280px; }
-  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.08em; color: #fff; }
-  .footer-logo span { color: var(--blue); }
-  .footer-slogan { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-top: 3px; }
-  .footer-social { display: flex; gap: 8px; margin-top: 1.5rem; }
-  .social-btn { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; transition: all .2s; }
-  .social-btn:hover { border-color: var(--blue); color: var(--blue); }
-  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: #fff; margin-bottom: 1.1rem; }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-  .footer-col ul a { font-size: 0.85rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color .2s; }
-  .footer-col ul a:hover { color: var(--blue); }
-  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-  .footer-bottom p { font-size: 0.78rem; }
-  .footer-bottom a { color: var(--blue); text-decoration: none; }
+    .logo {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+    .logo span { color: var(--gold); }
 
-  /* WHATSAPP */
-  .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: #25d366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.45); text-decoration: none; font-size: 1.5rem; transition: transform .2s; animation: waPulse 2.5s ease-in-out infinite; }
-  .wa-float:hover { transform: scale(1.1); }
-  @keyframes waPulse { 0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.45); } 50% { box-shadow: 0 4px 36px rgba(37,211,102,0.75); } }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
 
-  /* ANIMATIONS */
-  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--light-gray);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--gold); }
 
-  /* MOBILE NAV */
-  .mobile-nav { display: none; position: fixed; inset: 0; z-index: 200; background: #fff; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
-  .mobile-nav.open { display: flex; }
-  .mobile-nav a { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.1em; color: var(--dark); text-decoration: none; transition: color .2s; }
-  .mobile-nav a:hover { color: var(--blue); }
-  .mobile-nav-close { position: absolute; top: 20px; right: 5vw; font-size: 2rem; color: var(--text-muted); cursor: pointer; background: none; border: none; }
+    .nav-cta { display: flex; gap: 12px; align-items: center; }
 
-  @media (max-width: 960px) {
-    .nav-links, .nav-cta { display: none; }
-    .hamburger { display: flex; }
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-img-wrap { display: none; }
-    .why-grid { grid-template-columns: 1fr; }
-    .why-img { display: none; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .form-row { grid-template-columns: 1fr; }
-    .strip-inner { justify-content: center; text-align: center; }
-  }
-  @media (max-width: 540px) {
-    section { padding: 60px 5vw; }
-    .footer-grid { grid-template-columns: 1fr; }
-    .cars-grid { grid-template-columns: 1fr; }
-  }
-</style>
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all var(--transition);
+      display: block;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 24px;
+      gap: 20px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--light-gray);
+      letter-spacing: 0.04em;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--black);
+      padding-top: 70px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 50%, rgba(201,168,76,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(201,168,76,0.05) 0%, transparent 60%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 40px;
+      margin-bottom: 32px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    .hero h1 {
+      font-size: clamp(52px, 9vw, 96px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.0;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 .accent { color: var(--gold); }
+
+    .hero-sub {
+      font-size: clamp(17px, 2.5vw, 21px);
+      color: var(--light-gray);
+      max-width: 580px;
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .hero-support {
+      font-size: 15px;
+      color: var(--gray);
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
+    }
+
+    .stat-item {}
+    .stat-num {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 6px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* ─── POSITIONING ─── */
+    .positioning { background: var(--dark2); }
+
+    .positioning-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .positioning-right .not-list {
+      list-style: none;
+      margin: 20px 0 28px;
+    }
+    .not-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 15px;
+      color: var(--light-gray);
+    }
+    .not-list li::before {
+      content: '×';
+      color: #555;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .approach-box {
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-top: 8px;
+    }
+    .approach-box p {
+      font-size: 15px;
+      color: var(--light-gray);
+      line-height: 1.7;
+    }
+    .approach-box .tagline {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--gold);
+      margin-top: 16px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── WHAT WE DO ─── */
+    .what-we-do { background: var(--black); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .service-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .service-card:hover {
+      border-color: rgba(201,168,76,0.35);
+      transform: translateY(-4px);
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-num {
+      font-size: 64px;
+      font-weight: 900;
+      color: rgba(201,168,76,0.08);
+      line-height: 1;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .service-verb {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .service-noun {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gray);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .service-desc {
+      font-size: 15px;
+      color: var(--light-gray);
+      line-height: 1.7;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .how-it-works { background: var(--dark2); }
+
+    .steps-track {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 48px;
+      max-width: 720px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 32px;
+      padding-bottom: 40px;
+      position: relative;
+    }
+
+    .step:not(:last-child) .step-line {
+      position: absolute;
+      left: 32px;
+      top: 56px;
+      bottom: 0;
+      width: 1px;
+      background: rgba(201,168,76,0.2);
+      transform: translateX(-0.5px);
+    }
+
+    .step-num-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.1);
+      border: 1.5px solid rgba(201,168,76,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .step-content { padding-top: 12px; }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ─── WHY LUXX ─── */
+    .why-luxx { background: var(--black); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .why-item {
+      background: var(--dark2);
+      padding: 36px 28px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background var(--transition);
+    }
+    .why-item:hover { background: var(--dark3); }
+
+    .why-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(201,168,76,0.1);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .why-icon svg { width: 22px; height: 22px; fill: var(--gold); }
+
+    .why-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .why-desc {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ─── AUCTIONS ─── */
+    .auctions { background: var(--dark2); }
+
+    .auction-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .auction-logos {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .auction-logo-card {
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: border-color var(--transition);
+    }
+    .auction-logo-card:hover { border-color: rgba(201,168,76,0.3); }
+
+    .auction-dot {
+      width: 12px;
+      height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .auction-name {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .auction-tag {
+      font-size: 12px;
+      color: var(--gray);
+      margin-left: auto;
+      font-weight: 500;
+    }
+
+    /* ─── DESTINATIONS ─── */
+    .destinations { background: var(--black); }
+
+    .dest-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .dest-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .dest-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-2px); }
+
+    .dest-flag {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .dest-name {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .dest-more {
+      background: rgba(201,168,76,0.08);
+      border: 1px dashed rgba(201,168,76,0.25);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      grid-column: span 3;
+      justify-content: center;
+    }
+
+    .dest-more span {
+      font-size: 14px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ─── FORM ─── */
+    .request-form-section {
+      background: var(--dark2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .request-form-section::before {
+      content: '';
+      position: absolute;
+      top: 0; right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .form-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .form-left {}
+
+    .form-features {
+      list-style: none;
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .form-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--light-gray);
+    }
+
+    .form-features li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .contact-box {
+      margin-top: 40px;
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .contact-box p {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    .contact-box a {
+      font-size: 15px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    form {
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 40px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gray);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    input, select, textarea {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color var(--transition);
+      width: 100%;
+    }
+
+    input::placeholder, textarea::placeholder { color: #555; }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold);
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23888' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      cursor: pointer;
+    }
+
+    select option { background: var(--dark2); }
+
+    textarea { resize: vertical; min-height: 100px; }
+
+    .form-submit { width: 100%; justify-content: center; margin-top: 8px; }
+
+    .disclaimer {
+      font-size: 11px;
+      color: var(--gray);
+      margin-top: 14px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* ─── FINAL CTA ─── */
+    .final-cta {
+      background: linear-gradient(135deg, #0A0A0A 0%, #1A1408 50%, #0A0A0A 100%);
+      text-align: center;
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(201,168,76,0.1) 0%, transparent 70%);
+    }
+
+    .final-cta .container { position: relative; z-index: 2; }
+
+    .final-cta h2 {
+      font-size: clamp(28px, 5vw, 52px);
+      margin-bottom: 20px;
+    }
+
+    .final-cta p {
+      font-size: 17px;
+      color: var(--gray);
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 48px 0 32px;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand .logo { margin-bottom: 12px; }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-parent {
+      font-size: 11px;
+      color: #555;
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-col h4 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .footer-col ul a {
+      font-size: 14px;
+      color: #666;
+      transition: color var(--transition);
+    }
+    .footer-col ul a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p { font-size: 13px; color: #444; }
+
+    .sms-disclaimer {
+      font-size: 11px;
+      color: #444;
+      max-width: 600px;
+      line-height: 1.7;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    /* ─── WHATSAPP FLOAT ─── */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 200;
+      width: 58px;
+      height: 58px;
+      background: var(--whatsapp);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba(37,211,102,0.45);
+    }
+    .whatsapp-float svg { width: 28px; height: 28px; fill: white; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .positioning-inner, .auction-inner, .form-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .services-grid, .why-grid, .dest-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .section { padding: 64px 0; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .services-grid, .why-grid, .dest-grid { grid-template-columns: 1fr; }
+      .dest-more { grid-column: span 1; }
+      .form-row { grid-template-columns: 1fr; }
+      form { padding: 28px 20px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .hero-stats { gap: 28px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 48px; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { justify-content: center; }
+      .btn-lg { padding: 16px 28px; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/14044511231" target="_blank" class="wa-float" title="Chat on WhatsApp">💬</a>
-
-<!-- MOBILE NAV -->
-<div class="mobile-nav" id="mobileNav">
-  <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
-  <a href="#how" onclick="closeMobileNav()">How It Works</a>
-  <a href="#inventory" onclick="closeMobileNav()">Inventory</a>
-  <a href="#destinations" onclick="closeMobileNav()">Destinations</a>
-  <a href="#about" onclick="closeMobileNav()">Why Us</a>
-  <a href="#contact" onclick="closeMobileNav()">Contact</a>
-</div>
-
-<!-- NAV -->
-<nav id="mainNav">
-  <a href="#" class="nav-logo">
-    <span class="nav-logo-text">LUXX <span>MOTORS</span></span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#how">How It Works</a></li>
-    <li><a href="#inventory">Inventory</a></li>
-    <li><a href="#destinations">Destinations</a></li>
-    <li><a href="#about">Why Us</a></li>
-    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
-  </ul>
-  <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="container nav-inner">
+    <div class="logo">LUXX<span>MOTORS</span></div>
+    <ul class="nav-links">
+      <li><a href="#what-we-do">Services</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#auctions">Auctions</a></li>
+      <li><a href="#destinations">Destinations</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#request-form" class="btn btn-gold">Request a Vehicle</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#what-we-do">Services</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#auctions">Auctions</a>
+    <a href="#destinations">Destinations</a>
+    <a href="#request-form" class="btn btn-gold" style="text-align:center;">Request a Vehicle</a>
+  </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="fade-up">
-      <div class="hero-tag">Est. 2017 · Atlanta, GA USA · West Africa Export Specialists</div>
-      <h1>DRIVE THE<br><span>WORLD</span><br>FROM THE US</h1>
-      <p class="hero-sub">Luxx Motors ships America's finest vehicles direct to Tema, Lagos, Dakar & all major West African ports. We bid, buy, and ship — stress free.</p>
+<!-- ─── HERO ─── -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">U.S.-Based Vehicle Export Specialists</div>
+      <h1>Bid.<br><span class="accent">Buy.</span><br>Export.</h1>
+      <p class="hero-sub">Access real U.S. auto auctions and ship your vehicle to Ghana and West Africa with a trusted U.S.-based partner.</p>
+      <p class="hero-support">We simplify the entire process — from auction access to final delivery.</p>
       <div class="hero-actions">
-        <a href="#inventory" class="btn btn-primary">Browse Cars ›</a>
-        <a href="https://wa.me/14044511231" target="_blank" class="btn btn-outline">💬 WhatsApp Us</a>
+        <a href="https://wa.me/1XXXXXXXXXX" target="_blank" class="btn btn-whatsapp btn-lg">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat on WhatsApp
+        </a>
+        <a href="#request-form" class="btn btn-outline btn-lg">Request a Vehicle</a>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-num">500+</div><div class="hero-stat-label">Cars Exported</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">12+</div><div class="hero-stat-label">Countries</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">8 Yrs</div><div class="hero-stat-label">Experience</div></div>
-      </div>
-    </div>
-    <div class="hero-img-wrap fade-up">
-      <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=900&q=85" alt="Luxury SUV ready for export">
-      <div class="hero-badge">🚢 Shipping to West Africa</div>
-    </div>
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <div class="marquee-item"><b>★</b> Toyota Land Cruiser · Lexus LX · Mercedes GLE · BMW X5 · Ford Explorer · Chevrolet Tahoe · Nissan Armada · Toyota Camry · Honda CR-V · Dodge Durango · Jeep Grand Cherokee · Cadillac Escalade · Toyota Tacoma · Range Rover</div>
-    <div class="marquee-item"><b>★</b> Toyota Land Cruiser · Lexus LX · Mercedes GLE · BMW X5 · Ford Explorer · Chevrolet Tahoe · Nissan Armada · Toyota Camry · Honda CR-V · Dodge Durango · Jeep Grand Cherokee · Cadillac Escalade · Toyota Tacoma · Range Rover</div>
-  </div>
-</div>
-
-<!-- HOW IT WORKS -->
-<section id="how" class="how">
-  <div class="section-tag">The Process</div>
-  <h2>BID. BUY. <span>SHIP.</span></h2>
-  <p class="section-sub">Four simple steps. Full transparency. Your car delivered to any major West African port in 45–60 days.</p>
-  <div class="how-grid">
-    <div class="step fade-up">
-      <div class="step-num">01</div>
-      <div class="step-icon">🔍</div>
-      <h3>Tell Us What You Want</h3>
-      <p>Send us make, model, year, color & budget on WhatsApp. We search Copart, IAAI, and Manheim auctions every day to find the best match.</p>
-    </div>
-    <div class="step fade-up">
-      <div class="step-num">02</div>
-      <div class="step-icon">🏷️</div>
-      <h3>We Bid & Secure It</h3>
-      <p>We bid on your behalf at top US auctions. You approve before we buy — no surprises, complete transparency on price and fees.</p>
-    </div>
-    <div class="step fade-up">
-      <div class="step-num">03</div>
-      <div class="step-icon">🚢</div>
-      <h3>We Handle All Shipping</h3>
-      <p>Title, Bill of Lading, Export Certificate — we prepare everything and book your car onto the next vessel heading to your port.</p>
-    </div>
-    <div class="step fade-up">
-      <div class="step-num">04</div>
-      <div class="step-icon">🔑</div>
-      <h3>You Receive & Drive</h3>
-      <p>Your car arrives in 45–60 days. We send full customs clearance paperwork — everything you need for DVLA registration in Ghana.</p>
-    </div>
-  </div>
-</section>
-
-<!-- INVENTORY -->
-<section id="inventory" class="inventory-section">
-  <div class="inventory-header">
-    <div>
-      <div class="section-tag">Popular in Ghana & West Africa · Updated 2025</div>
-      <h2>CURRENT <span>INVENTORY</span></h2>
-    </div>
-    <div class="filter-tabs">
-      <button class="filter-tab active" onclick="filterCars('all',this)">All</button>
-      <button class="filter-tab" onclick="filterCars('suv',this)">SUVs</button>
-      <button class="filter-tab" onclick="filterCars('sedan',this)">Sedans</button>
-      <button class="filter-tab" onclick="filterCars('truck',this)">Trucks</button>
-    </div>
-  </div>
-
-  <div class="cars-grid" id="carsGrid">
-
-    <!-- 1. Land Cruiser -->
-    <div class="car-card fade-up" data-type="suv">
-      <div class="car-img">
-        <img src="https://images.unsplash.com/photo-1594745561149-2211ca8c5d98?w=700&q=85&auto=format&fit=crop" alt="Toyota Land Cruiser 200" loading="lazy" onerror="this.src='https://via.placeholder.com/700x440/e8edf2/29abe2?text=Toyota+Land+Cruiser'">
-        <span class="car-badge badge-hot">🔥 #1 in Ghana</span>
-      </div>
-      <div class="car-info">
-        <div class="car-make">Toyota</div>
-        <div class="car-name">Land Cruiser 200</div>
-        <div class="car-specs">
-          <span class="car-spec">2021</span><span class="car-spec">4WD</span>
-          <span class="car-spec">V8 4.6L</span><span class="car-spec">42,000 mi</span>
+        <div class="stat-item">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Major Auctions</div>
         </div>
-        <hr class="car-divider">
-        <div class="car-footer">
-          <div><div class="car-price">$58,500</div><div class="car-price-sub">FOB US Port</div></div>
-          <a href="https://wa.me/14044511231?text=Hi Luxx Motors, I want the 2021 Toyota Land Cruiser 200 - $58,500" target="_blank" class="car-btn">Inquire →</a>
+        <div class="stat-item">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Countries Served</div>
         </div>
-      </div>
-    </div>
-
-    <!-- 2. Chevrolet Tahoe -->
-    <div class="car-card fade-up" data-type="suv">
-      <div class="car-img">
-        <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=700&q=85&auto=format&fit=crop" alt="Chevrolet Tahoe" loading="lazy" onerror="this.src='https://via.placeholder.com/700x440/e8edf2/29abe2?text=Chevrolet+Tahoe'">
-        <span class="car-badge badge-available">Available</span>
-      </div>
-      <div class="car-info">
-        <div class="car-make">Chevrolet</div>
-        <div class="car-name">Tahoe LTZ 4WD</div>
-        <div class="car-specs">
-          <span class="car-spec">2022</span><span class="car-spec">4WD</span>
-          <span class="car-spec">V8 5.3L</span><span class="car-spec">35,000 mi</span>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Transparent Process</div>
         </div>
-        <hr class="car-divider">
-        <div class="car-footer">
-          <div><div class="car-price">$48,200</div><div class="car-price-sub">FOB US Port</div></div>
-          <a href="https://wa.me/14044511231?text=Hi Luxx Motors, I want the 2022 Chevrolet Tahoe LTZ - $48,200" target="_blank" class="car-btn">Inquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. Lexus LX -->
-    <div class="car-card fade-up" data-type="suv">
-      <div class="car-img">
-        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=700&q=85&auto=format&fit=crop" alt="Lexus LX 600" loading="lazy" onerror="this.src='https://via.placeholder.com/700x440/e8edf2/29abe2?text=Lexus+LX+600'">
-        <span class="car-badge badge-hot">🔥 High Demand</span>
-      </div>
-      <div class="car-info">
-        <div class="car-make">Lexus</div>
-        <div class="car-name">LX 600 F-Sport</div>
-        <div class="car-specs">
-          <span class="car-spec">2023</span><span class="car-spec">4WD</span>
-          <span class="car-spec">3.5L Twin Turbo</span><span class="car-spec">18,000 mi</span>
-        </div>
-        <hr class="car-divider">
-        <div class="car-footer">
-          <div><div class="car-price">$89,000</div><div class="car-price-sub">FOB US Port</div></div>
-          <a href="https://wa.me/14044511231?text=Hi Luxx Motors, I want the 2023 Lexus LX 600 - $89,000" target="_blank" class="car-btn">Inquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. Mercedes GLE -->
-    <div class="car-card fade-up" data-type="suv">
-      <div class="car-img">
-        <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=700&q=85&auto=format&fit=crop" alt="Mercedes GLE 450" loading="lazy" onerror="this.src='https://via.placeholder.com/700x440/e8edf2/29abe2?text=Mercedes+GLE+450'">
-        <span class="car-badge badge-available">Available</span>
-      </div>
-      <div class="car-info">
-        <div class="car-make">Mercedes-Benz</div>
-        <div class="car-name">GLE 450 AMG</div>
-        <div class="car-specs">
-          <span class="car-spec">2022</span><span class="car-spec">4MATIC</span>
-          <span class="car-spec">3.0L Turbo</span><span class="car-spec">28,000 mi</span>
-        </div>
-        <hr class="car-divider">
-        <div class="car-footer">
-          <div><div class="car-price">$62,000</div><div class="car-price-sub">FOB US Port</div></div>
-          <a href="https://wa.me/14044511231?text=Hi Luxx Motors, I want the 2022 Mercedes GLE 450 AMG - $62,000" target="_blank" class="car-btn">Inquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. Ford Explorer -->
-    <div class="car-card fade-up" data-type="suv">
-      <div class="car-img">
-        <img src="https://images.unsplash.com/photo-1583267746897-2cf415887172?w=700&q=85&auto=format&fit=crop" alt="Ford Explorer" loading="lazy" onerror="this.src='https://via.placeholder.com/700x440/e8edf2/29abe2?text=Ford+Explorer'">
-        <span class="car-badge badge-available">Available</span>
-      </div>
-      <div class="car-info">
-        <div class="car-make">Ford</div>
-        <div class="car-name">Explorer XLT 4WD</div>
-        <div class="car-specs">
-          <span class="car-spec">2023</span><span class="car-spec">4WD</span>
-          <span class="car-spec">2.3L EcoBoost</span><span class="car-spec">22,000 mi</span>
-        </div>
-        <hr class="car-divider">
-        <div class="car-footer">
-          <div><div class="car-price">$36,500</div><div class="car-price-sub">FOB US Port</div></div>
-          <a href="https://wa.me/14044511231?text=Hi Luxx Motors, I want the 2023 Ford Explorer XLT - $36,500" target="_blank" class="car-btn">Inquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. Nissan Armada -->
-    <div class="car-card fade-up" data-type="suv">
-      <div class="car-img">
-        <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=700&q=85&auto=format&fit=crop" alt="Nissan Armada" loading="lazy" onerror="this.src='https://via.placeholder.com/700x440/e8edf2/29abe2?text=Nissan+Armada'">
-        <span class="car-badge badge-available">Available</span>
-      </div>
-      <div class="car-info">
-        <div class="car-make">Nissan</div>
-        <div class="car-name">Armada Platinum</div>
-        <div class="car-specs">
-          <span class="car-spec">2022</span><span class="car-spec">4WD</span>
-          <span class="car-spec">V8 5.6L</span><span class="car-spec">41,000 mi</span>
-        </div>
-        <hr class="car-divider">
-        <div class="car-footer">
-          <div><div class="car-price">$44,800</div><div class="car-price-sub">FOB US Port</div></div>
-          <a href="https://wa.me/14044511231?text=Hi Luxx Motors, I want the 2022 Nissan Armada Platinum - $44,800" target="_blank" class="car-btn">Inquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7. BMW X5 -->
-    <div class="car-card fade-up" data-type="suv">
-      <div class="car-img">
-        <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=700&q=85&auto=format&fit=crop" alt="BMW X5" loading="lazy" onerror="this.src='https://via.placeholder.com/700x440/e8edf2/29abe2?text=BMW+X5'">
-        <span class="car-badge badge-available">Available</span>
-      </div>
-      <div class="car-info">
-        <div class="car-make">BMW</div>
-        <div class="car-name">X5 xDrive40i</div>
-        <div class="car-specs">
-          <span class="car-spec">2022</span><span class="car-spec">AWD</span>
-          <span class="car-spec">3.0L Turbo</span><span class="car-spec">30,000 mi</span>
-        </div>
-        <hr class="car-divider">
-        <div class="car-footer">
-          <div><div class="car-price">$54,000</div><div class="car-price-sub">FOB US Port</div></div>
-          <a href="https://wa.me/14044511231?text=Hi Luxx Motors, I want the 2022 BMW X5 xDrive40i - $54,000" target="_blank" class="car-btn">Inquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 8. Toyota Camry -->
-    <div class="car-card fade-up" data-type="sedan">
-      <div class="car-img">
-        <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=700&q=85&auto=format&fit=crop" alt="Toyota Camry XSE" loading="lazy" onerror="this.src='https://via.placeholder.com/700x440/e8edf2/29abe2?text=Toyota+Camry'">
-        <span class="car-badge badge-available">Available</span>
-      </div>
-      <div class="car-info">
-        <div class="car-make">Toyota</div>
-        <div class="car-name">Camry XSE V6</div>
-        <div class="car-specs">
-          <span class="car-spec">2023</span><span class="car-spec">FWD</span>
-          <span class="car-spec">V6 3.5L</span><span class="car-spec">19,000 mi</span>
-        </div>
-        <hr class="car-divider">
-        <div class="car-footer">
-          <div><div class="car-price">$26,500</div><div class="car-price-sub">FOB US Port</div></div>
-          <a href="https://wa.me/14044511231?text=Hi Luxx Motors, I want the 2023 Toyota Camry XSE V6 - $26,500" target="_blank" class="car-btn">Inquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 9. Toyota Tacoma -->
-    <div class="car-card fade-up" data-type="truck">
-      <div class="car-img">
-        <img src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=700&q=85&auto=format&fit=crop" alt="Toyota Tacoma TRD Pro" loading="lazy" onerror="this.src='https://via.placeholder.com/700x440/e8edf2/29abe2?text=Toyota+Tacoma'">
-        <span class="car-badge badge-hot">🔥 Popular Pick</span>
-      </div>
-      <div class="car-info">
-        <div class="car-make">Toyota</div>
-        <div class="car-name">Tacoma TRD Pro</div>
-        <div class="car-specs">
-          <span class="car-spec">2023</span><span class="car-spec">4WD</span>
-          <span class="car-spec">V6 3.5L</span><span class="car-spec">14,000 mi</span>
-        </div>
-        <hr class="car-divider">
-        <div class="car-footer">
-          <div><div class="car-price">$44,900</div><div class="car-price-sub">FOB US Port</div></div>
-          <a href="https://wa.me/14044511231?text=Hi Luxx Motors, I want the 2023 Toyota Tacoma TRD Pro - $44,900" target="_blank" class="car-btn">Inquire →</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div style="text-align:center;margin-top:2.5rem;">
-    <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:1.2rem;">Don't see what you need? We source any make & model from US auctions.</p>
-    <a href="https://wa.me/14044511231?text=Hi Luxx Motors, I'd like to request a specific vehicle" target="_blank" class="btn btn-primary">Request Any Vehicle ›</a>
-  </div>
-</section>
-
-<!-- BLUE STRIP -->
-<div class="blue-strip">
-  <div class="strip-inner">
-    <div class="strip-stat"><div class="strip-num">45–60</div><div class="strip-label">Days to Tema Port</div></div>
-    <div class="strip-stat"><div class="strip-num">~$1,200</div><div class="strip-label">Avg Shipping Cost</div></div>
-    <div class="strip-stat"><div class="strip-num">100%</div><div class="strip-label">Docs Handled</div></div>
-    <div class="strip-stat"><div class="strip-num">RoRo</div><div class="strip-label">& Container Options</div></div>
-    <div class="strip-text">
-      <p>From Atlanta to your port — we handle everything including all export & customs documents.</p>
-      <a href="#contact" class="btn btn-dark">Get a Free Quote</a>
-    </div>
-  </div>
-</div>
-
-<!-- WHY LUXX MOTORS -->
-<section id="about" class="why">
-  <div class="section-tag">Why Choose Us</div>
-  <h2>THE LUXX <span>DIFFERENCE</span></h2>
-  <div class="why-grid">
-    <div class="why-img fade-up">
-      <img src="https://images.unsplash.com/photo-1573950940509-d924ee3fd345?w=800&q=85&auto=format&fit=crop" alt="Cargo ship at port">
-      <div class="why-img-label">Atlanta → Tema Port, Ghana</div>
-    </div>
-    <div class="why-features fade-up">
-      <div class="why-feat">
-        <div class="why-feat-icon">🏆</div>
-        <div><h4>8+ Years · 500+ Cars Exported</h4><p>Established in Atlanta in 2017, we've shipped hundreds of vehicles to Ghana, Nigeria, Senegal, Togo and beyond. Our reputation is our business.</p></div>
-      </div>
-      <div class="why-feat">
-        <div class="why-feat-icon">🏛️</div>
-        <div><h4>Direct US Auction Access</h4><p>We bid directly at Copart, IAAI, and Manheim — America's largest auto auctions. No middlemen, which means better prices passed to you.</p></div>
-      </div>
-      <div class="why-feat">
-        <div class="why-feat-icon">📋</div>
-        <div><h4>Complete Export Documentation</h4><p>We handle the Title, Bill of Lading, Export Certificate, and all Customs clearance papers — including what you need for DVLA registration in Ghana.</p></div>
-      </div>
-      <div class="why-feat">
-        <div class="why-feat-icon">📱</div>
-        <div><h4>Real-Time WhatsApp Updates</h4><p>From auction win to port arrival, we send photos and shipping updates at every stage. You always know exactly where your car is.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DESTINATIONS -->
-<section id="destinations" class="destinations">
-  <div class="section-tag">We Ship To</div>
-  <h2>OUR <span>DESTINATIONS</span></h2>
-  <p class="section-sub">Serving all major West African ports. Transit time from the US is 45–60 days. Don't see your country? Contact us — we ship almost everywhere.</p>
-  <div class="dest-grid">
-    <div class="dest-card fade-up"><div class="dest-flag">🇬🇭</div><div class="dest-name">Ghana</div><div class="dest-port">Tema · Takoradi</div></div>
-    <div class="dest-card fade-up"><div class="dest-flag">🇳🇬</div><div class="dest-name">Nigeria</div><div class="dest-port">Lagos · Apapa</div></div>
-    <div class="dest-card fade-up"><div class="dest-flag">🇸🇳</div><div class="dest-name">Senegal</div><div class="dest-port">Dakar Port</div></div>
-    <div class="dest-card fade-up"><div class="dest-flag">🇹🇬</div><div class="dest-name">Togo</div><div class="dest-port">Lomé Port</div></div>
-    <div class="dest-card fade-up"><div class="dest-flag">🇨🇮</div><div class="dest-name">Côte d'Ivoire</div><div class="dest-port">Abidjan Port</div></div>
-    <div class="dest-card fade-up"><div class="dest-flag">🇧🇫</div><div class="dest-name">Burkina Faso</div><div class="dest-port">Via Tema Port</div></div>
-    <div class="dest-card fade-up"><div class="dest-flag">🇲🇱</div><div class="dest-name">Mali</div><div class="dest-port">Via Dakar Port</div></div>
-    <div class="dest-card fade-up"><div class="dest-flag">🇧🇯</div><div class="dest-name">Benin</div><div class="dest-port">Cotonou Port</div></div>
-    <div class="dest-card fade-up"><div class="dest-flag">🇸🇱</div><div class="dest-name">Sierra Leone</div><div class="dest-port">Freetown Port</div></div>
-    <div class="dest-card fade-up"><div class="dest-flag">🇱🇷</div><div class="dest-name">Liberia</div><div class="dest-port">Monrovia Port</div></div>
-    <div class="dest-card fade-up"><div class="dest-flag">🇬🇳</div><div class="dest-name">Guinea</div><div class="dest-port">Conakry Port</div></div>
-    <div class="dest-card fade-up"><div class="dest-flag">🌍</div><div class="dest-name">Other</div><div class="dest-port">Ask Us</div></div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials">
-  <div class="section-tag" style="color:var(--blue)">Client Reviews</div>
-  <h2>WHAT OUR CLIENTS <span>SAY</span></h2>
-  <div class="testi-grid">
-    <div class="testi-card fade-up">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">Luxx Motors shipped my Toyota Land Cruiser from Atlanta to Tema Port without a single problem. The documentation was perfect and the car arrived in 52 days as promised. Very professional team.</p>
-      <div class="testi-author"><div class="testi-avatar">KA</div><div><div class="testi-name">Kwame Asante</div><div class="testi-loc">Accra, Ghana</div></div></div>
-    </div>
-    <div class="testi-card fade-up">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">The team kept me updated on WhatsApp the whole way. Got my Mercedes GLE to Lagos in 58 days. Pricing was far better than anything I found locally. I'm buying my second car through them now.</p>
-      <div class="testi-author"><div class="testi-avatar">EB</div><div><div class="testi-name">Emeka Balogun</div><div class="testi-loc">Lagos, Nigeria</div></div></div>
-    </div>
-    <div class="testi-card fade-up">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">I requested a specific Lexus LX 600 and they found it at auction within two weeks. Shipped to Dakar with clean papers and no customs issues. I've referred three friends already. Highly recommended.</p>
-      <div class="testi-author"><div class="testi-avatar">OD</div><div><div class="testi-name">Ousmane Diallo</div><div class="testi-loc">Dakar, Senegal</div></div></div>
+<!-- ─── POSITIONING ─── -->
+<section class="section positioning">
+  <div class="container">
+    <div class="positioning-inner">
+      <div class="positioning-left">
+        <span class="label">Who We Are</span>
+        <h2 class="section-title">A Better Way to Source Vehicles</h2>
+        <div class="divider"></div>
+        <p style="color:var(--light-gray);font-size:15px;line-height:1.8;">Luxx Motors is a U.S.-based vehicle sourcing and export company specializing in direct auction access and international logistics.</p>
+      </div>
+      <div class="positioning-right">
+        <p style="font-size:13px;font-weight:700;color:var(--gray);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">We are not</p>
+        <ul class="not-list">
+          <li>A traditional car dealership</li>
+          <li>Brokers or middlemen</li>
+          <li>A reseller adding markup</li>
+        </ul>
+        <div class="approach-box">
+          <p>We provide <strong style="color:var(--white)">direct access to real U.S. auto auction inventory</strong> and manage the process from sourcing to export — with transparency and efficiency.</p>
+          <div class="tagline">Bid. Buy. Export.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="contact-section">
-  <div class="section-tag">Get In Touch</div>
-  <h2>LET'S FIND YOUR <span>CAR</span></h2>
-  <p class="section-sub">Tell us what you want and we'll find it. WhatsApp us for the fastest response — we typically reply within minutes.</p>
-  <div class="contact-grid">
-    <div class="contact-info fade-up">
-      <div class="contact-item">
-        <div class="contact-icon">📞</div>
-        <div><div class="contact-label">Phone / WhatsApp</div><a href="tel:+14044511231" class="contact-val">+1 (404) 451-1231</a></div>
+<!-- ─── WHAT WE DO ─── -->
+<section class="section what-we-do" id="what-we-do">
+  <div class="container">
+    <span class="label">Our Services</span>
+    <h2 class="section-title">What We Do</h2>
+    <div class="divider"></div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-verb">Bid</div>
+        <div class="service-noun">Auction Access</div>
+        <p class="service-desc">We help you identify vehicles from major U.S. auto auctions including Copart, IAAI, and Manheim — with access to real inventory at market pricing.</p>
       </div>
-      <div class="contact-item">
-        <div class="contact-icon">✉️</div>
-        <div><div class="contact-label">Email</div><a href="mailto:Luxxmotors@gmail.com" class="contact-val">Luxxmotors@gmail.com</a></div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-verb">Buy</div>
+        <div class="service-noun">Secure Purchase</div>
+        <p class="service-desc">We manage the bidding and purchasing process through licensed U.S. dealer access — you approve the vehicle before any purchase is made.</p>
       </div>
-      <div class="contact-item">
-        <div class="contact-icon">📍</div>
-        <div><div class="contact-label">Based In</div><span class="contact-val">Atlanta, Georgia USA</span></div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-verb">Export</div>
+        <div class="service-noun">Shipping & Logistics</div>
+        <p class="service-desc">We coordinate inland transport and international shipping to Ghana and other West African destinations, managing logistics end to end.</p>
       </div>
-      <div class="contact-item">
-        <div class="contact-icon">📱</div>
-        <div><div class="contact-label">Follow Us</div><a href="https://instagram.com/luxxmotors" target="_blank" class="contact-val">@Luxxmotors</a></div>
-      </div>
-      <a href="https://wa.me/14044511231" target="_blank" class="btn btn-primary" style="width:fit-content;">💬 Chat on WhatsApp Now</a>
-      <div class="contact-note">
-        <p>We reply to WhatsApp messages within <strong>minutes</strong>. Email responses within 24 hours. We're in Atlanta, GA — Eastern Time Zone (GMT-5).</p>
-      </div>
-    </div>
-
-    <div class="contact-form fade-up">
-      <h3>Request a Vehicle</h3>
-      <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.5rem;">Fill in the form and we'll get back to you within 24 hours.</p>
-      <div class="form-row">
-        <div class="form-field"><label>First Name</label><input type="text" placeholder="John"></div>
-        <div class="form-field"><label>Last Name</label><input type="text" placeholder="Doe"></div>
-      </div>
-      <div class="form-field"><label>Email Address</label><input type="email" placeholder="john@example.com"></div>
-      <div class="form-field"><label>Phone / WhatsApp</label><input type="tel" placeholder="+233 __ ___ ____"></div>
-      <div class="form-field">
-        <label>Destination Country</label>
-        <select><option value="">Select country...</option><option>Ghana</option><option>Nigeria</option><option>Senegal</option><option>Togo</option><option>Côte d'Ivoire</option><option>Burkina Faso</option><option>Mali</option><option>Benin</option><option>Sierra Leone</option><option>Liberia</option><option>Guinea</option><option>Other</option></select>
-      </div>
-      <div class="form-field">
-        <label>Budget (USD)</label>
-        <select><option value="">Select budget range...</option><option>Under $15,000</option><option>$15,000 – $30,000</option><option>$30,000 – $50,000</option><option>$50,000 – $80,000</option><option>$80,000+</option></select>
-      </div>
-      <div class="form-field"><label>Vehicle Request / Message</label><textarea placeholder="e.g. 2022 Toyota Land Cruiser, V8, white or black — please send availability and shipping cost to Tema Port."></textarea></div>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="handleSubmit(this)">Send My Request ›</button>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ─── HOW IT WORKS ─── -->
+<section class="section how-it-works" id="how-it-works">
+  <div class="container">
+    <span class="label">The Process</span>
+    <h2 class="section-title">How It Works</h2>
+    <div class="divider"></div>
+    <div class="steps-track">
+
+      <div class="step">
+        <div class="step-num-wrap">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Tell Us What You Need</div>
+          <p class="step-desc">Share your vehicle type, preferred makes/models, and your budget. We'll take it from there.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num-wrap">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Review Auction Options</div>
+          <p class="step-desc">We present available vehicles directly from U.S. auctions — real inventory, real pricing, no guesswork.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num-wrap">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Approve & Proceed</div>
+          <p class="step-desc">You review and approve the vehicle before any purchase is made. Full transparency, every step.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num-wrap">
+          <div class="step-num">4</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">We Secure the Vehicle</div>
+          <p class="step-desc">Our team bids and completes the purchase through licensed dealer access, securing your vehicle at the best available price.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num-wrap">
+          <div class="step-num">5</div>
+        </div>
+        <div class="step-content">
+          <div class="step-title">Export & Delivery</div>
+          <p class="step-desc">The vehicle is transported inland and shipped internationally to your destination in Ghana or West Africa.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY LUXX ─── -->
+<section class="section why-luxx">
+  <div class="container">
+    <span class="label">Why Choose Us</span>
+    <h2 class="section-title">Why Work With Luxx Motors</h2>
+    <div class="divider"></div>
+    <div class="why-grid">
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="why-title">Direct Auction Access</div>
+        <p class="why-desc">We source directly from major U.S. auctions — not resellers. Real inventory, real market pricing.</p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div class="why-title">Clear, Transparent Process</div>
+        <p class="why-desc">You review and approve vehicles before any purchase is made. No surprises, no hidden fees.</p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/></svg>
+        </div>
+        <div class="why-title">U.S.-Based Operations</div>
+        <p class="why-desc">All sourcing and coordination is handled from within the United States, giving you reliable access to genuine U.S. inventory.</p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <div class="why-title">End-to-End Coordination</div>
+        <p class="why-desc">From auction to shipment, we manage the full process so you don't have to coordinate multiple parties.</p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="why-title">Built for International Buyers</div>
+        <p class="why-desc">We specialize in clients across Ghana and West Africa, understanding the unique logistics of international vehicle export.</p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="why-title">Dedicated Client Support</div>
+        <p class="why-desc">Direct communication via WhatsApp and email throughout the entire sourcing and export process.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── AUCTIONS ─── -->
+<section class="section auctions" id="auctions">
+  <div class="container">
+    <div class="auction-inner">
+      <div>
+        <span class="label">Auction Partners</span>
+        <h2 class="section-title">Access to Major U.S. Auto Auctions</h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">We source vehicles directly from the biggest U.S. auto auctions, giving you access to real inventory at market pricing — not markup from resellers.</p>
+      </div>
+      <div class="auction-logos">
+        <div class="auction-logo-card">
+          <div class="auction-dot"></div>
+          <div class="auction-name">Copart</div>
+          <span class="auction-tag">Salvage & Clean Title</span>
+        </div>
+        <div class="auction-logo-card">
+          <div class="auction-dot"></div>
+          <div class="auction-name">IAA</div>
+          <span class="auction-tag">Insurance Auto Auctions</span>
+        </div>
+        <div class="auction-logo-card">
+          <div class="auction-dot"></div>
+          <div class="auction-name">Manheim</div>
+          <span class="auction-tag">Dealer-Only Access</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DESTINATIONS ─── -->
+<section class="section destinations" id="destinations">
+  <div class="container">
+    <span class="label">Shipping Destinations</span>
+    <h2 class="section-title">Serving West Africa</h2>
+    <div class="divider"></div>
+    <p class="section-subtitle">We coordinate vehicle exports across West Africa. Primary focus on Ghana with established routes throughout the region.</p>
+    <div class="dest-grid">
+      <div class="dest-card">
+        <div class="dest-flag">🇬🇭</div>
+        <div class="dest-name">Ghana</div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-flag">🇳🇬</div>
+        <div class="dest-name">Nigeria</div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-flag">🇧🇫</div>
+        <div class="dest-name">Burkina Faso</div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-flag">🇨🇮</div>
+        <div class="dest-name">Ivory Coast</div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-flag">🇸🇳</div>
+        <div class="dest-name">Senegal</div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-flag">🇹🇬</div>
+        <div class="dest-name">Togo</div>
+      </div>
+      <div class="dest-more">
+        <span>+ Additional destinations available upon request</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── REQUEST FORM ─── -->
+<section class="section request-form-section" id="request-form">
+  <div class="container">
+    <div class="form-inner">
+      <div class="form-left">
+        <span class="label">Get Started</span>
+        <h2 class="section-title">Start Your Vehicle Request</h2>
+        <div class="divider"></div>
+        <p style="color:var(--light-gray);font-size:15px;line-height:1.8;">Tell us what you're looking for and we'll provide real auction options based on your budget.</p>
+        <ul class="form-features">
+          <li>No commitment required to request options</li>
+          <li>Real auction vehicles matched to your budget</li>
+          <li>You approve before any purchase is made</li>
+          <li>Response within 24 hours</li>
+        </ul>
+        <div class="contact-box">
+          <p>Prefer to message directly?</p>
+          <a href="https://wa.me/1XXXXXXXXXX" target="_blank">Chat on WhatsApp →</a>
+          <br><br>
+          <p>Email us</p>
+          <a href="mailto:info@luxxmotors.com">info@luxxmotors.com</a>
+        </div>
+      </div>
+      <form id="vehicleRequestForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" name="fullName" placeholder="John Mensah" required />
+          </div>
+          <div class="form-group">
+            <label for="whatsapp">WhatsApp Number *</label>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="+233 XX XXX XXXX" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="vehicleType">Vehicle Type *</label>
+          <select id="vehicleType" name="vehicleType" required>
+            <option value="" disabled selected>Select vehicle type</option>
+            <option>SUV / Crossover</option>
+            <option>Sedan</option>
+            <option>Pickup Truck</option>
+            <option>Van / Minivan</option>
+            <option>Coupe / Sports Car</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="budget">Budget (USD) *</label>
+            <select id="budget" name="budget" required>
+              <option value="" disabled selected>Select range</option>
+              <option>Under $3,000</option>
+              <option>$3,000 – $6,000</option>
+              <option>$6,000 – $10,000</option>
+              <option>$10,000 – $20,000</option>
+              <option>$20,000+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="destination">Destination *</label>
+            <select id="destination" name="destination" required>
+              <option value="" disabled selected>Select country</option>
+              <option>Ghana</option>
+              <option>Nigeria</option>
+              <option>Burkina Faso</option>
+              <option>Ivory Coast</option>
+              <option>Senegal</option>
+              <option>Togo</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="notes">Additional Notes</label>
+          <textarea id="notes" name="notes" placeholder="Preferred make, model, year range, condition, or any other details..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-gold btn-lg form-submit">Get Auction Options</button>
+        <p class="disclaimer">By submitting this form, you consent to receive communications from Luxx Motors. Message and data rates may apply. Reply STOP to opt out.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ─── -->
+<section class="final-cta">
+  <div class="container">
+    <span class="label">Ready to Get Started?</span>
+    <h2>Ready to Bid, Buy, and<br>Export Your Vehicle?</h2>
+    <p>Work with a trusted U.S.-based partner to access auction vehicles and coordinate your shipment with confidence.</p>
+    <a href="https://wa.me/1XXXXXXXXXX" target="_blank" class="btn btn-whatsapp btn-lg">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat on WhatsApp Now
+    </a>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
 <footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="footer-logo">LUXX <span>MOTORS</span></div>
-      <div class="footer-slogan">Bid. Buy. Ship.</div>
-      <p>America's trusted car export partner for West Africa. Est. 2017 in Atlanta, GA. Shipping to Tema, Lagos, Dakar & all major ports.</p>
-      <div class="footer-social">
-        <a href="https://instagram.com/luxxmotors" target="_blank" class="social-btn">IG</a>
-        <a href="https://facebook.com/luxxmotors" target="_blank" class="social-btn">FB</a>
-        <a href="https://wa.me/14044511231" target="_blank" class="social-btn">WA</a>
-        <a href="https://tiktok.com/@luxxmotors" target="_blank" class="social-btn">TK</a>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">LUXX<span>MOTORS</span></div>
+        <p class="footer-tagline">U.S.-based vehicle sourcing and export company. Direct auction access. Transparent process. West Africa delivery.</p>
+        <p class="footer-parent">A company under Kataport Group LLC</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#what-we-do">Auction Access</a></li>
+          <li><a href="#what-we-do">Vehicle Sourcing</a></li>
+          <li><a href="#what-we-do">Export & Shipping</a></li>
+          <li><a href="#auctions">Our Auctions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@luxxmotors.com">info@luxxmotors.com</a></li>
+          <li><a href="https://wa.me/1XXXXXXXXXX" target="_blank">WhatsApp Us</a></li>
+          <li><a href="#request-form">Request a Vehicle</a></li>
+          <li><a href="#destinations">Destinations</a></li>
+        </ul>
       </div>
     </div>
-    <div class="footer-col">
-      <h4>Services</h4>
-      <ul>
-        <li><a href="#how">How It Works</a></li>
-        <li><a href="#inventory">Browse Inventory</a></li>
-        <li><a href="#contact">Request a Vehicle</a></li>
-        <li><a href="#contact">Auction Bidding</a></li>
-        <li><a href="#contact">Export Documentation</a></li>
-      </ul>
+    <p class="sms-disclaimer">By contacting Luxx Motors, you consent to receive SMS/text messages regarding your vehicle request. Message and data rates may apply. Message frequency varies. Reply STOP to opt out at any time. Reply HELP for assistance. View our Privacy Policy for more information.</p>
+    <div class="footer-bottom">
+      <p>© 2024 Luxx Motors · Kataport Group LLC · U.S. Operations | Ghana Support</p>
+      <p style="color:#555;">All rights reserved.</p>
     </div>
-    <div class="footer-col">
-      <h4>Destinations</h4>
-      <ul>
-        <li><a href="#destinations">Ghana – Tema Port</a></li>
-        <li><a href="#destinations">Nigeria – Lagos</a></li>
-        <li><a href="#destinations">Senegal – Dakar</a></li>
-        <li><a href="#destinations">Togo – Lomé</a></li>
-        <li><a href="#destinations">All Destinations</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="tel:+14044511231">+1 (404) 451-1231</a></li>
-        <li><a href="mailto:Luxxmotors@gmail.com">Luxxmotors@gmail.com</a></li>
-        <li><a href="https://wa.me/14044511231" target="_blank">WhatsApp Us</a></li>
-        <li><a href="#">Atlanta, GA USA</a></li>
-        <li><a href="https://instagram.com/luxxmotors" target="_blank">@Luxxmotors</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 Luxx Motors LLC. All rights reserved. | Atlanta, GA USA</p>
-    <p>Built for West Africa 🌍 | <a href="mailto:Luxxmotors@gmail.com">Luxxmotors@gmail.com</a></p>
   </div>
 </footer>
 
+<!-- ─── WHATSAPP FLOAT ─── -->
+<a href="https://wa.me/1XXXXXXXXXX" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
 <script>
-  // Scroll fade-in
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 70); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
-  document.querySelectorAll('.hero .fade-up').forEach(el => el.classList.add('visible'));
+  // Mobile menu toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  // Close mobile menu on link click
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
 
-  // Filter
-  function filterCars(type, btn) {
-    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.car-card').forEach(card => {
-      card.style.display = (type === 'all' || card.dataset.type === type) ? '' : 'none';
-    });
+  // Form submit handler (replace with your backend/Formspree/etc.)
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    // Simulate submit — replace with fetch() to your endpoint
+    setTimeout(() => {
+      btn.textContent = '✓ Request Sent!';
+      btn.style.background = '#25D366';
+      setTimeout(() => {
+        btn.textContent = 'Get Auction Options';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 3000);
+    }, 1200);
   }
 
-  // Mobile nav
-  function openMobileNav() { document.getElementById('mobileNav').classList.add('open'); }
-  function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+  // Smooth reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
 
-  // Form
-  function handleSubmit(btn) {
-    btn.textContent = "✓ Sent! We'll contact you soon.";
-    btn.style.background = '#1a8abf'; btn.disabled = true;
-    setTimeout(() => { btn.textContent = 'Send My Request ›'; btn.style.background = ''; btn.disabled = false; }, 4000);
-  }
-
-  // Nav shadow on scroll
-  window.addEventListener('scroll', () => {
-    document.getElementById('mainNav').style.boxShadow = window.scrollY > 40 ? '0 2px 20px rgba(0,0,0,0.1)' : '0 1px 8px rgba(0,0,0,0.06)';
+  document.querySelectorAll('.service-card, .step, .why-item, .dest-card, .auction-logo-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
   });
 </script>
 </body>
