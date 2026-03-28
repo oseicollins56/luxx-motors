@@ -352,31 +352,89 @@
     .logged-in-bar.show { display: flex; }
     .logout-btn { font-size: 12px; font-weight: 700; color: var(--gold); cursor: pointer; background: none; border: none; font-family: 'Inter', sans-serif; }
 
-    /* RESPONSIVE */
+    /* RESPONSIVE — MOBILE FIRST */
     @media (max-width: 1024px) {
       .positioning-inner, .auction-inner, .form-inner, .hiw-inner, .signup-inner { grid-template-columns: 1fr; gap: 40px; }
       .browser-filters { grid-template-columns: 1fr 1fr; }
-      .cars-grid, .dest-grid { grid-template-columns: 1fr 1fr; }
+      .cars-grid { grid-template-columns: 1fr 1fr; }
+      .dest-grid { grid-template-columns: 1fr 1fr; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
+      .signup-inner { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
-      .section { padding: 64px 0; }
+      .container { padding: 0 16px; }
+      .section { padding: 52px 0; }
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
-      .browser-filters { grid-template-columns: 1fr; }
-      .cars-grid, .dest-grid { grid-template-columns: 1fr; }
-      .dest-more { grid-column: span 1; }
+      .browser-filters { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .cars-grid { grid-template-columns: 1fr; }
+      .dest-grid { grid-template-columns: 1fr 1fr; }
+      .dest-more { grid-column: span 2; }
       .form-row { grid-template-columns: 1fr; }
-      form { padding: 24px 18px; }
+      form { padding: 22px 16px; }
       .footer-inner { grid-template-columns: 1fr; gap: 28px; }
-      .hero-stats { gap: 24px; }
+      .hero-stats { gap: 20px; flex-wrap: wrap; }
       .signup-row { grid-template-columns: 1fr; }
-      .signup-form-box { padding: 24px; }
+      .signup-form-box { padding: 22px 16px; }
+      .section-title { font-size: 26px; }
+      .section-sub { font-size: 15px; }
+      /* Nav badge spacing */
+      .logged-in-bar { padding: 7px 16px; font-size: 12px; }
+      /* Auction cards */
+      .auction-card { padding: 16px 18px; }
+      /* Car card footer */
+      .car-footer { flex-direction: column; align-items: flex-start; gap: 8px; }
+      /* Signup form on mobile */
+      .signup-form-box { margin-top: 0; }
+      /* Footer bottom */
+      .footer-bottom { flex-direction: column; text-align: center; }
+      /* We Are Not grid */
+      .we-are-not-grid { grid-template-columns: 1fr !important; gap: 16px !important; max-width: 100% !important; }
+      /* HiW steps */
+      .hiw-steps-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+      .hiw-steps-grid::before { display: none !important; }
+      /* Calculator grid */
+      .calc-grid { grid-template-columns: 1fr !important; }
+      .calc-results-grid { grid-template-columns: 1fr !important; }
+      /* Chat panel */
+      .chat-panel { width: 290px !important; right: 0 !important; }
+      /* Buttons on mobile */
+      .btn { font-size: 13px; padding: 12px 20px; }
+      .btn-lg { padding: 14px 24px; font-size: 14px; }
+      /* Form features */
+      .form-features li { font-size: 13px; }
+      /* Dest grid mobile */
+      .dest-card { padding: 14px 12px; }
     }
     @media (max-width: 480px) {
-      .hero h1 { font-size: 48px; }
+      .container { padding: 0 14px; }
+      .section { padding: 44px 0; }
+      .hero h1 { font-size: clamp(40px, 12vw, 56px); }
+      .hero-sub { font-size: 15px; }
       .hero-actions { flex-direction: column; }
-      .hero-actions .btn { justify-content: center; }
+      .hero-actions .btn { justify-content: center; width: 100%; }
+      .hero-stats { grid-template-columns: 1fr 1fr; display: grid; gap: 16px; }
+      .hero-badge { font-size: 11px; padding: 6px 12px; }
+      .browser-filters { grid-template-columns: 1fr; gap: 10px; }
+      .browser-actions { flex-wrap: wrap; gap: 8px; }
+      .browser-results-label { width: 100%; text-align: center; margin-left: 0; }
+      .dest-grid { grid-template-columns: 1fr 1fr; }
+      .dest-more { grid-column: span 2; }
+      .hiw-steps-grid { grid-template-columns: 1fr !important; }
+      .we-are-not-grid { grid-template-columns: 1fr !important; }
+      form { padding: 18px 14px; }
+      .form-inner { gap: 32px; }
+      footer { padding: 44px 0 20px; }
+      .footer-inner { gap: 24px; }
+      .cars-grid { gap: 16px; }
+      .car-img { height: 175px; }
+      .search-box { margin: 0 12px; padding: 20px 16px; }
+      .welcome-box { margin: 0 8px; }
+      .welcome-body { padding: 18px 16px; }
+      /* Trust / stat bar */
+      .trust-inner { gap: 20px; flex-direction: column; align-items: flex-start; padding: 0 16px; }
+      /* Signup modal */
+      .search-overlay { padding-top: 70px; }
     }
   </style>
 </head>
@@ -739,41 +797,86 @@
   </div>
 </section>
 
-<!-- WE ARE NOT SECTION -->
-<section class="section" style="background:var(--black);padding:72px 0;">
+<!-- HOW IT WORKS -->
+<section class="section how-it-works" id="how-it-works" style="background:var(--bg2);">
   <div class="container">
-    <div style="text-align:center;margin-bottom:48px;">
-      <span class="label" style="color:var(--gold);">Clarity First</span>
-      <h2 class="section-title" style="color:var(--white);font-size:clamp(28px,4vw,42px);">We Are Not Your Typical<br>Car Company</h2>
-      <div class="divider" style="margin:20px auto 0;"></div>
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="label">The Process</span>
+      <h2 class="section-title">How It Works</h2>
+      <div class="divider" style="margin:20px auto;"></div>
+      <p class="section-sub" style="margin:0 auto;text-align:center;">Simple. Transparent. End-to-end.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto;">
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:36px 28px;text-align:center;transition:border-color 0.22s ease;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
-        <div style="width:56px;height:56px;background:rgba(74,171,220,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
-          <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;max-width:1100px;margin:0 auto;" class="hiw-steps-grid">
+      <!-- Step 1 -->
+      <div class="hiw-step reveal" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;">
+        <div style="width:72px;height:72px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 4px 20px rgba(74,171,220,0.35);flex-shrink:0;z-index:1;">
+          <svg viewBox="0 0 24 24" width="30" height="30" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
         </div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;">Not A</div>
-        <div style="font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">Car Dealership</div>
-        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;">We don't own or stock vehicles. We access real U.S. auctions on your behalf — no showroom, no inflated lot prices.</p>
+        <div style="width:28px;height:28px;background:var(--white);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--gold);margin-bottom:14px;">1</div>
+        <div style="font-size:15px;font-weight:800;color:var(--black);margin-bottom:8px;">Submit a Request</div>
+        <p style="font-size:13px;color:var(--text3);line-height:1.65;">Tell us the year, make, model and budget. We start the search.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:36px 28px;text-align:center;transition:border-color 0.22s ease;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
-        <div style="width:56px;height:56px;background:rgba(74,171,220,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
-          <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <!-- Step 2 -->
+      <div class="hiw-step reveal" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;">
+        <div style="width:72px;height:72px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 4px 20px rgba(74,171,220,0.35);flex-shrink:0;z-index:1;">
+          <svg viewBox="0 0 24 24" width="30" height="30" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         </div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;">Not A</div>
-        <div style="font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">Broker</div>
-        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;">We don't just connect you to another seller. We are directly involved in sourcing, bidding, and managing your vehicle every step of the way.</p>
+        <div style="width:28px;height:28px;background:var(--white);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--gold);margin-bottom:14px;">2</div>
+        <div style="font-size:15px;font-weight:800;color:var(--black);margin-bottom:8px;">Review Options</div>
+        <p style="font-size:13px;color:var(--text3);line-height:1.65;">We send you real U.S. auction vehicles matching your criteria and budget.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:36px 28px;text-align:center;transition:border-color 0.22s ease;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
-        <div style="width:56px;height:56px;background:rgba(74,171,220,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
-          <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <!-- Step 3 -->
+      <div class="hiw-step reveal" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;">
+        <div style="width:72px;height:72px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 4px 20px rgba(74,171,220,0.35);flex-shrink:0;z-index:1;">
+          <svg viewBox="0 0 24 24" width="30" height="30" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;">Not A</div>
-        <div style="font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">Reseller</div>
-        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;">We don't buy vehicles to resell at a markup. You get auction pricing directly — real market value, not a second-hand margin.</p>
+        <div style="width:28px;height:28px;background:var(--white);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--gold);margin-bottom:14px;">3</div>
+        <div style="font-size:15px;font-weight:800;color:var(--black);margin-bottom:8px;">Approve Vehicle</div>
+        <p style="font-size:13px;color:var(--text3);line-height:1.65;">You review and approve the vehicle. No purchase happens without your go-ahead.</p>
+      </div>
+      <!-- Step 4 -->
+      <div class="hiw-step reveal" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;">
+        <div style="width:72px;height:72px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 4px 20px rgba(74,171,220,0.35);flex-shrink:0;z-index:1;">
+          <svg viewBox="0 0 24 24" width="30" height="30" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div style="width:28px;height:28px;background:var(--white);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--gold);margin-bottom:14px;">4</div>
+        <div style="font-size:15px;font-weight:800;color:var(--black);margin-bottom:8px;">We Buy</div>
+        <p style="font-size:13px;color:var(--text3);line-height:1.65;">Our team bids and secures the vehicle through licensed U.S. dealer access.</p>
+      </div>
+      <!-- Step 5 -->
+      <div class="hiw-step reveal" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;">
+        <div style="width:72px;height:72px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 4px 20px rgba(74,171,220,0.35);flex-shrink:0;z-index:1;">
+          <svg viewBox="0 0 24 24" width="30" height="30" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+        </div>
+        <div style="width:28px;height:28px;background:var(--white);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--gold);margin-bottom:14px;">5</div>
+        <div style="font-size:15px;font-weight:800;color:var(--black);margin-bottom:8px;">We Ship</div>
+        <p style="font-size:13px;color:var(--text3);line-height:1.65;">We handle inland transport and full international shipping to Ghana or West Africa.</p>
       </div>
     </div>
-    <p style="text-align:center;margin-top:40px;font-size:15px;color:rgba(255,255,255,0.6);line-height:1.8;">We are a <strong style="color:var(--gold);">U.S.-based vehicle sourcing &amp; export partner</strong> — we work <em>for you</em>, not for a profit margin on inventory.</p>
+    <!-- Connector line between steps (desktop) -->
+    <style>
+      .hiw-steps-grid { position: relative; }
+      .hiw-steps-grid::before {
+        content: '';
+        position: absolute;
+        top: 36px;
+        left: calc(10% + 36px);
+        right: calc(10% + 36px);
+        height: 2px;
+        background: linear-gradient(to right, var(--gold), var(--gold-light));
+        z-index: 0;
+      }
+      @media (max-width: 768px) {
+        .hiw-steps-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+        .hiw-steps-grid::before { display: none; }
+      }
+      @media (max-width: 480px) {
+        .hiw-steps-grid { grid-template-columns: 1fr !important; }
+      }
+    </style>
+    <div style="text-align:center;margin-top:52px;">
+      <a href="#request-form" class="btn btn-gold btn-lg">Start Your Request →</a>
+    </div>
   </div>
 </section>
 
@@ -1021,86 +1124,41 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="section how-it-works" id="how-it-works" style="background:var(--bg2);">
+<!-- WE ARE NOT SECTION -->
+<section class="section" style="background:var(--black);padding:72px 0;">
   <div class="container">
-    <div style="text-align:center;margin-bottom:56px;">
-      <span class="label">The Process</span>
-      <h2 class="section-title">How It Works</h2>
-      <div class="divider" style="margin:20px auto;"></div>
-      <p class="section-sub" style="margin:0 auto;text-align:center;">Simple. Transparent. End-to-end.</p>
+    <div style="text-align:center;margin-bottom:48px;">
+      <span class="label" style="color:var(--gold);">Clarity First</span>
+      <h2 class="section-title" style="color:var(--white);font-size:clamp(28px,4vw,42px);">We Are Not Your Typical<br>Car Company</h2>
+      <div class="divider" style="margin:20px auto 0;"></div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;max-width:1100px;margin:0 auto;" class="hiw-steps-grid">
-      <!-- Step 1 -->
-      <div class="hiw-step reveal" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;">
-        <div style="width:72px;height:72px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 4px 20px rgba(74,171,220,0.35);flex-shrink:0;z-index:1;">
-          <svg viewBox="0 0 24 24" width="30" height="30" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto;" class="we-are-not-grid">
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:36px 28px;text-align:center;transition:border-color 0.22s ease;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
+        <div style="width:56px;height:56px;background:rgba(74,171,220,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+          <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
-        <div style="width:28px;height:28px;background:var(--white);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--gold);margin-bottom:14px;">1</div>
-        <div style="font-size:15px;font-weight:800;color:var(--black);margin-bottom:8px;">Submit a Request</div>
-        <p style="font-size:13px;color:var(--text3);line-height:1.65;">Tell us the year, make, model and budget. We start the search.</p>
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;">Not A</div>
+        <div style="font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">Car Dealership</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;">We don't own or stock vehicles. We access real U.S. auctions on your behalf — no showroom, no inflated lot prices.</p>
       </div>
-      <!-- Step 2 -->
-      <div class="hiw-step reveal" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;">
-        <div style="width:72px;height:72px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 4px 20px rgba(74,171,220,0.35);flex-shrink:0;z-index:1;">
-          <svg viewBox="0 0 24 24" width="30" height="30" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:36px 28px;text-align:center;transition:border-color 0.22s ease;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
+        <div style="width:56px;height:56px;background:rgba(74,171,220,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+          <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <div style="width:28px;height:28px;background:var(--white);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--gold);margin-bottom:14px;">2</div>
-        <div style="font-size:15px;font-weight:800;color:var(--black);margin-bottom:8px;">Review Options</div>
-        <p style="font-size:13px;color:var(--text3);line-height:1.65;">We send you real U.S. auction vehicles matching your criteria and budget.</p>
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;">Not A</div>
+        <div style="font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">Broker</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;">We don't just connect you to another seller. We are directly involved in sourcing, bidding, and managing your vehicle every step of the way.</p>
       </div>
-      <!-- Step 3 -->
-      <div class="hiw-step reveal" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;">
-        <div style="width:72px;height:72px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 4px 20px rgba(74,171,220,0.35);flex-shrink:0;z-index:1;">
-          <svg viewBox="0 0 24 24" width="30" height="30" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:36px 28px;text-align:center;transition:border-color 0.22s ease;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
+        <div style="width:56px;height:56px;background:rgba(74,171,220,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+          <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         </div>
-        <div style="width:28px;height:28px;background:var(--white);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--gold);margin-bottom:14px;">3</div>
-        <div style="font-size:15px;font-weight:800;color:var(--black);margin-bottom:8px;">Approve Vehicle</div>
-        <p style="font-size:13px;color:var(--text3);line-height:1.65;">You review and approve the vehicle. No purchase happens without your go-ahead.</p>
-      </div>
-      <!-- Step 4 -->
-      <div class="hiw-step reveal" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;">
-        <div style="width:72px;height:72px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 4px 20px rgba(74,171,220,0.35);flex-shrink:0;z-index:1;">
-          <svg viewBox="0 0 24 24" width="30" height="30" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        </div>
-        <div style="width:28px;height:28px;background:var(--white);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--gold);margin-bottom:14px;">4</div>
-        <div style="font-size:15px;font-weight:800;color:var(--black);margin-bottom:8px;">We Buy</div>
-        <p style="font-size:13px;color:var(--text3);line-height:1.65;">Our team bids and secures the vehicle through licensed U.S. dealer access.</p>
-      </div>
-      <!-- Step 5 -->
-      <div class="hiw-step reveal" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;">
-        <div style="width:72px;height:72px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 4px 20px rgba(74,171,220,0.35);flex-shrink:0;z-index:1;">
-          <svg viewBox="0 0 24 24" width="30" height="30" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
-        </div>
-        <div style="width:28px;height:28px;background:var(--white);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--gold);margin-bottom:14px;">5</div>
-        <div style="font-size:15px;font-weight:800;color:var(--black);margin-bottom:8px;">We Ship</div>
-        <p style="font-size:13px;color:var(--text3);line-height:1.65;">We handle inland transport and full international shipping to Ghana or West Africa.</p>
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;">Not A</div>
+        <div style="font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">Reseller</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;">We don't buy vehicles to resell at a markup. You get auction pricing directly — real market value, not a second-hand margin.</p>
       </div>
     </div>
-    <!-- Connector line between steps (desktop) -->
-    <style>
-      .hiw-steps-grid { position: relative; }
-      .hiw-steps-grid::before {
-        content: '';
-        position: absolute;
-        top: 36px;
-        left: calc(10% + 36px);
-        right: calc(10% + 36px);
-        height: 2px;
-        background: linear-gradient(to right, var(--gold), var(--gold-light));
-        z-index: 0;
-      }
-      @media (max-width: 768px) {
-        .hiw-steps-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
-        .hiw-steps-grid::before { display: none; }
-      }
-      @media (max-width: 480px) {
-        .hiw-steps-grid { grid-template-columns: 1fr !important; }
-      }
-    </style>
-    <div style="text-align:center;margin-top:52px;">
-      <a href="#request-form" class="btn btn-gold btn-lg">Start Your Request →</a>
-    </div>
+    <p style="text-align:center;margin-top:40px;font-size:15px;color:rgba(255,255,255,0.6);line-height:1.8;">We are a <strong style="color:var(--gold);">U.S.-based vehicle sourcing &amp; export partner</strong> — we work <em>for you</em>, not for a profit margin on inventory.</p>
   </div>
 </section>
 
@@ -1162,61 +1220,136 @@
       <span class="label">Estimate Your Costs</span>
       <h2 class="section-title">Auction Cost Calculator</h2>
       <div class="divider" style="margin:20px auto;"></div>
-      <p class="section-sub" style="margin:0 auto;text-align:center;">Get a rough estimate of the total cost — auction price + fees + shipping to West Africa.</p>
+      <p class="section-sub" style="margin:0 auto;text-align:center;">Estimate your total cost — auction price + fees + shipping. Select your currency to see results in your local money.</p>
     </div>
-    <div style="max-width:780px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow-md);">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+    <div style="max-width:820px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 32px;box-shadow:var(--shadow-md);">
+      <!-- Currency selector bar -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;align-items:center;">
+        <span style="font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;margin-right:4px;">Currency:</span>
+        <button class="cur-btn active" data-cur="USD" onclick="setCurrency('USD',this)">🇺🇸 USD</button>
+        <button class="cur-btn" data-cur="GHS" onclick="setCurrency('GHS',this)">🇬🇭 GHS</button>
+        <button class="cur-btn" data-cur="NGN" onclick="setCurrency('NGN',this)">🇳🇬 NGN</button>
+        <button class="cur-btn" data-cur="XOF" onclick="setCurrency('XOF',this)">🌍 XOF</button>
+        <button class="cur-btn" data-cur="SLL" onclick="setCurrency('SLL',this)">🇸🇱 SLL</button>
+      </div>
+      <style>
+        .cur-btn { background:var(--white); border:1.5px solid var(--border); border-radius:20px; padding:6px 14px; font-size:12px; font-weight:700; color:var(--text2); cursor:pointer; transition:all 0.18s; font-family:'Inter',sans-serif; }
+        .cur-btn.active, .cur-btn:hover { background:var(--gold); color:white; border-color:var(--gold); }
+      </style>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;" class="calc-grid">
         <div class="form-group">
           <label for="calcAuctionPrice">Auction Bid Price (USD) *</label>
           <input type="number" id="calcAuctionPrice" placeholder="e.g. 15000" min="0" oninput="runCalculator()" style="background:var(--white);" />
         </div>
         <div class="form-group">
-          <label for="calcDestination">Destination Country</label>
+          <label for="calcDestination">Destination Port</label>
           <select id="calcDestination" onchange="runCalculator()" style="background:var(--white);">
-            <option value="ghana">Ghana (Tema Port)</option>
-            <option value="nigeria">Nigeria (Lagos)</option>
-            <option value="other">Other West Africa</option>
+            <optgroup label="Ghana">
+              <option value="ghana_tema">🇬🇭 Tema Port (Accra)</option>
+              <option value="ghana_takoradi">🇬🇭 Takoradi Port</option>
+            </optgroup>
+            <optgroup label="Nigeria">
+              <option value="nigeria_lagos">🇳🇬 Lagos (Apapa / Tincan)</option>
+              <option value="nigeria_ph">🇳🇬 Port Harcourt</option>
+            </optgroup>
+            <optgroup label="Ivory Coast">
+              <option value="ci_abidjan">🇨🇮 Abidjan Port</option>
+            </optgroup>
+            <optgroup label="Senegal">
+              <option value="senegal_dakar">🇸🇳 Dakar Port</option>
+            </optgroup>
+            <optgroup label="Togo">
+              <option value="togo_lome">🇹🇬 Lomé Port</option>
+            </optgroup>
+            <optgroup label="Benin">
+              <option value="benin_cotonou">🇧🇯 Cotonou Port</option>
+            </optgroup>
+            <optgroup label="Gambia">
+              <option value="gambia_banjul">🇬🇲 Banjul Port</option>
+            </optgroup>
+            <optgroup label="Sierra Leone">
+              <option value="sl_freetown">🇸🇱 Freetown Port</option>
+            </optgroup>
           </select>
         </div>
         <div class="form-group">
           <label for="calcVehicleType">Vehicle Type</label>
           <select id="calcVehicleType" onchange="runCalculator()" style="background:var(--white);">
-            <option value="sedan">Sedan / Small Car</option>
-            <option value="suv">SUV / Crossover</option>
-            <option value="truck">Pickup Truck</option>
-            <option value="van">Van / Large Vehicle</option>
+            <optgroup label="Passenger Cars">
+              <option value="compact">Compact / Small Car (e.g. Corolla, Civic)</option>
+              <option value="sedan">Mid-Size Sedan (e.g. Camry, Accord)</option>
+              <option value="fullsedan">Full-Size Sedan (e.g. Crown, Avalon)</option>
+              <option value="coupe">Coupe (e.g. Mustang, Charger)</option>
+              <option value="wagon">Station Wagon / Hatchback</option>
+            </optgroup>
+            <optgroup label="SUVs & Crossovers">
+              <option value="suv_small">Small Crossover (e.g. CR-V, RAV4)</option>
+              <option value="suv">Mid-Size SUV (e.g. Explorer, Highlander)</option>
+              <option value="suv_large">Large SUV (e.g. Sequoia, Suburban)</option>
+              <option value="luxury_suv">Luxury SUV (e.g. Land Cruiser, GLE)</option>
+              <option value="range_rover">Range Rover / Full-Size Luxury 4x4</option>
+            </optgroup>
+            <optgroup label="Trucks & Pickups">
+              <option value="pickup_small">Small Pickup (e.g. Tacoma, Frontier)</option>
+              <option value="pickup">Full-Size Pickup (e.g. F-150, RAM 1500)</option>
+              <option value="pickup_hd">Heavy-Duty Pickup (e.g. F-250, Silverado HD)</option>
+            </optgroup>
+            <optgroup label="Vans & Minivans">
+              <option value="minivan">Minivan (e.g. Sienna, Odyssey)</option>
+              <option value="van">Full-Size Van (e.g. Transit, Sprinter)</option>
+            </optgroup>
+            <optgroup label="Commercial / Specialty">
+              <option value="commercial">Cargo Van / Work Vehicle</option>
+              <option value="bus">Mini-Bus / Shuttle</option>
+              <option value="truck_large">Large Commercial Truck</option>
+            </optgroup>
           </select>
         </div>
         <div class="form-group">
           <label for="calcCondition">Vehicle Condition</label>
           <select id="calcCondition" onchange="runCalculator()" style="background:var(--white);">
-            <option value="clean">Clean Title</option>
-            <option value="salvage">Salvage / Rebuilt</option>
+            <option value="clean">Clean Title (runs &amp; drives)</option>
+            <option value="salvage">Salvage / Rebuilt Title</option>
+            <option value="parts">Parts Only / Non-Runner</option>
           </select>
         </div>
       </div>
-      <button class="btn btn-gold" onclick="runCalculator()" style="margin-bottom:28px;padding:13px 32px;">
+      <button class="btn btn-gold" onclick="runCalculator()" style="margin-top:8px;margin-bottom:28px;padding:13px 32px;width:100%;justify-content:center;">
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        Calculate Estimate
+        &nbsp;Calculate My Estimate
       </button>
       <!-- Results -->
       <div id="calcResults" style="display:none;border-top:1px solid var(--border);padding-top:28px;">
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;">
-          <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-align:center;">
-            <div style="font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Auction + Fees</div>
-            <div id="calcFees" style="font-size:22px;font-weight:900;color:var(--black);">—</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+          <span style="font-size:13px;font-weight:700;color:var(--text3);">COST BREAKDOWN</span>
+          <span id="calcCurrencyNote" style="font-size:12px;background:var(--gold-bg);color:var(--gold);padding:4px 10px;border-radius:12px;font-weight:600;"></span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;" class="calc-results-grid">
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;">
+            <div style="font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Bid + Auction Fees</div>
+            <div id="calcFees" style="font-size:20px;font-weight:900;color:var(--black);">—</div>
           </div>
-          <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-align:center;">
-            <div style="font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Est. Shipping</div>
-            <div id="calcShipping" style="font-size:22px;font-weight:900;color:var(--black);">—</div>
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;">
+            <div style="font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Est. Shipping</div>
+            <div id="calcShipping" style="font-size:20px;font-weight:900;color:var(--black);">—</div>
           </div>
-          <div style="background:var(--gold);border-radius:var(--radius);padding:18px;text-align:center;">
-            <div style="font-size:11px;color:rgba(255,255,255,0.75);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Total Estimate</div>
-            <div id="calcTotal" style="font-size:22px;font-weight:900;color:white;">—</div>
+          <div style="background:var(--gold);border-radius:var(--radius);padding:16px;text-align:center;">
+            <div style="font-size:10px;color:rgba(255,255,255,0.8);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Total Estimate</div>
+            <div id="calcTotal" style="font-size:20px;font-weight:900;color:white;">—</div>
           </div>
         </div>
-        <div style="background:var(--gold-bg);border:1px solid rgba(74,171,220,0.2);border-radius:var(--radius);padding:14px 18px;font-size:12px;color:var(--text2);line-height:1.7;">
-          ⚠️ <strong>Disclaimer:</strong> This is an estimate only. Final costs vary based on actual auction result, buyer fees, inland transport, port charges, customs/duties in destination country, and shipping rates at time of booking. <a href="#request-form" style="color:var(--gold);font-weight:700;">Contact us for an exact quote →</a>
+        <!-- USD sub-totals (always shown) -->
+        <div id="calcUsdBreakdown" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;font-size:13px;color:var(--text2);display:none;">
+          <div style="font-weight:700;margin-bottom:8px;color:var(--black);">USD Breakdown</div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span>Auction Bid Price</span><span id="brkBid">—</span></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span>Buyer Fee (~10–17%)</span><span id="brkBuyerFee">—</span></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span>Gate / Processing Fee</span><span id="brkGate">—</span></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span>Title &amp; Documentation</span><span>~$85</span></div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span>International Shipping</span><span id="brkShip">—</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;font-weight:800;color:var(--black);"><span>TOTAL (USD)</span><span id="brkTotal">—</span></div>
+        </div>
+        <div style="background:var(--gold-bg);border:1px solid rgba(74,171,220,0.2);border-radius:var(--radius);padding:12px 16px;font-size:12px;color:var(--text2);line-height:1.7;">
+          ⚠️ <strong>Estimate only.</strong> Actual costs vary by auction result, buyer fees, inland transport, port charges, customs/duties &amp; live shipping rates. Exchange rates are approximate. <a href="#request-form" style="color:var(--gold);font-weight:700;">Get an exact quote →</a>
         </div>
       </div>
     </div>
@@ -1673,34 +1806,76 @@
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
   setTimeout(() => { document.querySelectorAll('.reveal').forEach(el => el.classList.add('revealed')); }, 1500);
 
-  /* ===== AUCTION CALCULATOR ===== */
+    /* ===== AUCTION CALCULATOR ===== */
+  let currentCurrency = 'USD';
+  const fxRates = { USD: 1, GHS: 15.2, NGN: 1600, XOF: 620, SLL: 22000 };
+  const fxLabels = { USD: 'USD $', GHS: 'GHS ₵', NGN: 'NGN ₦', XOF: 'XOF CFA', SLL: 'SLL Le' };
+
+  function setCurrency(cur, btn) {
+    currentCurrency = cur;
+    document.querySelectorAll('.cur-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    runCalculator();
+  }
+
+  // Shipping matrix: destination → vehicle size → USD
+  const shippingMatrix = {
+    ghana_tema:     { compact:1600, sedan:1800, fullsedan:1900, coupe:1850, wagon:1900, suv_small:2000, suv:2200, suv_large:2500, luxury_suv:2600, range_rover:2800, pickup_small:2100, pickup:2400, pickup_hd:2700, minivan:2300, van:2600, commercial:2900, bus:3400, truck_large:4200 },
+    ghana_takoradi: { compact:1700, sedan:1900, fullsedan:2000, coupe:1950, wagon:2000, suv_small:2100, suv:2300, suv_large:2600, luxury_suv:2700, range_rover:2900, pickup_small:2200, pickup:2500, pickup_hd:2800, minivan:2400, van:2700, commercial:3000, bus:3500, truck_large:4300 },
+    nigeria_lagos:  { compact:1800, sedan:2000, fullsedan:2100, coupe:2050, wagon:2100, suv_small:2200, suv:2400, suv_large:2700, luxury_suv:2800, range_rover:3000, pickup_small:2300, pickup:2600, pickup_hd:2900, minivan:2500, van:2800, commercial:3100, bus:3600, truck_large:4500 },
+    nigeria_ph:     { compact:2000, sedan:2200, fullsedan:2300, coupe:2250, wagon:2300, suv_small:2400, suv:2600, suv_large:2900, luxury_suv:3000, range_rover:3200, pickup_small:2500, pickup:2800, pickup_hd:3100, minivan:2700, van:3000, commercial:3400, bus:3900, truck_large:4800 },
+    ci_abidjan:     { compact:1900, sedan:2100, fullsedan:2200, coupe:2150, wagon:2200, suv_small:2300, suv:2500, suv_large:2800, luxury_suv:2900, range_rover:3100, pickup_small:2400, pickup:2700, pickup_hd:3000, minivan:2600, van:2900, commercial:3200, bus:3700, truck_large:4600 },
+    senegal_dakar:  { compact:2100, sedan:2300, fullsedan:2400, coupe:2350, wagon:2400, suv_small:2500, suv:2700, suv_large:3000, luxury_suv:3100, range_rover:3300, pickup_small:2600, pickup:2900, pickup_hd:3200, minivan:2800, van:3100, commercial:3500, bus:4000, truck_large:5000 },
+    togo_lome:      { compact:1750, sedan:1950, fullsedan:2050, coupe:2000, wagon:2050, suv_small:2150, suv:2350, suv_large:2650, luxury_suv:2750, range_rover:2950, pickup_small:2250, pickup:2550, pickup_hd:2850, minivan:2450, van:2750, commercial:3050, bus:3550, truck_large:4400 },
+    benin_cotonou:  { compact:1850, sedan:2050, fullsedan:2150, coupe:2100, wagon:2150, suv_small:2250, suv:2450, suv_large:2750, luxury_suv:2850, range_rover:3050, pickup_small:2350, pickup:2650, pickup_hd:2950, minivan:2550, van:2850, commercial:3150, bus:3650, truck_large:4500 },
+    gambia_banjul:  { compact:2200, sedan:2400, fullsedan:2500, coupe:2450, wagon:2500, suv_small:2600, suv:2800, suv_large:3100, luxury_suv:3200, range_rover:3400, pickup_small:2700, pickup:3000, pickup_hd:3300, minivan:2900, van:3200, commercial:3600, bus:4100, truck_large:5100 },
+    sl_freetown:    { compact:2300, sedan:2500, fullsedan:2600, coupe:2550, wagon:2600, suv_small:2700, suv:2900, suv_large:3200, luxury_suv:3300, range_rover:3500, pickup_small:2800, pickup:3100, pickup_hd:3400, minivan:3000, van:3300, commercial:3700, bus:4200, truck_large:5200 }
+  };
+
+  function formatMoney(usdAmount, currency) {
+    const rate = fxRates[currency] || 1;
+    const converted = Math.round(usdAmount * rate);
+    const label = fxLabels[currency] || 'USD $';
+    if (currency === 'USD') return label + converted.toLocaleString();
+    return label + converted.toLocaleString() + ' (~$' + usdAmount.toLocaleString() + ')';
+  }
+
   function runCalculator() {
     const bidPrice = parseFloat(document.getElementById('calcAuctionPrice').value) || 0;
     if (bidPrice <= 0) { document.getElementById('calcResults').style.display = 'none'; return; }
 
     const destination = document.getElementById('calcDestination').value;
     const vehicleType = document.getElementById('calcVehicleType').value;
-    const condition = document.getElementById('calcCondition').value;
+    const condition   = document.getElementById('calcCondition').value;
 
-    // Buyer fees (approx % of auction price, tiered)
+    // Buyer fee tiers
     let feeRate = 0.10;
     if (bidPrice < 5000) feeRate = 0.17;
     else if (bidPrice < 10000) feeRate = 0.14;
     else if (bidPrice < 20000) feeRate = 0.12;
     const buyerFee = Math.round(bidPrice * feeRate);
-    const gateFee = condition === 'salvage' ? 300 : 150;
+    const gateFee  = condition === 'salvage' ? 350 : condition === 'parts' ? 250 : 150;
     const titleFee = 85;
     const totalFees = bidPrice + buyerFee + gateFee + titleFee;
 
-    // Shipping estimates (USD, rough)
-    const shippingBase = { ghana: { sedan: 1800, suv: 2200, truck: 2400, van: 2600 }, nigeria: { sedan: 2000, suv: 2400, truck: 2600, van: 2800 }, other: { sedan: 2200, suv: 2600, truck: 2900, van: 3200 } };
-    const shipping = shippingBase[destination][vehicleType];
+    const destData = shippingMatrix[destination] || shippingMatrix['ghana_tema'];
+    const shipping = destData[vehicleType] || destData['sedan'];
+    const totalUSD = totalFees + shipping;
 
-    const total = totalFees + shipping;
+    const cur = currentCurrency;
+    document.getElementById('calcFees').textContent     = formatMoney(totalFees, cur);
+    document.getElementById('calcShipping').textContent = '~' + formatMoney(shipping, cur);
+    document.getElementById('calcTotal').textContent    = '~' + formatMoney(totalUSD, cur);
+    document.getElementById('calcCurrencyNote').textContent = 'Showing in ' + (fxLabels[cur] || 'USD');
 
-    document.getElementById('calcFees').textContent = '$' + totalFees.toLocaleString();
-    document.getElementById('calcShipping').textContent = '~$' + shipping.toLocaleString();
-    document.getElementById('calcTotal').textContent = '~$' + total.toLocaleString();
+    // Breakdown (always USD)
+    document.getElementById('brkBid').textContent      = '$' + bidPrice.toLocaleString();
+    document.getElementById('brkBuyerFee').textContent = '~$' + buyerFee.toLocaleString();
+    document.getElementById('brkGate').textContent     = '~$' + gateFee.toLocaleString();
+    document.getElementById('brkShip').textContent     = '~$' + shipping.toLocaleString();
+    document.getElementById('brkTotal').textContent    = '~$' + totalUSD.toLocaleString();
+    document.getElementById('calcUsdBreakdown').style.display = cur !== 'USD' ? 'block' : 'none';
+
     document.getElementById('calcResults').style.display = 'block';
   }
 
