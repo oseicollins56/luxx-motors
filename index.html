@@ -591,6 +591,15 @@
       Auction Partners
     </a>
     <div class="drawer-divider"></div>
+    <a class="drawer-item" href="#calculator" onclick="closeDrawer()">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Cost Calculator
+    </a>
+    <a class="drawer-item" href="#" onclick="closeDrawer();setTimeout(function(){if(!chatOpen)toggleChat();},200);event.preventDefault();">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Live Support Chat
+    </a>
+    <div class="drawer-divider"></div>
     <div class="drawer-section-label">Get in Touch</div>
     <a class="drawer-item" href="#request-form" onclick="closeDrawer()">
       <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -664,6 +673,9 @@
           </div>
         </div>
       </li>
+
+      <li><a href="#calculator">Calculator</a></li>
+      <li><a href="#" onclick="event.preventDefault();setTimeout(function(){if(typeof chatOpen!=='+"'"+'undefined'+"'"+' && !chatOpen)toggleChat();},100);">Support</a></li>
 
       <!-- WHY CHOOSE US DROPDOWN -->
       <li class="nav-dropdown">
@@ -740,6 +752,8 @@
     <a href="#latest-cars">Latest Cars</a>
     <a href="#auctions">Auctions</a>
     <button onclick="openSignupModal()" class="btn btn-dark" style="text-align:center;width:100%;justify-content:center;">Sign Up</button>
+    <a href="#calculator">Calculator</a>
+    <a href="#" onclick="event.preventDefault();closeMenu();setTimeout(function(){if(typeof chatOpen!=='+"'"+'undefined'+"'"+' && !chatOpen)toggleChat();},200);">Support Chat</a>
     <a href="#request-form" class="btn btn-gold" style="text-align:center;">Request a Vehicle</a>
   </div>
 </nav>
@@ -775,27 +789,6 @@
   </div>
 </section>
 
-
-<!-- POSITIONING -->
-<section class="section positioning">
-  <div class="container">
-    <div class="positioning-inner">
-      <div class="pos-image">
-        <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=900&q=80&auto=format&fit=crop" alt="Vehicle sourcing" />
-      </div>
-      <div>
-        <span class="label">Who We Are</span>
-        <h2 class="section-title">A Better Way to Source Vehicles</h2>
-        <div class="divider"></div>
-        <p style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:20px;">Luxx Motors is a U.S.-based vehicle sourcing and export company. We provide direct access to real U.S. auto auction inventory and manage the process from sourcing to export.</p>
-        <div class="approach-box">
-          <p>We help you identify the right vehicle, secure it through <strong>licensed U.S. dealer access</strong>, and coordinate shipment to your destination with transparency and efficiency.</p>
-          <div class="tagline">Bid. Buy. Export.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- HOW IT WORKS -->
 <section class="section how-it-works" id="how-it-works" style="background:var(--bg2);">
@@ -1125,40 +1118,40 @@
 </section>
 
 <!-- WE ARE NOT SECTION -->
-<section class="section" style="background:var(--black);padding:72px 0;">
+<section class="section" style="background:linear-gradient(135deg,var(--gold-bg) 0%,#d4edf8 100%);padding:72px 0;border-top:3px solid var(--gold);border-bottom:3px solid var(--gold);">
   <div class="container">
     <div style="text-align:center;margin-bottom:48px;">
-      <span class="label" style="color:var(--gold);">Clarity First</span>
-      <h2 class="section-title" style="color:var(--white);font-size:clamp(28px,4vw,42px);">We Are Not Your Typical<br>Car Company</h2>
+      <span class="label">Clarity First</span>
+      <h2 class="section-title" style="color:var(--black);font-size:clamp(28px,4vw,42px);">We Are Not Your Typical<br>Car Company</h2>
       <div class="divider" style="margin:20px auto 0;"></div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto;" class="we-are-not-grid">
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:36px 28px;text-align:center;transition:border-color 0.22s ease;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
+      <div style="background:var(--white);border:1.5px solid rgba(74,171,220,0.25);border-radius:16px;padding:36px 28px;text-align:center;transition:all 0.22s ease;box-shadow:0 2px 16px rgba(74,171,220,0.08);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 32px rgba(74,171,220,0.2)'" onmouseout="this.style.borderColor='rgba(74,171,220,0.25)';this.style.transform='';this.style.boxShadow='0 2px 16px rgba(74,171,220,0.08)'">
         <div style="width:56px;height:56px;background:rgba(74,171,220,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
           <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;">Not A</div>
-        <div style="font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">Car Dealership</div>
-        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;">We don't own or stock vehicles. We access real U.S. auctions on your behalf — no showroom, no inflated lot prices.</p>
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Not A</div>
+        <div style="font-size:24px;font-weight:900;color:var(--black);margin-bottom:12px;">Car Dealership</div>
+        <p style="font-size:13px;color:var(--text2);line-height:1.7;">We don't own or stock vehicles. We access real U.S. auctions on your behalf — no showroom, no inflated lot prices.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:36px 28px;text-align:center;transition:border-color 0.22s ease;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
+      <div style="background:var(--white);border:1.5px solid rgba(74,171,220,0.25);border-radius:16px;padding:36px 28px;text-align:center;transition:all 0.22s ease;box-shadow:0 2px 16px rgba(74,171,220,0.08);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 32px rgba(74,171,220,0.2)'" onmouseout="this.style.borderColor='rgba(74,171,220,0.25)';this.style.transform='';this.style.boxShadow='0 2px 16px rgba(74,171,220,0.08)'">
         <div style="width:56px;height:56px;background:rgba(74,171,220,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
           <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;">Not A</div>
-        <div style="font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">Broker</div>
-        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;">We don't just connect you to another seller. We are directly involved in sourcing, bidding, and managing your vehicle every step of the way.</p>
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Not A</div>
+        <div style="font-size:24px;font-weight:900;color:var(--black);margin-bottom:12px;">Broker</div>
+        <p style="font-size:13px;color:var(--text2);line-height:1.7;">We don't just connect you to another seller. We are directly involved in sourcing, bidding, and managing your vehicle every step of the way.</p>
       </div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:36px 28px;text-align:center;transition:border-color 0.22s ease;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
+      <div style="background:var(--white);border:1.5px solid rgba(74,171,220,0.25);border-radius:16px;padding:36px 28px;text-align:center;transition:all 0.22s ease;box-shadow:0 2px 16px rgba(74,171,220,0.08);" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 32px rgba(74,171,220,0.2)'" onmouseout="this.style.borderColor='rgba(74,171,220,0.25)';this.style.transform='';this.style.boxShadow='0 2px 16px rgba(74,171,220,0.08)'">
         <div style="width:56px;height:56px;background:rgba(74,171,220,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
           <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         </div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;">Not A</div>
-        <div style="font-size:24px;font-weight:900;color:var(--white);margin-bottom:12px;">Reseller</div>
-        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;">We don't buy vehicles to resell at a markup. You get auction pricing directly — real market value, not a second-hand margin.</p>
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Not A</div>
+        <div style="font-size:24px;font-weight:900;color:var(--black);margin-bottom:12px;">Reseller</div>
+        <p style="font-size:13px;color:var(--text2);line-height:1.7;">We don't buy vehicles to resell at a markup. You get auction pricing directly — real market value, not a second-hand margin.</p>
       </div>
     </div>
-    <p style="text-align:center;margin-top:40px;font-size:15px;color:rgba(255,255,255,0.6);line-height:1.8;">We are a <strong style="color:var(--gold);">U.S.-based vehicle sourcing &amp; export partner</strong> — we work <em>for you</em>, not for a profit margin on inventory.</p>
+    <p style="text-align:center;margin-top:40px;font-size:15px;color:var(--text2);line-height:1.8;">We are a <strong style="color:var(--gold);">U.S.-based vehicle sourcing &amp; export partner</strong> — we work <em>for you</em>, not for a profit margin on inventory.</p>
   </div>
 </section>
 
@@ -1484,6 +1477,27 @@
         <button type="submit" class="btn btn-gold btn-lg form-submit">Get Auction Options</button>
         <p class="disclaimer">By submitting this form, you consent to receive communications from Luxx Motors. Message and data rates may apply. Reply STOP to opt out.</p>
       </form>
+    </div>
+  </div>
+</section>
+
+<!-- POSITIONING -->
+<section class="section positioning">
+  <div class="container">
+    <div class="positioning-inner">
+      <div class="pos-image">
+        <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=900&q=80&auto=format&fit=crop" alt="Vehicle sourcing" />
+      </div>
+      <div>
+        <span class="label">Who We Are</span>
+        <h2 class="section-title">A Better Way to Source Vehicles</h2>
+        <div class="divider"></div>
+        <p style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:20px;">Luxx Motors is a U.S.-based vehicle sourcing and export company. We provide direct access to real U.S. auto auction inventory and manage the process from sourcing to export.</p>
+        <div class="approach-box">
+          <p>We help you identify the right vehicle, secure it through <strong>licensed U.S. dealer access</strong>, and coordinate shipment to your destination with transparency and efficiency.</p>
+          <div class="tagline">Bid. Buy. Export.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
