@@ -437,49 +437,56 @@
       .search-overlay { padding-top: 70px; }
     }
 
-    /* ===== CALCULATOR REDESIGN ===== */
-    .calc-wrap { max-width: 1040px; margin: 0 auto; }
-    .calc-tabs { display: flex; gap: 0; margin-bottom: 32px; background: var(--bg3); border-radius: 32px; padding: 4px; width: fit-content; }
-    .calc-tab-btn { padding: 10px 32px; border-radius: 28px; border: none; background: none; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; color: var(--text3); transition: all 0.22s; font-family: 'Inter', sans-serif; }
+    /* ===== CALCULATOR ===== */
+    .calc-wrap { max-width: 1060px; margin: 0 auto; }
+    .calc-heading { font-size: clamp(16px,2.5vw,20px); font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: var(--black); margin-bottom: 22px; }
+    /* Tabs */
+    .calc-tabs { display: flex; background: var(--bg3); border-radius: 32px; padding: 4px; width: fit-content; margin-bottom: 28px; gap: 0; }
+    .calc-tab-btn { padding: 9px 30px; border-radius: 28px; border: none; background: none; font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; color: var(--text3); font-family: 'Inter', sans-serif; transition: all 0.2s; }
     .calc-tab-btn.active { background: var(--gold); color: #fff; box-shadow: 0 2px 12px rgba(74,171,220,0.35); }
-    .calc-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
-    .calc-panel { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
-    .calc-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-    .calc-field label { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; }
-    .calc-field input, .calc-field select { background: var(--bg2); border: 1.5px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 14px; color: var(--text); font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.22s; width: 100%; }
-    .calc-field input:focus, .calc-field select:focus { border-color: var(--gold); background: var(--white); }
-    .calc-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    /* Toggle */
-    .toggle-row { display: flex; gap: 20px; flex-wrap: wrap; margin: 14px 0; }
-    .toggle-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text2); cursor: pointer; user-select: none; }
-    .tgl { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
-    .tgl input { opacity: 0; width: 0; height: 0; position: absolute; }
-    .tgl-track { position: absolute; inset: 0; background: #ccc; border-radius: 24px; cursor: pointer; transition: background 0.22s; }
-    .tgl-track::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: white; border-radius: 50%; transition: transform 0.22s; }
-    .tgl input:checked + .tgl-track { background: var(--gold); }
-    .tgl input:checked + .tgl-track::before { transform: translateX(20px); }
-    /* Results panel */
-    .calc-line { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--bg3); font-size: 14px; color: var(--text2); gap: 12px; }
-    .calc-line .clabel { flex: 1; }
-    .calc-line .cval { font-weight: 700; color: var(--black); white-space: nowrap; }
-    .calc-line .cval.muted { color: var(--text3); font-weight: 500; font-style: italic; }
-    .calc-total-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0 8px; font-size: 18px; font-weight: 900; color: var(--black); }
-    .calc-actions-row { display: flex; align-items: center; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border); margin-top: 4px; }
-    .calc-act-btn { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 15px; transition: background 0.18s; }
-    .calc-act-btn:hover { background: var(--gold-bg); border-color: var(--gold); }
-    .calc-date { margin-left: auto; font-size: 12px; color: var(--text3); }
-    .calc-footnote { font-size: 11px; color: var(--text3); line-height: 1.6; margin-top: 14px; background: var(--bg2); border-radius: 8px; padding: 10px 12px; }
-    .cur-pill-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
-    .cur-pill { background: var(--bg2); border: 1.5px solid var(--border); border-radius: 16px; padding: 5px 12px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.18s; font-family: 'Inter', sans-serif; color: var(--text2); }
-    .cur-pill.active, .cur-pill:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
-    .tgl-line { display: flex; align-items: center; gap: 10px; }
-    .tgl.sm { width: 36px; height: 20px; }
-    .tgl.sm .tgl-track::before { width: 14px; height: 14px; }
-    .tgl.sm input:checked + .tgl-track::before { transform: translateX(16px); }
-    @media (max-width: 768px) {
-      .calc-two-col { grid-template-columns: 1fr; }
-      .calc-field-row { grid-template-columns: 1fr; }
-    }
+    /* Two-col */
+    .calc-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+    /* Panels */
+    .calc-panel { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 26px; }
+    /* Fields */
+    .cf { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+    .cf label { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; }
+    .cf input, .cf select { background: var(--bg2); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 13px; font-size: 14px; color: var(--text); font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s; width: 100%; }
+    .cf input:focus, .cf select:focus { border-color: var(--gold); background: var(--white); }
+    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    /* Toggles */
+    .tgl-row { display: flex; gap: 18px; flex-wrap: wrap; margin: 12px 0 16px; }
+    .tgl-item { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--text2); cursor: pointer; user-select: none; }
+    .sw { position: relative; width: 42px; height: 23px; flex-shrink: 0; }
+    .sw input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .sw-track { position: absolute; inset: 0; background: #ccc; border-radius: 23px; cursor: pointer; transition: background 0.2s; }
+    .sw-track::before { content:''; position: absolute; width: 17px; height: 17px; left: 3px; top: 3px; background: white; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+    .sw input:checked + .sw-track { background: var(--gold); }
+    .sw input:checked + .sw-track::before { transform: translateX(19px); }
+    .sw.sm { width: 36px; height: 20px; }
+    .sw.sm .sw-track::before { width: 14px; height: 14px; }
+    .sw.sm input:checked + .sw-track::before { transform: translateX(16px); }
+    /* Currency pills */
+    .cur-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+    .cpill { background: var(--bg2); border: 1.5px solid var(--border); border-radius: 16px; padding: 5px 11px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.18s; font-family: 'Inter', sans-serif; color: var(--text2); }
+    .cpill.active, .cpill:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+    /* Results */
+    .rline { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--bg3); font-size: 13px; color: var(--text2); gap: 10px; min-height: 44px; }
+    .rline .rl { flex: 1; line-height: 1.4; }
+    .rline .rv { font-weight: 700; color: var(--black); white-space: nowrap; font-size: 14px; }
+    .rline .rv.muted { color: var(--text3); font-weight: 500; font-style: italic; font-size: 13px; }
+    .rv-toggle { display: flex; align-items: center; gap: 8px; }
+    .rtotal { display: flex; justify-content: space-between; align-items: center; padding: 14px 0 6px; font-size: 17px; font-weight: 900; color: var(--black); }
+    .rtotal .rv { font-size: 20px; color: var(--gold); }
+    .rnote { font-size: 11px; color: var(--text3); margin-top: -4px; margin-bottom: 8px; }
+    .ract { display: flex; align-items: center; gap: 10px; padding-top: 12px; border-top: 1px solid var(--border); margin-top: 6px; }
+    .ract-btn { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 15px; transition: all 0.18s; }
+    .ract-btn:hover { background: var(--gold-bg); border-color: var(--gold); }
+    .ract-date { margin-left: auto; font-size: 12px; color: var(--text3); }
+    .rfootnote { font-size: 11px; color: var(--text3); line-height: 1.65; margin-top: 12px; padding: 10px 12px; background: var(--bg2); border-radius: 8px; }
+    .rdivider { border: none; border-top: 2px solid var(--border); margin: 6px 0; }
+    @media (max-width: 900px) { .calc-cols { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { .cf-row { grid-template-columns: 1fr; } .tgl-row { gap: 12px; } }
   </style>
 </head>
 <body>
@@ -1251,35 +1258,80 @@
 <section class="section" id="calculator" style="background:var(--bg2);">
   <div class="container">
     <div class="calc-wrap">
-      <h2 style="font-size:clamp(18px,3vw,22px);font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--black);margin-bottom:24px;">CALCULATION</h2>
+      <div class="calc-heading">Calculation</div>
 
-      <!-- Tabs -->
+      <!-- TABS -->
       <div class="calc-tabs">
-        <button class="calc-tab-btn" id="tabShipping" onclick="setCalcTab('shipping')">SHIPPING</button>
-        <button class="calc-tab-btn active" id="tabPurchase" onclick="setCalcTab('purchase')">PURCHASE</button>
+        <button class="calc-tab-btn" id="tabShipping" onclick="setTab('shipping')">Shipping</button>
+        <button class="calc-tab-btn active" id="tabPurchase" onclick="setTab('purchase')">Purchase</button>
       </div>
 
-      <!-- SHIPPING pane (simple) -->
-      <div id="paneShipping" style="display:none;">
-        <div class="calc-two-col">
+      <!-- ════════ PURCHASE PANE ════════ -->
+      <div id="panePurchase">
+        <div class="calc-cols">
+
+          <!-- LEFT: Inputs -->
           <div class="calc-panel">
-            <div class="calc-field-row">
-              <div class="calc-field">
+            <div class="cf-row">
+              <div class="cf">
+                <label>Auction Price, $</label>
+                <input type="number" id="pPrice" placeholder="e.g. 5000" min="0" oninput="calc()" />
+              </div>
+              <div class="cf">
                 <label>Vehicle Type</label>
-                <select id="sVehicleType" onchange="runShipping()">
-                  <option value="sedan">Sedan / Small Car</option>
+                <select id="pType" onchange="calc()">
+                  <option value="sedan">Sedan / Compact</option>
                   <option value="suv_small">Crossover / Small SUV</option>
-                  <option value="suv">Mid-Size SUV</option>
-                  <option value="suv_large" selected>Large SUV / 4x4</option>
+                  <option value="suv" selected>Mid-Size SUV</option>
+                  <option value="suv_large">Large SUV / 4x4</option>
                   <option value="pickup">Pickup Truck</option>
                   <option value="van">Van / Minivan</option>
                   <option value="luxury">Luxury / Range Rover</option>
+                  <option value="container2">2 Cars / 20ft Container</option>
+                  <option value="container4">4 Cars / 40ft Container</option>
                   <option value="commercial">Commercial / Cargo Van</option>
                 </select>
               </div>
-              <div class="calc-field">
+            </div>
+
+            <div class="cf">
+              <label>Auction</label>
+              <select id="pAuction" onchange="calc()">
+                <option value="iaai">IAAI (Insurance Auto Auctions)</option>
+                <option value="copart">Copart</option>
+                <option value="manheim">Manheim</option>
+              </select>
+            </div>
+
+            <div class="cf">
+              <label>Auction Location (State)</label>
+              <select id="pAucLocation" onchange="updateUSPorts();calc()">
+                <option value="">— Select state —</option>
+                <option value="CA">California</option>
+                <option value="TX">Texas</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="MD">Maryland</option>
+                <option value="NJ">New Jersey / NY</option>
+                <option value="NC">North Carolina</option>
+                <option value="OH">Ohio / Midwest</option>
+                <option value="IL">Illinois</option>
+                <option value="AZ">Arizona / Nevada</option>
+                <option value="WA">Washington</option>
+                <option value="OTHER">Other State</option>
+              </select>
+            </div>
+
+            <div class="cf-row">
+              <div class="cf">
+                <label>From USA Port</label>
+                <select id="pUSPort" onchange="calc()">
+                  <option value="">— Select first —</option>
+                </select>
+              </div>
+              <div class="cf">
                 <label>Destination Country</label>
-                <select id="sDestCountry" onchange="updateShipPorts();runShipping()">
+                <select id="pCountry" onchange="updateDestPorts('pDestPort');calc()">
                   <option value="ghana">🇬🇭 Ghana</option>
                   <option value="nigeria">🇳🇬 Nigeria</option>
                   <option value="ivory_coast">🇨🇮 Ivory Coast</option>
@@ -1291,139 +1343,184 @@
                 </select>
               </div>
             </div>
-            <div class="calc-field">
-              <label>Destination Port</label>
-              <select id="sDestPort" onchange="runShipping()"></select>
-            </div>
-            <div class="calc-field">
-              <label>Display Currency</label>
-              <div class="cur-pill-row">
-                <button class="cur-pill active" data-cur="USD" onclick="setCurrency('USD',this)">🇺🇸 USD</button>
-                <button class="cur-pill" data-cur="GHS" onclick="setCurrency('GHS',this)">🇬🇭 GHS</button>
-                <button class="cur-pill" data-cur="NGN" onclick="setCurrency('NGN',this)">🇳🇬 NGN</button>
-                <button class="cur-pill" data-cur="XOF" onclick="setCurrency('XOF',this)">🌍 XOF</button>
-              </div>
-            </div>
-          </div>
-          <div class="calc-panel">
-            <div class="calc-line"><span class="clabel">Est. Ocean Freight</span><span class="cval" id="sres_freight">—</span></div>
-            <div class="calc-line"><span class="clabel">Shipping Documents</span><span class="cval">$20</span></div>
-            <div class="calc-line">
-              <span class="clabel">Ocean Freight Damage Protection 1%</span>
-              <div class="tgl-line">
-                <label class="tgl sm"><input type="checkbox" id="sDmgProt" onchange="runShipping()"><span class="tgl-track"></span></label>
-                <span class="cval" id="sres_protection">—</span>
-              </div>
-            </div>
-            <div class="calc-total-row"><span>Total Estimate</span><span id="sres_total">—</span></div>
-            <div class="calc-actions-row">
-              <button class="calc-act-btn" onclick="window.print()" title="Print">🖨️</button>
-              <button class="calc-act-btn" onclick="copyResults('shipping')" title="Copy">📋</button>
-              <span class="calc-date" id="sCalcDate"></span>
-            </div>
-            <div class="calc-footnote">* Ocean freight is an estimate. Final cost depends on actual carrier rates, container availability, and route at time of booking. <a href="#request-form" style="color:var(--gold);font-weight:700;">Get exact quote →</a></div>
-          </div>
-        </div>
-      </div>
 
-      <!-- PURCHASE pane (full breakdown) -->
-      <div id="panePurchase">
-        <div class="calc-two-col">
-          <!-- Left: Inputs -->
-          <div class="calc-panel">
-            <div class="calc-field-row">
-              <div class="calc-field">
-                <label>Auction Price, $</label>
-                <input type="number" id="pAuctionPrice" placeholder="e.g. 5000" min="0" oninput="runPurchase()" />
-              </div>
-              <div class="calc-field">
-                <label>Vehicle Type</label>
-                <select id="pVehicleType" onchange="runPurchase()">
-                  <option value="sedan">Sedan / Small Car</option>
-                  <option value="suv_small">Crossover / Small SUV</option>
-                  <option value="suv" selected>Mid-Size SUV</option>
-                  <option value="suv_large">Large SUV / 4x4</option>
-                  <option value="pickup">Pickup Truck</option>
-                  <option value="van">Van / Minivan</option>
-                  <option value="luxury">Luxury / Range Rover</option>
-                  <option value="commercial">Commercial / Cargo Van</option>
-                </select>
-              </div>
-            </div>
-            <div class="calc-field">
-              <label>Auction</label>
-              <select id="pAuction" onchange="runPurchase()">
-                <option value="iaai">IAAI (Insurance Auto Auctions)</option>
-                <option value="copart">Copart</option>
-                <option value="manheim">Manheim</option>
-              </select>
-            </div>
-            <div class="calc-field">
-              <label>Destination Country</label>
-              <select id="pDestCountry" onchange="updatePurchasePorts();runPurchase()">
-                <option value="ghana">🇬🇭 Ghana</option>
-                <option value="nigeria">🇳🇬 Nigeria</option>
-                <option value="ivory_coast">🇨🇮 Ivory Coast</option>
-                <option value="senegal">🇸🇳 Senegal</option>
-                <option value="togo">🇹🇬 Togo</option>
-                <option value="benin">🇧🇯 Benin</option>
-                <option value="gambia">🇬🇲 Gambia</option>
-                <option value="sierra_leone">🇸🇱 Sierra Leone</option>
-              </select>
-            </div>
-            <div class="calc-field">
+            <div class="cf">
               <label>Destination Port</label>
-              <select id="pDestPort" onchange="runPurchase()"></select>
+              <select id="pDestPort" onchange="calc()"></select>
             </div>
-            <div class="toggle-row">
-              <label class="toggle-item">
-                <span class="tgl"><input type="checkbox" id="pNotDrivable" onchange="runPurchase()"><span class="tgl-track"></span></span>
+
+            <!-- Toggles -->
+            <div class="tgl-row">
+              <label class="tgl-item">
+                <span class="sw"><input type="checkbox" id="pNotDrivable" onchange="calc()"><span class="sw-track"></span></span>
                 Not Drivable
               </label>
-              <label class="toggle-item">
-                <span class="tgl"><input type="checkbox" id="pElectric" onchange="runPurchase()"><span class="tgl-track"></span></span>
+              <label class="tgl-item">
+                <span class="sw"><input type="checkbox" id="pElectric" onchange="calc()"><span class="sw-track"></span></span>
                 Electric / Hybrid
               </label>
             </div>
-            <div class="calc-field">
+
+            <div class="cf">
               <label>Display Currency</label>
-              <div class="cur-pill-row">
-                <button class="cur-pill active" data-cur="USD" onclick="setCurrency('USD',this)">🇺🇸 USD</button>
-                <button class="cur-pill" data-cur="GHS" onclick="setCurrency('GHS',this)">🇬🇭 GHS</button>
-                <button class="cur-pill" data-cur="NGN" onclick="setCurrency('NGN',this)">🇳🇬 NGN</button>
-                <button class="cur-pill" data-cur="XOF" onclick="setCurrency('XOF',this)">🌍 XOF</button>
-                <button class="cur-pill" data-cur="SLL" onclick="setCurrency('SLL',this)">🇸🇱 SLL</button>
+              <div class="cur-pills">
+                <button class="cpill active" data-cur="USD" onclick="setCur('USD',this)">🇺🇸 USD</button>
+                <button class="cpill" data-cur="GHS" onclick="setCur('GHS',this)">🇬🇭 GHS</button>
+                <button class="cpill" data-cur="NGN" onclick="setCur('NGN',this)">🇳🇬 NGN</button>
+                <button class="cpill" data-cur="XOF" onclick="setCur('XOF',this)">🌍 XOF</button>
+                <button class="cpill" data-cur="SLL" onclick="setCur('SLL',this)">🇸🇱 SLL</button>
               </div>
             </div>
           </div>
 
-          <!-- Right: Results -->
-          <div class="calc-panel" id="purchaseResultsPanel">
-            <div class="calc-line"><span class="clabel">Auction Price</span><span class="cval" id="pres_bid">—</span></div>
-            <div class="calc-line"><span class="clabel" id="pres_feeLabel">Auction Fee*</span><span class="cval" id="pres_fee">—</span></div>
-            <div class="calc-line"><span class="clabel">Luxx Motors Fee</span><span class="cval" id="pres_luxx">$195</span></div>
-            <div class="calc-line"><span class="clabel">Transportation to Port</span><span class="cval muted" id="pres_transport">Please Call</span></div>
-            <div class="calc-line"><span class="clabel" id="pres_freightLabel">Ocean Freight</span><span class="cval" id="pres_freight">—</span></div>
-            <div class="calc-line"><span class="clabel">Shipping Documents</span><span class="cval">$20</span></div>
-            <div class="calc-line">
-              <span class="clabel">Ocean Freight Damage Protection 1%</span>
-              <div class="tgl-line">
-                <label class="tgl sm"><input type="checkbox" id="pDmgProt" onchange="runPurchase()"><span class="tgl-track"></span></label>
-                <span class="cval" id="pres_protection">—</span>
+          <!-- RIGHT: Results -->
+          <div class="calc-panel">
+            <div class="rline">
+              <span class="rl">Auction Price</span>
+              <span class="rv" id="r_bid">—</span>
+            </div>
+            <div class="rline">
+              <span class="rl" id="r_feeLabel">IAAI Auction Fee*</span>
+              <span class="rv" id="r_fee">—</span>
+            </div>
+            <div class="rline">
+              <span class="rl">Luxx Motors Fee</span>
+              <span class="rv" id="r_luxx">$145</span>
+            </div>
+            <div class="rline">
+              <span class="rl">Transportation to Port *</span>
+              <span class="rv muted" id="r_transport">Please Call</span>
+            </div>
+            <div class="rline">
+              <span class="rl" id="r_freightLabel">Ocean Freight to</span>
+              <span class="rv muted" id="r_freight">Please Call</span>
+            </div>
+            <div class="rline">
+              <span class="rl">Shipping Documents</span>
+              <span class="rv">$20</span>
+            </div>
+            <div class="rline">
+              <span class="rl">Ocean Freight Damage Protection 1.0%</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pDmgProt" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv" id="r_protection">—</span>
               </div>
             </div>
-            <div style="border-top:2px solid var(--border);margin:4px 0;"></div>
-            <div class="calc-total-row"><span>Total Cost</span><span id="pres_total" style="color:var(--gold);">—</span></div>
-            <div id="pres_usdNote" style="display:none;font-size:11px;color:var(--text3);margin-top:-8px;margin-bottom:8px;"></div>
-            <div class="calc-actions-row">
-              <button class="calc-act-btn" onclick="window.print()" title="Print">🖨️</button>
-              <button class="calc-act-btn" onclick="copyResults('purchase')" title="Copy results">📋</button>
-              <span class="calc-date" id="pCalcDate"></span>
+            <hr class="rdivider">
+            <div class="rtotal">
+              <span>Total Cost</span>
+              <span class="rv" id="r_total">—</span>
             </div>
-            <div class="calc-footnote">* Auction fees are estimates based on published schedules and may vary. Transportation to port depends on vehicle location. <a href="#request-form" style="color:var(--gold);font-weight:700;">Get an exact quote →</a></div>
+            <div class="rnote" id="r_usdNote" style="display:none;"></div>
+            <div class="ract">
+              <button class="ract-btn" onclick="window.print()" title="Print">🖨️</button>
+              <button class="ract-btn" onclick="copyCalc()" title="Copy">📋</button>
+              <span class="ract-date" id="r_date"></span>
+            </div>
+            <div class="rfootnote">* Auction fees follow published buyer fee schedules and include gate/processing fees. Transportation to port depends on the vehicle's auction location. Ocean freight depends on chosen route and live carrier rates. <a href="#request-form" style="color:var(--gold);font-weight:700;">Get an exact quote →</a></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ════════ SHIPPING PANE ════════ -->
+      <div id="paneShipping" style="display:none;">
+        <div class="calc-cols">
+          <div class="calc-panel">
+            <div class="cf">
+              <label>Vehicle Type</label>
+              <select id="sType" onchange="calcShip()">
+                <option value="sedan">Sedan / Compact</option>
+                <option value="suv_small">Crossover / Small SUV</option>
+                <option value="suv" selected>Mid-Size SUV</option>
+                <option value="suv_large">Large SUV / 4x4</option>
+                <option value="pickup">Pickup Truck</option>
+                <option value="van">Van / Minivan</option>
+                <option value="luxury">Luxury / Range Rover</option>
+                <option value="container2">2 Cars / 20ft Container</option>
+                <option value="container4">4 Cars / 40ft Container</option>
+                <option value="commercial">Commercial / Cargo Van</option>
+              </select>
+            </div>
+            <div class="cf">
+              <label>From USA Port</label>
+              <select id="sUSPort" onchange="calcShip()">
+                <option value="baltimore">Baltimore, MD</option>
+                <option value="savannah">Savannah, GA</option>
+                <option value="houston">Houston, TX</option>
+                <option value="newark">Newark / New York, NJ</option>
+                <option value="los_angeles">Los Angeles, CA</option>
+                <option value="charleston">Charleston, SC</option>
+                <option value="norfolk">Norfolk, VA</option>
+              </select>
+            </div>
+            <div class="cf-row">
+              <div class="cf">
+                <label>Destination Country</label>
+                <select id="sCountry" onchange="updateDestPorts('sDestPort');calcShip()">
+                  <option value="ghana">🇬🇭 Ghana</option>
+                  <option value="nigeria">🇳🇬 Nigeria</option>
+                  <option value="ivory_coast">🇨🇮 Ivory Coast</option>
+                  <option value="senegal">🇸🇳 Senegal</option>
+                  <option value="togo">🇹🇬 Togo</option>
+                  <option value="benin">🇧🇯 Benin</option>
+                  <option value="gambia">🇬🇲 Gambia</option>
+                  <option value="sierra_leone">🇸🇱 Sierra Leone</option>
+                </select>
+              </div>
+              <div class="cf">
+                <label>Destination Port</label>
+                <select id="sDestPort" onchange="calcShip()"></select>
+              </div>
+            </div>
+            <div class="tgl-row">
+              <label class="tgl-item">
+                <span class="sw"><input type="checkbox" id="sNotDrivable" onchange="calcShip()"><span class="sw-track"></span></span>
+                Not Drivable
+              </label>
+            </div>
+            <div class="cf">
+              <label>Display Currency</label>
+              <div class="cur-pills">
+                <button class="cpill active" data-cur="USD" onclick="setCur('USD',this)">🇺🇸 USD</button>
+                <button class="cpill" data-cur="GHS" onclick="setCur('GHS',this)">🇬🇭 GHS</button>
+                <button class="cpill" data-cur="NGN" onclick="setCur('NGN',this)">🇳🇬 NGN</button>
+                <button class="cpill" data-cur="XOF" onclick="setCur('XOF',this)">🌍 XOF</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="calc-panel">
+            <div class="rline">
+              <span class="rl" id="sr_freightLabel">Ocean Freight</span>
+              <span class="rv" id="sr_freight">—</span>
+            </div>
+            <div class="rline">
+              <span class="rl">Shipping Documents</span>
+              <span class="rv">$20</span>
+            </div>
+            <div class="rline">
+              <span class="rl">Ocean Freight Damage Protection 1.0%</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="sDmgProt" onchange="calcShip()"><span class="sw-track"></span></label>
+                <span class="rv" id="sr_protection">—</span>
+              </div>
+            </div>
+            <hr class="rdivider">
+            <div class="rtotal">
+              <span>Total Estimate</span>
+              <span class="rv" id="sr_total">—</span>
+            </div>
+            <div class="ract">
+              <button class="ract-btn" onclick="window.print()" title="Print">🖨️</button>
+              <button class="ract-btn" onclick="copyCalcShip()" title="Copy">📋</button>
+              <span class="ract-date" id="sr_date"></span>
+            </div>
+            <div class="rfootnote">* Ocean freight estimate based on typical carrier rates for this route. Final cost depends on live rates, container availability and booking date. <a href="#request-form" style="color:var(--gold);font-weight:700;">Get an exact quote →</a></div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -1899,14 +1996,13 @@
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
   setTimeout(() => { document.querySelectorAll('.reveal').forEach(el => el.classList.add('revealed')); }, 1500);
 
-      /* ===== AUCTION CALCULATOR ===== */
-  let currentCurrency = 'USD';
-  let currentCalcTab  = 'purchase';
+        /* ===== CALCULATOR ===== */
+  let _cur = 'USD', _tab = 'purchase';
+  const FX   = {USD:1, GHS:15.2, NGN:1600, XOF:620, SLL:22000};
+  const SYM  = {USD:'$', GHS:'₵', NGN:'₦', XOF:'CFA ', SLL:'Le '};
 
-  const fxRates  = { USD:1, GHS:15.2, NGN:1600, XOF:620, SLL:22000 };
-  const fxSymbol = { USD:'$', GHS:'₵', NGN:'₦', XOF:'CFA ', SLL:'Le ' };
-
-  const portMap = {
+  // Destination ports per country
+  const PORTS = {
     ghana:       [['ghana_tema','Tema Port (Accra)'],['ghana_takoradi','Takoradi Port']],
     nigeria:     [['nigeria_lagos','Lagos — Apapa / Tincan'],['nigeria_ph','Port Harcourt']],
     ivory_coast: [['ci_abidjan','Abidjan Port']],
@@ -1917,196 +2013,243 @@
     sierra_leone:[['sl_freetown','Freetown Port']]
   };
 
-  // Shipping costs (USD) by port and vehicle type
-  const shipRates = {
-    ghana_tema:     {sedan:1700,suv_small:1900,suv:2100,suv_large:2400,pickup:2300,van:2500,luxury:2700,commercial:2900},
-    ghana_takoradi: {sedan:1800,suv_small:2000,suv:2200,suv_large:2500,pickup:2400,van:2600,luxury:2800,commercial:3000},
-    nigeria_lagos:  {sedan:1900,suv_small:2100,suv:2300,suv_large:2600,pickup:2500,van:2700,luxury:2900,commercial:3100},
-    nigeria_ph:     {sedan:2100,suv_small:2300,suv:2500,suv_large:2800,pickup:2700,van:2900,luxury:3100,commercial:3300},
-    ci_abidjan:     {sedan:2000,suv_small:2200,suv:2400,suv_large:2700,pickup:2600,van:2800,luxury:3000,commercial:3200},
-    senegal_dakar:  {sedan:2200,suv_small:2400,suv:2600,suv_large:2900,pickup:2800,van:3000,luxury:3200,commercial:3500},
-    togo_lome:      {sedan:1850,suv_small:2050,suv:2250,suv_large:2550,pickup:2450,van:2650,luxury:2850,commercial:3050},
-    benin_cotonou:  {sedan:1950,suv_small:2150,suv:2350,suv_large:2650,pickup:2550,van:2750,luxury:2950,commercial:3150},
-    gambia_banjul:  {sedan:2300,suv_small:2500,suv:2700,suv_large:3000,pickup:2900,van:3100,luxury:3300,commercial:3600},
-    sl_freetown:    {sedan:2400,suv_small:2600,suv:2800,suv_large:3100,pickup:3000,van:3200,luxury:3400,commercial:3700}
+  // US ports per auction state
+  const US_PORTS = {
+    CA: [['los_angeles','Los Angeles, CA'],['long_beach','Long Beach, CA']],
+    TX: [['houston','Houston, TX']],
+    FL: [['miami','Miami, FL'],['jacksonville','Jacksonville, FL']],
+    GA: [['savannah','Savannah, GA']],
+    MD: [['baltimore','Baltimore, MD']],
+    NJ: [['newark','Newark / New York, NJ']],
+    NC: [['wilmington_nc','Wilmington, NC']],
+    OH: [['cleveland','Cleveland, OH'],['baltimore','Baltimore, MD']],
+    IL: [['chicago','Chicago — via Baltimore'],['houston','Houston, TX']],
+    AZ: [['los_angeles','Los Angeles, CA'],['long_beach','Long Beach, CA']],
+    WA: [['tacoma','Tacoma, WA'],['los_angeles','Los Angeles, CA']],
+    OTHER:[['baltimore','Baltimore, MD'],['savannah','Savannah, GA'],['houston','Houston, TX'],['newark','Newark / New York, NJ']]
   };
 
-  // IAAI combined buyer fee schedule (bid price ranges → fee)
-  const iaaiTiers = [
-    [0,99,25],[100,199,75],[200,299,115],[300,399,145],[400,499,175],
-    [500,599,215],[600,699,250],[700,799,285],[800,899,325],[900,999,380],
-    [1000,1299,445],[1300,1499,490],[1500,1999,550],[2000,2999,620],
-    [3000,3999,700],[4000,4999,780],[5000,5999,860],[6000,7499,950],
-    [7500,9999,1050],[10000,14999,1180],[15000,19999,1350],[20000,Infinity,0.075]
+  // Inland transport estimate by US port (USD)
+  const INLAND = {
+    los_angeles:250, long_beach:250, houston:180, savannah:120,
+    baltimore:100, newark:120, miami:150, jacksonville:140,
+    wilmington_nc:130, cleveland:200, chicago:220, tacoma:300, OTHER:200
+  };
+
+  // Ocean freight (USD) — US port × destination port × vehicle type
+  // Base rates by destination port (for a standard mid-size SUV from Baltimore/Savannah)
+  const BASE_FREIGHT = {
+    ghana_tema:     {sedan:1700,suv_small:1900,suv:2100,suv_large:2400,pickup:2300,van:2500,luxury:2700,container2:3200,container4:4200,commercial:2900},
+    ghana_takoradi: {sedan:1800,suv_small:2000,suv:2200,suv_large:2500,pickup:2400,van:2600,luxury:2800,container2:3400,container4:4400,commercial:3000},
+    nigeria_lagos:  {sedan:1900,suv_small:2100,suv:2300,suv_large:2600,pickup:2500,van:2700,luxury:2900,container2:3500,container4:4600,commercial:3100},
+    nigeria_ph:     {sedan:2100,suv_small:2300,suv:2500,suv_large:2800,pickup:2700,van:2900,luxury:3100,container2:3800,container4:5000,commercial:3300},
+    ci_abidjan:     {sedan:2000,suv_small:2200,suv:2400,suv_large:2700,pickup:2600,van:2800,luxury:3000,container2:3600,container4:4800,commercial:3200},
+    senegal_dakar:  {sedan:2200,suv_small:2400,suv:2600,suv_large:2900,pickup:2800,van:3000,luxury:3200,container2:4000,container4:5200,commercial:3500},
+    togo_lome:      {sedan:1850,suv_small:2050,suv:2250,suv_large:2550,pickup:2450,van:2650,luxury:2850,container2:3400,container4:4400,commercial:3050},
+    benin_cotonou:  {sedan:1950,suv_small:2150,suv:2350,suv_large:2650,pickup:2550,van:2750,luxury:2950,container2:3600,container4:4700,commercial:3150},
+    gambia_banjul:  {sedan:2300,suv_small:2500,suv:2700,suv_large:3000,pickup:2900,van:3100,luxury:3300,container2:4100,container4:5400,commercial:3600},
+    sl_freetown:    {sedan:2400,suv_small:2600,suv:2800,suv_large:3100,pickup:3000,van:3200,luxury:3400,container2:4300,container4:5600,commercial:3700}
+  };
+  // US port multiplier (relative to East Coast base)
+  const PORT_MULT = {
+    los_angeles:1.12, long_beach:1.12, houston:1.05, savannah:1.0,
+    baltimore:1.0, newark:1.02, miami:1.02, jacksonville:1.01,
+    wilmington_nc:1.01, cleveland:1.0, chicago:1.0, tacoma:1.15, OTHER:1.0
+  };
+
+  // IAAI fee schedule (combined buyer fee + gate + docs — matches screenshot: $1000 → $445)
+  const IAAI_FEES = [
+    [0,99,25],[100,199,75],[200,299,115],[300,399,150],
+    [400,499,180],[500,599,215],[600,699,255],[700,799,290],
+    [800,899,330],[900,999,385],[1000,1299,445],[1300,1499,495],
+    [1500,1999,555],[2000,2999,630],[3000,3999,710],[4000,4999,790],
+    [5000,5999,870],[6000,7499,960],[7500,9999,1060],
+    [10000,14999,1190],[15000,19999,1360],[20000,1e9,0.075]
   ];
-  const copartTiers = [
+  const COPART_FEES = [
     [0,99,25],[100,199,60],[200,299,95],[300,399,130],[400,499,155],
-    [500,599,180],[600,699,200],[700,799,220],[800,899,245],[900,999,270],
-    [1000,1299,300],[1300,1499,335],[1500,1999,380],[2000,2999,430],
-    [3000,3999,490],[4000,4999,545],[5000,5999,600],[6000,7499,660],
-    [7500,9999,730],[10000,14999,840],[15000,19999,950],[20000,Infinity,0.065]
+    [500,599,180],[600,699,200],[700,799,225],[800,899,248],[900,999,272],
+    [1000,1299,305],[1300,1499,338],[1500,1999,385],[2000,2999,435],
+    [3000,3999,495],[4000,4999,550],[5000,5999,605],[6000,7499,665],
+    [7500,9999,735],[10000,14999,845],[15000,19999,955],[20000,1e9,0.065]
   ];
-  const manheimTiers = [
-    [0,499,75],[500,999,125],[1000,1499,175],[1500,2499,225],
-    [2500,4999,275],[5000,7499,350],[7500,9999,425],[10000,14999,500],
-    [15000,19999,600],[20000,Infinity,0.04]
+  const MANHEIM_FEES = [
+    [0,499,80],[500,999,130],[1000,1499,180],[1500,2499,230],
+    [2500,4999,280],[5000,7499,355],[7500,9999,430],
+    [10000,14999,505],[15000,19999,605],[20000,1e9,0.04]
   ];
 
-  function getAuctionFee(auction, bid) {
-    const tiers = auction==='iaai' ? iaaiTiers : auction==='copart' ? copartTiers : manheimTiers;
-    for (const [min, max, fee] of tiers) {
-      if (bid >= min && bid <= max) {
-        return typeof fee === 'number' && fee < 1 ? Math.round(bid * fee) : fee;
-      }
-    }
-    return Math.round(bid * 0.08);
+  function getAucFee(auc, bid) {
+    const t = auc==='iaai' ? IAAI_FEES : auc==='copart' ? COPART_FEES : MANHEIM_FEES;
+    for (const [mn,mx,f] of t) if (bid>=mn && bid<=mx) return f<1 ? Math.round(bid*f) : f;
+    return Math.round(bid*0.08);
   }
 
-  function fmt(usd, cur) {
-    const rate = fxRates[cur]||1;
-    const sym  = fxSymbol[cur]||'$';
-    const val  = Math.round(usd * rate);
-    return sym + val.toLocaleString();
+  function fmt(usd) {
+    const r = FX[_cur]||1, s = SYM[_cur]||'$';
+    return s + Math.round(usd*r).toLocaleString();
   }
 
-  function populatePorts(selectId, countryVal) {
-    const sel = document.getElementById(selectId);
-    if (!sel) return;
-    const ports = portMap[countryVal] || portMap['ghana'];
-    sel.innerHTML = ports.map(([v,l]) => `<option value="${v}">${l}</option>`).join('');
+  function now() {
+    const d=new Date(); return (d.getMonth()+1)+'/'+d.getDate()+'/'+String(d.getFullYear()).slice(2);
   }
 
-  function updatePurchasePorts() {
-    populatePorts('pDestPort', document.getElementById('pDestCountry').value);
-  }
-  function updateShipPorts() {
-    populatePorts('sDestPort', document.getElementById('sDestCountry').value);
-  }
-
-  function setCalcTab(tab) {
-    currentCalcTab = tab;
-    document.getElementById('tabShipping').classList.toggle('active', tab==='shipping');
-    document.getElementById('tabPurchase').classList.toggle('active', tab==='purchase');
-    document.getElementById('paneShipping').style.display = tab==='shipping' ? '' : 'none';
-    document.getElementById('panePurchase').style.display = tab==='purchase' ? '' : 'none';
+  function setTab(t) {
+    _tab = t;
+    document.getElementById('tabPurchase').classList.toggle('active', t==='purchase');
+    document.getElementById('tabShipping').classList.toggle('active', t==='shipping');
+    document.getElementById('panePurchase').style.display = t==='purchase'?'':'none';
+    document.getElementById('paneShipping').style.display = t==='shipping'?'':'none';
   }
 
-  function setCurrency(cur, btn) {
-    currentCurrency = cur;
-    document.querySelectorAll('.cur-pill').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    currentCalcTab === 'purchase' ? runPurchase() : runShipping();
+  function setCur(cur, btn) {
+    _cur = cur;
+    document.querySelectorAll('.cpill').forEach(b=>b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    _tab==='purchase' ? calc() : calcShip();
   }
 
-  function setDate(elId) {
-    const d = new Date();
-    document.getElementById(elId).textContent = 'Date ' + (d.getMonth()+1) + '/' + d.getDate() + '/' + String(d.getFullYear()).slice(2);
+  function updateDestPorts(selId) {
+    const country = selId==='pDestPort' ? document.getElementById('pCountry').value
+                                        : document.getElementById('sCountry').value;
+    const sel = document.getElementById(selId);
+    const pts = PORTS[country]||PORTS['ghana'];
+    sel.innerHTML = pts.map(([v,l])=>`<option value="${v}">${l}</option>`).join('');
   }
 
-  function runPurchase() {
-    const bid = parseFloat(document.getElementById('pAuctionPrice').value) || 0;
-    const auction  = document.getElementById('pAuction').value;
-    const vtype    = document.getElementById('pVehicleType').value;
-    const port     = document.getElementById('pDestPort').value || 'ghana_tema';
-    const notDrive = document.getElementById('pNotDrivable').checked;
-    const electric = document.getElementById('pElectric').checked;
-    const dmgProt  = document.getElementById('pDmgProt').checked;
-    const cur      = currentCurrency;
+  function updateUSPorts() {
+    const state = document.getElementById('pAucLocation').value;
+    const sel   = document.getElementById('pUSPort');
+    if (!state) { sel.innerHTML = '<option value="">— Select auction state first —</option>'; calc(); return; }
+    const pts = US_PORTS[state]||US_PORTS['OTHER'];
+    sel.innerHTML = pts.map(([v,l])=>`<option value="${v}">${l}</option>`).join('');
+    calc();
+  }
 
-    const auctionFee  = bid > 0 ? getAuctionFee(auction, bid) : 0;
-    const luxxFee     = 195;
-    const portRates   = shipRates[port] || shipRates['ghana_tema'];
-    let   freight     = portRates[vtype] || portRates['suv'];
-    if (notDrive) freight += 250;
-    if (electric) freight += 150;
-    const docs        = 20;
-    const protection  = dmgProt ? Math.round(freight * 0.01) : 0;
+  function calc() {
+    const bid    = parseFloat(document.getElementById('pPrice').value)||0;
+    const auc    = document.getElementById('pAuction').value;
+    const vtype  = document.getElementById('pType').value;
+    const usPort = document.getElementById('pUSPort').value;
+    const dPort  = document.getElementById('pDestPort').value;
+    const notDrv = document.getElementById('pNotDrivable').checked;
+    const elec   = document.getElementById('pElectric').checked;
+    const dmg    = document.getElementById('pDmgProt').checked;
 
-    const auctionLabel = auction === 'iaai' ? 'IAAI Auction Fee*' : auction === 'copart' ? 'Copart Buyer Fee*' : 'Manheim Buyer Fee*';
-    document.getElementById('pres_feeLabel').textContent    = auctionLabel;
-    document.getElementById('pres_freightLabel').textContent = 'Ocean Freight — ' + (document.getElementById('pDestPort').options[document.getElementById('pDestPort').selectedIndex]||{text:''}).text;
+    // Auction fee label
+    const aucLabel = auc==='iaai'?'IAAI Auction Fee*':auc==='copart'?'Copart Buyer Fee*':'Manheim Buyer Fee*';
+    document.getElementById('r_feeLabel').textContent = aucLabel;
 
-    if (bid <= 0) {
-      ['pres_bid','pres_fee','pres_total'].forEach(id => document.getElementById(id).textContent = '—');
-      document.getElementById('pres_freight').textContent    = '~' + fmt(freight, cur);
-      document.getElementById('pres_protection').textContent = dmgProt ? '~' + fmt(protection, cur) : '—';
-      document.getElementById('pres_luxx').textContent       = fmt(luxxFee, cur);
-      return;
-    }
+    // Bid & fee
+    document.getElementById('r_bid').textContent  = bid>0 ? fmt(bid) : '—';
+    const fee = bid>0 ? getAucFee(auc,bid) : 0;
+    document.getElementById('r_fee').textContent  = bid>0 ? fmt(fee) : '—';
+    document.getElementById('r_luxx').textContent = fmt(145);
 
-    const total = bid + auctionFee + luxxFee + freight + docs + protection;
+    // Transport
+    const inland   = usPort ? (INLAND[usPort]||200) : null;
+    const tEl      = document.getElementById('r_transport');
+    if (notDrv && usPort) { tEl.className='rv'; tEl.textContent = '~'+fmt((inland||200)+350); }
+    else if (usPort)      { tEl.className='rv'; tEl.textContent = '~'+fmt(inland); }
+    else                  { tEl.className='rv muted'; tEl.textContent = 'Please Call'; }
 
-    document.getElementById('pres_bid').textContent        = fmt(bid, cur);
-    document.getElementById('pres_fee').textContent        = fmt(auctionFee, cur);
-    document.getElementById('pres_luxx').textContent       = fmt(luxxFee, cur);
-    document.getElementById('pres_freight').textContent    = '~' + fmt(freight, cur);
-    document.getElementById('pres_protection').textContent = dmgProt ? '~' + fmt(protection, cur) : '—';
-    document.getElementById('pres_total').textContent      = '~' + fmt(total, cur);
-
-    const usdNote = document.getElementById('pres_usdNote');
-    if (cur !== 'USD') {
-      usdNote.style.display = '';
-      usdNote.textContent   = '≈ $' + total.toLocaleString() + ' USD (exchange rate estimate)';
+    // Freight
+    const fEl = document.getElementById('r_freight');
+    const portLabel = document.getElementById('pDestPort').selectedOptions[0]?.text||'';
+    document.getElementById('r_freightLabel').textContent = 'Ocean Freight' + (portLabel?' — '+portLabel:'');
+    let freight = null;
+    if (dPort && usPort) {
+      const base = (BASE_FREIGHT[dPort]||BASE_FREIGHT['ghana_tema'])[vtype]||2100;
+      const mult = PORT_MULT[usPort]||1.0;
+      freight = Math.round(base * mult);
+      if (elec) freight += 200;
+      fEl.className='rv'; fEl.textContent='~'+fmt(freight);
     } else {
-      usdNote.style.display = 'none';
+      fEl.className='rv muted'; fEl.textContent='Please Call';
     }
-    setDate('pCalcDate');
+
+    // Damage protection
+    const pEl = document.getElementById('r_protection');
+    let prot = 0;
+    if (dmg && freight) { prot=Math.round(freight*0.01); pEl.textContent='~'+fmt(prot); }
+    else { pEl.textContent='—'; }
+
+    // Total (exclude "Please Call" items)
+    const knownCosts = bid + fee + 145 + 20
+      + (usPort ? (notDrv?(inland+350):inland) : 0)
+      + (freight||0) + prot;
+    const tEl2 = document.getElementById('r_total');
+    tEl2.textContent = bid>0 ? '~'+fmt(knownCosts) : '—';
+
+    // USD note for non-USD
+    const noteEl = document.getElementById('r_usdNote');
+    if (_cur!=='USD' && bid>0) {
+      noteEl.style.display='';
+      noteEl.textContent = '≈ $'+knownCosts.toLocaleString()+' USD (exchange rate estimate)';
+    } else noteEl.style.display='none';
+
+    document.getElementById('r_date').textContent = 'Date '+now();
   }
 
-  function runShipping() {
-    const vtype    = document.getElementById('sVehicleType').value;
-    const port     = document.getElementById('sDestPort').value || 'ghana_tema';
-    const dmgProt  = document.getElementById('sDmgProt').checked;
-    const cur      = currentCurrency;
+  function calcShip() {
+    const vtype  = document.getElementById('sType').value;
+    const usPort = document.getElementById('sUSPort').value;
+    const dPort  = document.getElementById('sDestPort').value;
+    const notDrv = document.getElementById('sNotDrivable').checked;
+    const dmg    = document.getElementById('sDmgProt').checked;
 
-    const portRates = shipRates[port] || shipRates['ghana_tema'];
-    const freight   = portRates[vtype] || portRates['suv'];
-    const docs      = 20;
-    const protection = dmgProt ? Math.round(freight * 0.01) : 0;
-    const total      = freight + docs + protection;
+    const portLabel = document.getElementById('sDestPort').selectedOptions[0]?.text||'';
+    document.getElementById('sr_freightLabel').textContent = 'Ocean Freight'+(portLabel?' — '+portLabel:'');
 
-    document.getElementById('sres_freight').textContent    = '~' + fmt(freight, cur);
-    document.getElementById('sres_protection').textContent = dmgProt ? '~' + fmt(protection, cur) : '—';
-    document.getElementById('sres_total').textContent      = '~' + fmt(total, cur);
-    setDate('sCalcDate');
+    const base   = (BASE_FREIGHT[dPort]||BASE_FREIGHT['ghana_tema'])[vtype]||2100;
+    const mult   = PORT_MULT[usPort]||1.0;
+    let freight  = Math.round(base*mult);
+    if (notDrv) freight += 350;
+
+    const prot   = dmg ? Math.round(freight*0.01) : 0;
+    const total  = freight + 20 + prot;
+
+    document.getElementById('sr_freight').textContent    = '~'+fmt(freight);
+    document.getElementById('sr_protection').textContent = dmg ? '~'+fmt(prot) : '—';
+    document.getElementById('sr_total').textContent      = '~'+fmt(total);
+    document.getElementById('sr_date').textContent       = 'Date '+now();
   }
 
-  function copyResults(tab) {
-    let text = '';
-    if (tab === 'purchase') {
-      text = [
-        'LUXX MOTORS — Cost Estimate',
-        document.getElementById('pCalcDate').textContent,
-        '---',
-        'Auction Price:      ' + (document.getElementById('pres_bid').textContent),
-        document.getElementById('pres_feeLabel').textContent + ':  ' + document.getElementById('pres_fee').textContent,
-        'Luxx Motors Fee:    ' + document.getElementById('pres_luxx').textContent,
-        'Ocean Freight:      ' + document.getElementById('pres_freight').textContent,
-        'Shipping Docs:      $20',
-        '---',
-        'TOTAL ESTIMATE:     ' + document.getElementById('pres_total').textContent,
-      ].join('
-');
-    } else {
-      text = [
-        'LUXX MOTORS — Shipping Estimate',
-        document.getElementById('sCalcDate').textContent,
-        '---',
-        'Ocean Freight:      ' + document.getElementById('sres_freight').textContent,
-        'Shipping Docs:      $20',
-        '---',
-        'TOTAL ESTIMATE:     ' + document.getElementById('sres_total').textContent,
-      ].join('
-');
-    }
-    navigator.clipboard.writeText(text).then(()=>alert('Copied to clipboard!')).catch(()=>{});
+  function copyCalc() {
+    const lines = [
+      'LUXX MOTORS — Purchase Estimate  '+document.getElementById('r_date').textContent,
+      '─────────────────────────────────',
+      'Auction Price:           '+document.getElementById('r_bid').textContent,
+      document.getElementById('r_feeLabel').textContent+':  '+document.getElementById('r_fee').textContent,
+      'Luxx Motors Fee:         '+document.getElementById('r_luxx').textContent,
+      'Transportation to Port:  '+document.getElementById('r_transport').textContent,
+      document.getElementById('r_freightLabel').textContent+':  '+document.getElementById('r_freight').textContent,
+      'Shipping Documents:      $20',
+      '─────────────────────────────────',
+      'TOTAL ESTIMATE:          '+document.getElementById('r_total').textContent,
+    ];
+    navigator.clipboard.writeText(lines.join('
+')).then(()=>alert('Copied!')).catch(()=>{});
+  }
+  function copyCalcShip() {
+    const lines = [
+      'LUXX MOTORS — Shipping Estimate  '+document.getElementById('sr_date').textContent,
+      '─────────────────────────────────',
+      document.getElementById('sr_freightLabel').textContent+':  '+document.getElementById('sr_freight').textContent,
+      'Shipping Documents:      $20',
+      '─────────────────────────────────',
+      'TOTAL ESTIMATE:          '+document.getElementById('sr_total').textContent,
+    ];
+    navigator.clipboard.writeText(lines.join('
+')).then(()=>alert('Copied!')).catch(()=>{});
   }
 
-  // Init calculator on page load
-  (function initCalc() {
-    populatePorts('pDestPort', 'ghana');
-    populatePorts('sDestPort', 'ghana');
-    runShipping();
+  // INIT
+  (function(){
+    updateDestPorts('pDestPort');
+    updateDestPorts('sDestPort');
+    calc();
+    calcShip();
   })();
 
   /* ===== SUPPORT CHAT ===== */
