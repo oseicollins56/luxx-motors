@@ -484,6 +484,9 @@
     .ract-btn:hover { background: var(--gold-bg); border-color: var(--gold); }
     .ract-date { margin-left: auto; font-size: 12px; color: var(--text3); }
     .rfootnote { font-size: 11px; color: var(--text3); line-height: 1.65; margin-top: 12px; padding: 10px 12px; background: var(--bg2); border-radius: 8px; }
+    .ropt-hdr { font-size:10px; font-weight:800; color:var(--text3); text-transform:uppercase; letter-spacing:0.1em; margin:14px 0 4px; }
+    .ropt-hint { font-weight:400; text-transform:none; letter-spacing:0; }
+    .rv.off { color:var(--text3); }
     .rdivider { border: none; border-top: 2px solid var(--border); margin: 6px 0; }
     @media (max-width: 900px) { .calc-cols { grid-template-columns: 1fr; } }
     @media (max-width: 480px) { .cf-row { grid-template-columns: 1fr; } .tgl-row { gap: 12px; } }
@@ -1406,6 +1409,109 @@
                 <span class="rv" id="r_protection">—</span>
               </div>
             </div>
+
+            <!-- OPTIONAL SERVICES -->
+            <div class="ropt-hdr">Optional Services <span class="ropt-hint">(toggle to add)</span></div>
+
+            <div class="rline">
+              <span class="rl">Customs Clearance</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pCus" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_cus">+$250</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Customs Broker</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pBrok" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_brok">+$200</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Pre-Shipment Inspection</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pInsp" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_insp">+$75</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Destination Logistics</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pLogi" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_logi">+$120</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Terminal Handling</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pTerm" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_term">+$200</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Freight Forwarding</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pForw" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_forw">+$120</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Certificate of Title</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pCert" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_cert">+$65</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Vehicle Registration</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pRegi" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_regi">+$150</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Container Release</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pCnr" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_cnr">+$75</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Wharf Storage</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pWsl" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_wsl">+$80</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Hazardous Surcharge</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pHaz" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_haz">+$300</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">In-Country Insurance 1.5%</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pIns" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_ins">—</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Pension Levy 0.5%</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pPens" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_pens">—</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">VAT 12.5%</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="pVat" onchange="calc()"><span class="sw-track"></span></label>
+                <span class="rv off" id="r_vat">—</span>
+              </div>
+            </div>
+
             <hr class="rdivider">
             <div class="rtotal">
               <span>Total Cost</span>
@@ -1417,7 +1523,7 @@
               <button class="ract-btn" onclick="copyCalc()" title="Copy">📋</button>
               <span class="ract-date" id="r_date"></span>
             </div>
-            <div class="rfootnote">* Auction fees follow published buyer fee schedules and include gate/processing fees. Transportation to port depends on the vehicle's auction location. Ocean freight depends on chosen route and live carrier rates. <a href="#request-form" style="color:var(--gold);font-weight:700;">Get an exact quote →</a></div>
+            <div class="rfootnote">* Auction fees follow published buyer fee schedules and include gate/processing fees. Transportation to port depends on the vehicle's auction location. Ocean freight depends on chosen route and live carrier rates. Optional services are estimates — actual costs vary by destination country. <a href="#request-form" style="color:var(--gold);font-weight:700;">Get an exact quote →</a></div>
           </div>
 
         </div>
@@ -1506,6 +1612,74 @@
                 <span class="rv" id="sr_protection">—</span>
               </div>
             </div>
+
+            <!-- SHIPPING OPTIONAL SERVICES -->
+            <div class="ropt-hdr">Optional Services <span class="ropt-hint">(toggle to add)</span></div>
+
+            <div class="rline">
+              <span class="rl">Customs Clearance</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="sCus" onchange="calcShip()"><span class="sw-track"></span></label>
+                <span class="rv off" id="sr_cus">+$250</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Customs Broker</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="sBrok" onchange="calcShip()"><span class="sw-track"></span></label>
+                <span class="rv off" id="sr_brok">+$200</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Destination Logistics</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="sLogi" onchange="calcShip()"><span class="sw-track"></span></label>
+                <span class="rv off" id="sr_logi">+$120</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Terminal Handling</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="sTerm" onchange="calcShip()"><span class="sw-track"></span></label>
+                <span class="rv off" id="sr_term">+$200</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Freight Forwarding</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="sForw" onchange="calcShip()"><span class="sw-track"></span></label>
+                <span class="rv off" id="sr_forw">+$120</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Container Release</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="sCnr" onchange="calcShip()"><span class="sw-track"></span></label>
+                <span class="rv off" id="sr_cnr">+$75</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Wharf Storage</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="sWsl" onchange="calcShip()"><span class="sw-track"></span></label>
+                <span class="rv off" id="sr_wsl">+$80</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">Hazardous Surcharge</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="sHaz" onchange="calcShip()"><span class="sw-track"></span></label>
+                <span class="rv off" id="sr_haz">+$300</span>
+              </div>
+            </div>
+            <div class="rline">
+              <span class="rl">VAT 12.5%</span>
+              <div class="rv-toggle">
+                <label class="sw sm"><input type="checkbox" id="sVat" onchange="calcShip()"><span class="sw-track"></span></label>
+                <span class="rv off" id="sr_vat">—</span>
+              </div>
+            </div>
+
             <hr class="rdivider">
             <div class="rtotal">
               <span>Total Estimate</span>
@@ -1516,7 +1690,7 @@
               <button class="ract-btn" onclick="copyCalcShip()" title="Copy">📋</button>
               <span class="ract-date" id="sr_date"></span>
             </div>
-            <div class="rfootnote">* Ocean freight estimate based on typical carrier rates for this route. Final cost depends on live rates, container availability and booking date. <a href="#request-form" style="color:var(--gold);font-weight:700;">Get an exact quote →</a></div>
+            <div class="rfootnote">* Ocean freight estimate based on typical carrier rates for this route. Final cost depends on live rates, container availability and booking date. Optional services are estimates — actual costs vary by destination country. <a href="#request-form" style="color:var(--gold);font-weight:700;">Get an exact quote →</a></div>
           </div>
         </div>
       </div>
@@ -2126,6 +2300,52 @@
     calc();
   }
 
+  // Fixed optional fee amounts (USD)
+  const OPT_FIXED = {cus:250,brok:200,insp:75,logi:120,term:200,forw:120,cert:65,regi:150,cnr:75,wsl:80,haz:300};
+
+  function applyOpt(prefix, freight, bid) {
+    let total = 0;
+    const rp = prefix==='p' ? 'r_' : 'sr_';
+    for (const [key, val] of Object.entries(OPT_FIXED)) {
+      const chkId = prefix + key.charAt(0).toUpperCase() + key.slice(1);
+      const chk = document.getElementById(chkId);
+      const el  = document.getElementById(rp + key);
+      if (!chk || !el) continue;
+      el.textContent = '+' + fmt(val);
+      el.className   = chk.checked ? 'rv' : 'rv off';
+      if (chk.checked) total += val;
+    }
+    // Insurance 1.5% of bid
+    const insChk = document.getElementById(prefix + 'Ins');
+    const insEl  = document.getElementById(rp + 'ins');
+    if (insChk && insEl) {
+      const v = bid>0 ? Math.round(bid*0.015) : 0;
+      insEl.textContent = v>0 ? '+~'+fmt(v) : '—';
+      insEl.className   = (insChk.checked && v>0) ? 'rv' : 'rv off';
+      if (insChk.checked && v>0) total += v;
+    }
+    // Pension Levy 0.5% of (bid + freight)
+    const pensChk = document.getElementById(prefix + 'Pens');
+    const pensEl  = document.getElementById(rp + 'pens');
+    if (pensChk && pensEl) {
+      const v = (bid+(freight||0))>0 ? Math.round((bid+(freight||0))*0.005) : 0;
+      pensEl.textContent = v>0 ? '+~'+fmt(v) : '—';
+      pensEl.className   = (pensChk.checked && v>0) ? 'rv' : 'rv off';
+      if (pensChk.checked && v>0) total += v;
+    }
+    // VAT 12.5% of (bid + freight)
+    const vatChk = document.getElementById(prefix + 'Vat');
+    const vatEl  = document.getElementById(rp + 'vat');
+    if (vatChk && vatEl) {
+      const vatBase = bid + (freight||0);
+      const v = vatBase>0 ? Math.round(vatBase*0.125) : 0;
+      vatEl.textContent = v>0 ? '+~'+fmt(v) : '—';
+      vatEl.className   = (vatChk.checked && v>0) ? 'rv' : 'rv off';
+      if (vatChk.checked && v>0) total += v;
+    }
+    return total;
+  }
+
   function calc() {
     const bid    = parseFloat(document.getElementById('pPrice').value)||0;
     const auc    = document.getElementById('pAuction').value;
@@ -2174,10 +2394,13 @@
     if (dmg && freight) { prot=Math.round(freight*0.01); pEl.textContent='~'+fmt(prot); }
     else { pEl.textContent='—'; }
 
+    // Optional add-on services
+    const optTotal = applyOpt('p', freight, bid);
+
     // Total (exclude "Please Call" items)
     const knownCosts = bid + fee + 145 + 20
       + (usPort ? (notDrv?(inland+350):inland) : 0)
-      + (freight||0) + prot;
+      + (freight||0) + prot + optTotal;
     const tEl2 = document.getElementById('r_total');
     tEl2.textContent = bid>0 ? '~'+fmt(knownCosts) : '—';
 
@@ -2185,7 +2408,7 @@
     const noteEl = document.getElementById('r_usdNote');
     if (_cur!=='USD' && bid>0) {
       noteEl.style.display='';
-      noteEl.textContent = '≈ $'+knownCosts.toLocaleString()+' USD (exchange rate estimate)';
+      noteEl.textContent = '≈ $'+Math.round(knownCosts).toLocaleString()+' USD (exchange rate estimate)';
     } else noteEl.style.display='none';
 
     document.getElementById('r_date').textContent = 'Date '+now();
@@ -2207,7 +2430,11 @@
     if (notDrv) freight += 350;
 
     const prot   = dmg ? Math.round(freight*0.01) : 0;
-    const total  = freight + 20 + prot;
+
+    // Optional add-on services
+    const optTotal = applyOpt('s', freight, 0);
+
+    const total  = freight + 20 + prot + optTotal;
 
     document.getElementById('sr_freight').textContent    = '~'+fmt(freight);
     document.getElementById('sr_protection').textContent = dmg ? '~'+fmt(prot) : '—';
