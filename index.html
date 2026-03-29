@@ -157,6 +157,13 @@
 
     /* TRUST BAR */
     .trust-bar { background: var(--black); padding: 20px 0; }
+    /* Trust credentials strip */
+    .trust-creds-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 13px 0; }
+    .trust-creds-inner { display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; }
+    .trust-cred-item { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: var(--text2); white-space: nowrap; }
+    .trust-cred-item svg { stroke: var(--gold); flex-shrink: 0; }
+    .trust-cred-sep { color: var(--border); font-size: 18px; line-height: 1; }
+    @media(max-width:600px) { .trust-creds-inner { gap: 14px; justify-content: flex-start; padding: 0 16px; } .trust-cred-sep { display:none; } }
     .trust-inner { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
     .trust-item { display: flex; align-items: center; gap: 10px; }
     .trust-item span { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; text-transform: uppercase; }
@@ -622,7 +629,7 @@
     </a>
     <a class="drawer-item" href="#auctions" onclick="closeDrawer()">
       <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      Auction Partners
+      Auctions
     </a>
     <div class="drawer-divider"></div>
     <a class="drawer-item" href="#calculator" onclick="closeDrawer()">
@@ -812,7 +819,7 @@
         <a href="#request-form" class="btn btn-dark btn-lg">Request a Vehicle</a>
       </div>
       <div class="hero-stats">
-        <div><div class="stat-num">200+</div><div class="stat-label">Auctions Accessed</div></div>
+        <div><div class="stat-num">200+</div><div class="stat-label">Vehicles Sourced</div></div>
         <div><div class="stat-num">12</div><div class="stat-label">Countries Served</div></div>
         <div><div class="stat-num">100%</div><div class="stat-label">Transparent Process</div></div>
       </div>
@@ -820,6 +827,32 @@
   </div>
 </section>
 
+<!-- TRUST CREDENTIALS STRIP -->
+<div class="trust-creds-bar">
+  <div class="container">
+    <div class="trust-creds-inner">
+      <div class="trust-cred-item">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        U.S.-Registered Business
+      </div>
+      <span class="trust-cred-sep">|</span>
+      <div class="trust-cred-item">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Licensed U.S. Dealer Access
+      </div>
+      <span class="trust-cred-sep">|</span>
+      <div class="trust-cred-item">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        GIADA Member
+      </div>
+      <span class="trust-cred-sep">|</span>
+      <div class="trust-cred-item">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        International Export Experience
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- HOW IT WORKS -->
 <section class="section how-it-works" id="how-it-works" style="background:var(--bg2);">
@@ -1203,11 +1236,12 @@
   <div class="container">
     <div class="auction-inner">
       <div>
-        <span class="label">Auction Partners</span>
+        <span class="label">Auction Access</span>
         <h2 class="section-title">Access to Major U.S. Auto Auctions</h2>
         <div class="divider"></div>
-        <p class="section-sub">We source vehicles directly from the biggest U.S. auto auctions — giving you access to real inventory at market pricing, not markup from resellers.</p>
-        <a href="#request-form" class="btn btn-gold" style="margin-top:28px;">Get Auction Options</a>
+        <p class="section-sub">We source vehicles directly from leading U.S. auction platforms — giving you access to real inventory at market pricing, not markup from resellers.</p>
+        <p style="font-size:12px;color:var(--text3);margin-top:10px;">Logos shown for reference only. Luxx Motors is not affiliated with or endorsed by these companies.</p>
+        <a href="#request-form" class="btn btn-gold" style="margin-top:24px;">Get Auction Options</a>
       </div>
       <div class="auction-logos">
         <div class="auction-card reveal">
@@ -1224,6 +1258,11 @@
           <div class="auction-dot"></div>
           <div class="auction-name">Manheim</div>
           <span class="auction-tag">Dealer-Only Access</span>
+        </div>
+        <div class="auction-card reveal">
+          <div class="auction-dot"></div>
+          <div class="auction-name">Ritchie Bros</div>
+          <span class="auction-tag">Heavy Equipment & Fleet</span>
         </div>
       </div>
     </div>
@@ -1526,6 +1565,7 @@
         <p style="font-size:15px;color:var(--text2);line-height:1.8;">Tell us what you're looking for and we'll provide real auction options based on your budget.</p>
         <ul class="form-features">
           <li><span class="check">✓</span> No commitment required to request options</li>
+          <li><span class="check">✓</span> Real auction options — not recycled listings</li>
           <li><span class="check">✓</span> Real auction vehicles matched to your budget</li>
           <li><span class="check">✓</span> You approve before any purchase is made</li>
           <li><span class="check">✓</span> Response within 24 hours</li>
