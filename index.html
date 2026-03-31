@@ -1609,7 +1609,7 @@
           </div>
           <div class="form-group">
             <label for="vehicleMake">Make (Brand) *</label>
-            <select id="vehicleMake" name="vehicleMake" required>
+            <select id="vehicleMake" name="vehicleMake" required onchange="populateModels()">
               <option value="" disabled selected>Select make</option>
               <optgroup label="Japanese">
                 <option>Toyota</option><option>Lexus</option><option>Honda</option>
@@ -1637,7 +1637,9 @@
         </div>
         <div class="form-group">
           <label for="vehicleModel">Model *</label>
-          <input type="text" id="vehicleModel" name="vehicleModel" placeholder="e.g. Land Cruiser, Camry, Explorer, Tacoma…" required />
+          <select id="vehicleModel" name="vehicleModel" required onchange="autoSetType()">
+            <option value="" disabled selected>Select make first</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="vehicleType">Vehicle Type *</label>
@@ -2280,6 +2282,207 @@
     const bubble = document.getElementById('chatBubble');
     if (chatOpen && !bubble.contains(e.target)) { chatOpen = false; document.getElementById('chatPanel').classList.remove('open'); document.getElementById('chatIconOpen').style.display = ''; document.getElementById('chatIconClose').style.display = 'none'; }
   });
+</script>
+
+<script>
+/* ── Make → Models + Vehicle Type ── */
+const MAKE_DATA = {
+  "Toyota":       [
+    {m:"Camry",type:"Sedan"},{m:"Corolla",type:"Sedan"},{m:"Prius",type:"Sedan"},
+    {m:"Avalon",type:"Sedan"},{m:"RAV4",type:"SUV / Crossover"},{m:"Highlander",type:"SUV / Crossover"},
+    {m:"4Runner",type:"SUV / Crossover"},{m:"Venza",type:"SUV / Crossover"},{m:"C-HR",type:"SUV / Crossover"},
+    {m:"Fortuner",type:"SUV / Crossover"},{m:"Land Cruiser",type:"Land Cruiser / 4x4"},
+    {m:"Land Cruiser Prado",type:"Land Cruiser / 4x4"},{m:"Tacoma",type:"Pickup Truck"},
+    {m:"Tundra",type:"Pickup Truck"},{m:"Sequoia",type:"SUV / Crossover"},
+    {m:"Sienna",type:"Van / Minivan"},{m:"Other",type:"Other"}
+  ],
+  "Lexus":        [
+    {m:"RX",type:"SUV / Crossover"},{m:"NX",type:"SUV / Crossover"},{m:"UX",type:"SUV / Crossover"},
+    {m:"GX",type:"Land Cruiser / 4x4"},{m:"LX",type:"Land Cruiser / 4x4"},
+    {m:"ES",type:"Sedan"},{m:"IS",type:"Sedan"},{m:"LS",type:"Sedan"},{m:"GS",type:"Sedan"},
+    {m:"Other",type:"Other"}
+  ],
+  "Honda":        [
+    {m:"Civic",type:"Sedan"},{m:"Accord",type:"Sedan"},{m:"Insight",type:"Sedan"},
+    {m:"CR-V",type:"SUV / Crossover"},{m:"Pilot",type:"SUV / Crossover"},{m:"HR-V",type:"SUV / Crossover"},
+    {m:"Passport",type:"SUV / Crossover"},{m:"Ridgeline",type:"Pickup Truck"},
+    {m:"Odyssey",type:"Van / Minivan"},{m:"Other",type:"Other"}
+  ],
+  "Acura":        [
+    {m:"MDX",type:"SUV / Crossover"},{m:"RDX",type:"SUV / Crossover"},{m:"CDX",type:"SUV / Crossover"},
+    {m:"TLX",type:"Sedan"},{m:"ILX",type:"Sedan"},{m:"Other",type:"Other"}
+  ],
+  "Nissan":       [
+    {m:"Altima",type:"Sedan"},{m:"Maxima",type:"Sedan"},{m:"Sentra",type:"Sedan"},
+    {m:"Rogue",type:"SUV / Crossover"},{m:"Pathfinder",type:"SUV / Crossover"},
+    {m:"Murano",type:"SUV / Crossover"},{m:"Armada",type:"SUV / Crossover"},
+    {m:"X-Trail",type:"SUV / Crossover"},{m:"Patrol",type:"Land Cruiser / 4x4"},
+    {m:"Frontier",type:"Pickup Truck"},{m:"Titan",type:"Pickup Truck"},
+    {m:"NV",type:"Van / Minivan"},{m:"Other",type:"Other"}
+  ],
+  "Infiniti":     [
+    {m:"QX80",type:"SUV / Crossover"},{m:"QX60",type:"SUV / Crossover"},{m:"QX50",type:"SUV / Crossover"},
+    {m:"QX55",type:"SUV / Crossover"},{m:"Q50",type:"Sedan"},{m:"Q60",type:"Sedan"},
+    {m:"Other",type:"Other"}
+  ],
+  "Mitsubishi":   [
+    {m:"Outlander",type:"SUV / Crossover"},{m:"Eclipse Cross",type:"SUV / Crossover"},
+    {m:"ASX",type:"SUV / Crossover"},{m:"Pajero",type:"Land Cruiser / 4x4"},
+    {m:"Pajero Sport",type:"Land Cruiser / 4x4"},{m:"L200 / Triton",type:"Pickup Truck"},
+    {m:"Other",type:"Other"}
+  ],
+  "Subaru":       [
+    {m:"Outback",type:"SUV / Crossover"},{m:"Forester",type:"SUV / Crossover"},
+    {m:"Crosstrek",type:"SUV / Crossover"},{m:"Ascent",type:"SUV / Crossover"},
+    {m:"Legacy",type:"Sedan"},{m:"Impreza",type:"Sedan"},{m:"Other",type:"Other"}
+  ],
+  "Mazda":        [
+    {m:"CX-5",type:"SUV / Crossover"},{m:"CX-9",type:"SUV / Crossover"},{m:"CX-30",type:"SUV / Crossover"},
+    {m:"CX-50",type:"SUV / Crossover"},{m:"Mazda3",type:"Sedan"},{m:"Mazda6",type:"Sedan"},
+    {m:"Other",type:"Other"}
+  ],
+  "Ford":         [
+    {m:"F-150",type:"Pickup Truck"},{m:"F-250",type:"Pickup Truck"},{m:"Ranger",type:"Pickup Truck"},
+    {m:"Explorer",type:"SUV / Crossover"},{m:"Expedition",type:"SUV / Crossover"},
+    {m:"Edge",type:"SUV / Crossover"},{m:"Escape",type:"SUV / Crossover"},{m:"Bronco",type:"Land Cruiser / 4x4"},
+    {m:"Mustang",type:"Sedan"},{m:"Transit",type:"Van / Minivan"},{m:"Other",type:"Other"}
+  ],
+  "Chevrolet":    [
+    {m:"Silverado 1500",type:"Pickup Truck"},{m:"Silverado 2500HD",type:"Pickup Truck"},
+    {m:"Colorado",type:"Pickup Truck"},{m:"Tahoe",type:"SUV / Crossover"},
+    {m:"Suburban",type:"SUV / Crossover"},{m:"Traverse",type:"SUV / Crossover"},
+    {m:"Equinox",type:"SUV / Crossover"},{m:"Blazer",type:"SUV / Crossover"},
+    {m:"Malibu",type:"Sedan"},{m:"Express",type:"Van / Minivan"},{m:"Other",type:"Other"}
+  ],
+  "GMC":          [
+    {m:"Sierra 1500",type:"Pickup Truck"},{m:"Sierra 2500HD",type:"Pickup Truck"},
+    {m:"Canyon",type:"Pickup Truck"},{m:"Yukon",type:"SUV / Crossover"},
+    {m:"Yukon XL",type:"SUV / Crossover"},{m:"Terrain",type:"SUV / Crossover"},
+    {m:"Acadia",type:"SUV / Crossover"},{m:"Other",type:"Other"}
+  ],
+  "Dodge":        [
+    {m:"Durango",type:"SUV / Crossover"},{m:"Journey",type:"SUV / Crossover"},
+    {m:"Charger",type:"Sedan"},{m:"Challenger",type:"Sedan"},{m:"Other",type:"Other"}
+  ],
+  "Jeep":         [
+    {m:"Wrangler",type:"Land Cruiser / 4x4"},{m:"Gladiator",type:"Pickup Truck"},
+    {m:"Grand Cherokee",type:"SUV / Crossover"},{m:"Cherokee",type:"SUV / Crossover"},
+    {m:"Compass",type:"SUV / Crossover"},{m:"Renegade",type:"SUV / Crossover"},
+    {m:"Other",type:"Other"}
+  ],
+  "Lincoln":      [
+    {m:"Navigator",type:"SUV / Crossover"},{m:"Aviator",type:"SUV / Crossover"},
+    {m:"Nautilus",type:"SUV / Crossover"},{m:"Corsair",type:"SUV / Crossover"},
+    {m:"Other",type:"Other"}
+  ],
+  "Cadillac":     [
+    {m:"Escalade",type:"SUV / Crossover"},{m:"Escalade ESV",type:"SUV / Crossover"},
+    {m:"XT5",type:"SUV / Crossover"},{m:"XT6",type:"SUV / Crossover"},
+    {m:"CT5",type:"Sedan"},{m:"CT4",type:"Sedan"},{m:"Other",type:"Other"}
+  ],
+  "RAM":          [
+    {m:"1500",type:"Pickup Truck"},{m:"2500",type:"Pickup Truck"},{m:"3500",type:"Pickup Truck"},
+    {m:"ProMaster",type:"Van / Minivan"},{m:"Other",type:"Other"}
+  ],
+  "BMW":          [
+    {m:"X1",type:"SUV / Crossover"},{m:"X3",type:"SUV / Crossover"},{m:"X5",type:"SUV / Crossover"},
+    {m:"X6",type:"SUV / Crossover"},{m:"X7",type:"SUV / Crossover"},
+    {m:"3 Series",type:"Sedan"},{m:"5 Series",type:"Sedan"},{m:"7 Series",type:"Sedan"},
+    {m:"Other",type:"Other"}
+  ],
+  "Mercedes-Benz":[
+    {m:"GLC",type:"SUV / Crossover"},{m:"GLE",type:"SUV / Crossover"},{m:"GLS",type:"SUV / Crossover"},
+    {m:"G-Class",type:"Land Cruiser / 4x4"},{m:"C-Class",type:"Sedan"},{m:"E-Class",type:"Sedan"},
+    {m:"S-Class",type:"Sedan"},{m:"A-Class",type:"Sedan"},{m:"Sprinter",type:"Van / Minivan"},
+    {m:"Other",type:"Other"}
+  ],
+  "Audi":         [
+    {m:"Q3",type:"SUV / Crossover"},{m:"Q5",type:"SUV / Crossover"},{m:"Q7",type:"SUV / Crossover"},
+    {m:"Q8",type:"SUV / Crossover"},{m:"A3",type:"Sedan"},{m:"A4",type:"Sedan"},
+    {m:"A6",type:"Sedan"},{m:"A8",type:"Sedan"},{m:"Other",type:"Other"}
+  ],
+  "Volkswagen":   [
+    {m:"Tiguan",type:"SUV / Crossover"},{m:"Atlas",type:"SUV / Crossover"},{m:"Taos",type:"SUV / Crossover"},
+    {m:"Jetta",type:"Sedan"},{m:"Passat",type:"Sedan"},{m:"Golf",type:"Sedan"},
+    {m:"Transporter",type:"Van / Minivan"},{m:"Other",type:"Other"}
+  ],
+  "Porsche":      [
+    {m:"Cayenne",type:"SUV / Crossover"},{m:"Macan",type:"SUV / Crossover"},
+    {m:"Panamera",type:"Sedan"},{m:"911",type:"Sedan"},{m:"Other",type:"Other"}
+  ],
+  "Hyundai":      [
+    {m:"Tucson",type:"SUV / Crossover"},{m:"Santa Fe",type:"SUV / Crossover"},
+    {m:"Palisade",type:"SUV / Crossover"},{m:"Venue",type:"SUV / Crossover"},
+    {m:"Creta",type:"SUV / Crossover"},{m:"Elantra",type:"Sedan"},{m:"Sonata",type:"Sedan"},
+    {m:"Starex",type:"Van / Minivan"},{m:"Other",type:"Other"}
+  ],
+  "Kia":          [
+    {m:"Sportage",type:"SUV / Crossover"},{m:"Sorento",type:"SUV / Crossover"},
+    {m:"Telluride",type:"SUV / Crossover"},{m:"Seltos",type:"SUV / Crossover"},
+    {m:"K5",type:"Sedan"},{m:"Stinger",type:"Sedan"},{m:"Carnival",type:"Van / Minivan"},
+    {m:"Other",type:"Other"}
+  ],
+  "Genesis":      [
+    {m:"GV80",type:"SUV / Crossover"},{m:"GV70",type:"SUV / Crossover"},
+    {m:"G80",type:"Sedan"},{m:"G90",type:"Sedan"},{m:"Other",type:"Other"}
+  ],
+  "Land Rover":   [
+    {m:"Defender",type:"Land Cruiser / 4x4"},{m:"Discovery",type:"Land Cruiser / 4x4"},
+    {m:"Discovery Sport",type:"SUV / Crossover"},{m:"Freelander",type:"SUV / Crossover"},
+    {m:"Other",type:"Other"}
+  ],
+  "Range Rover":  [
+    {m:"Range Rover",type:"SUV / Crossover"},{m:"Range Rover Sport",type:"SUV / Crossover"},
+    {m:"Range Rover Velar",type:"SUV / Crossover"},{m:"Range Rover Evoque",type:"SUV / Crossover"},
+    {m:"Other",type:"Other"}
+  ],
+  "Jaguar":       [
+    {m:"F-Pace",type:"SUV / Crossover"},{m:"E-Pace",type:"SUV / Crossover"},
+    {m:"I-Pace",type:"SUV / Crossover"},{m:"XF",type:"Sedan"},{m:"XE",type:"Sedan"},
+    {m:"XJ",type:"Sedan"},{m:"Other",type:"Other"}
+  ]
+};
+
+function populateModels() {
+  const make      = document.getElementById('vehicleMake').value;
+  const modelSel  = document.getElementById('vehicleModel');
+  const typeSel   = document.getElementById('vehicleType');
+
+  // Reset both dropdowns
+  modelSel.innerHTML = '';
+  typeSel.value = '';
+
+  const placeholder = document.createElement('option');
+  placeholder.value = ''; placeholder.disabled = true; placeholder.selected = true;
+  placeholder.textContent = make ? 'Select model' : 'Select make first';
+  modelSel.appendChild(placeholder);
+
+  const models = MAKE_DATA[make];
+  if (!models) return;
+
+  models.forEach(function(item) {
+    const opt = document.createElement('option');
+    opt.value = item.m;
+    opt.textContent = item.m;
+    opt.dataset.type = item.type;
+    modelSel.appendChild(opt);
+  });
+}
+
+function autoSetType() {
+  const modelSel = document.getElementById('vehicleModel');
+  const typeSel  = document.getElementById('vehicleType');
+  const selected = modelSel.options[modelSel.selectedIndex];
+  if (!selected || !selected.dataset.type) return;
+
+  const targetType = selected.dataset.type;
+  for (let i = 0; i < typeSel.options.length; i++) {
+    if (typeSel.options[i].text === targetType) {
+      typeSel.selectedIndex = i;
+      break;
+    }
+  }
+}
 </script>
 </body>
 </html>
