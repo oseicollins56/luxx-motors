@@ -140,13 +140,15 @@
     /* HERO – split layout */
     .hero { min-height: 100vh; display: flex; align-items: stretch; position: relative; overflow: hidden; padding-top: 68px; background: #0a0c10; }
     .hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 70% 80% at 20% 50%, rgba(13,31,60,0.9) 0%, #060a12 60%); pointer-events:none; }
-    .hero-split { display: flex; align-items: center; width: 100%; min-height: calc(100vh - 68px); position: relative; z-index: 2; }
-    .hero-left { flex: 0 0 46%; padding: 60px 40px 60px 0; }
-    .hero-right { flex: 0 0 54%; display: flex; align-items: center; justify-content: center; padding: 48px 0 48px 16px; }
-    .hero-video-panel { width: 100%; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.55), 0 2px 12px rgba(0,0,0,0.35); position: relative; aspect-ratio: 16/10; }
-    .hero-video-panel video { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; border-radius: 14px; }
+    /* Break hero out of container so video can be truly full-height */
+    .hero > .container { max-width: 100%; padding: 0; width: 100%; }
+    .hero-split { display: flex; align-items: stretch; width: 100%; min-height: calc(100vh - 68px); position: relative; z-index: 2; }
+    .hero-left { flex: 0 0 42%; padding: 70px 48px 70px max(40px, calc((100vw - 1160px) / 2 + 40px)); display: flex; align-items: center; }
+    .hero-right { flex: 1; min-width: 0; display: flex; align-items: stretch; }
+    .hero-video-panel { width: 100%; height: 100%; min-height: 480px; border-radius: 16px 0 0 16px; overflow: hidden; box-shadow: -8px 0 60px rgba(0,0,0,0.5), 0 8px 40px rgba(0,0,0,0.4); position: relative; }
+    .hero-video-panel video { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; border-radius: 16px 0 0 16px; }
     .hero-video-glow { display: none; }
-    .hero-content { max-width: 600px; }
+    .hero-content { max-width: 520px; }
     .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.9); font-size: 12px; font-weight: 600; padding: 8px 16px; border-radius: 40px; margin-bottom: 28px; box-shadow: var(--shadow); backdrop-filter: blur(8px); }
     .hero-badge .dot { width: 8px; height: 8px; background: var(--whatsapp); border-radius: 50%; animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
@@ -159,10 +161,12 @@
     .stat-num { font-size: 15px; font-weight: 900; color: var(--gold); line-height: 1; }
     .stat-label { font-size: 10px; color: rgba(255,255,255,0.6); margin-top: 3px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.07em; }
     @media (max-width: 900px) {
-      .hero-split { flex-direction: column; gap: 40px; padding: 40px 0; }
-      .hero-left { flex: none; width: 100%; padding: 0; }
-      .hero-right { flex: none; width: 100%; padding: 0; justify-content: center; }
-      .hero-video-panel { max-width: 100%; }
+      .hero > .container { padding: 0; }
+      .hero-split { flex-direction: column; }
+      .hero-left { flex: none; width: 100%; padding: 40px 20px 32px; align-items: flex-start; }
+      .hero-right { flex: none; width: 100%; min-height: 240px; }
+      .hero-video-panel { border-radius: 0; min-height: 240px; box-shadow: none; }
+      .hero-video-panel video { border-radius: 0; }
     }
 
     /* TRUST BAR */
