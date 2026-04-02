@@ -427,35 +427,64 @@
       /* Dest grid mobile */
       .dest-card { padding: 14px 12px; }
     }
+    /* WHY CHOOSE US GRID */
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .why-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; transition: box-shadow var(--transition), transform var(--transition); }
+    .why-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .why-icon { width: 52px; height: 52px; background: var(--gold-bg); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--gold); }
+    .why-title { font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 8px; }
+    .why-desc { font-size: 14px; color: var(--text2); line-height: 1.65; }
+
     @media (max-width: 480px) {
       .container { padding: 0 14px; }
-      .section { padding: 44px 0; }
-      .hero h1 { font-size: clamp(40px, 12vw, 56px); }
-      .hero-sub { font-size: 15px; }
+      .section { padding: 40px 0; }
+      /* Hero mobile */
+      .hero h1 { font-size: clamp(32px, 10vw, 48px); }
+      .hero-sub { font-size: 14px; }
       .hero-actions { flex-direction: column; }
       .hero-actions .btn { justify-content: center; width: 100%; }
-      .hero-stats { grid-template-columns: 1fr 1fr; display: grid; gap: 16px; }
+      .hero-stats { grid-template-columns: 1fr 1fr; display: grid; gap: 14px; }
       .hero-badge { font-size: 11px; padding: 6px 12px; }
+      /* Why grid mobile: 1 column */
+      .why-grid { grid-template-columns: 1fr; gap: 14px; }
+      .why-card { padding: 20px 18px; }
+      /* Car filters */
       .browser-filters { grid-template-columns: 1fr; gap: 10px; }
       .browser-actions { flex-wrap: wrap; gap: 8px; }
       .browser-results-label { width: 100%; text-align: center; margin-left: 0; }
+      /* Destinations */
       .dest-grid { grid-template-columns: 1fr 1fr; }
       .dest-more { grid-column: span 2; }
-      .hiw-steps-grid { grid-template-columns: 1fr 1fr !important; }
+      /* How It Works: single column on small mobile */
+      .hiw-steps-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
       .we-are-not-grid { grid-template-columns: 1fr !important; }
+      /* Form */
       form { padding: 18px 14px; }
       .form-inner { gap: 32px; }
+      /* Footer */
       footer { padding: 44px 0 20px; }
       .footer-inner { gap: 24px; }
+      /* Car cards */
       .cars-grid { gap: 16px; }
       .car-img { height: 175px; }
+      /* Modals */
       .search-box { margin: 0 12px; padding: 20px 16px; }
       .welcome-box { margin: 0 8px; }
       .welcome-body { padding: 18px 16px; }
-      /* Trust / stat bar */
+      /* Trust bar */
       .trust-inner { gap: 20px; flex-direction: column; align-items: flex-start; padding: 0 16px; }
       /* Signup modal */
       .search-overlay { padding-top: 70px; }
+      /* Section titles */
+      .section-title { font-size: 24px; }
+      /* CTA buttons full-width on mobile */
+      .hero-actions .btn-lg { font-size: 14px; padding: 14px 20px; }
+    }
+    
+    /* Why grid: 2 col on tablet */
+    @media (max-width: 768px) {
+      .why-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .why-card { padding: 20px 16px; }
     }
 
     /* ===== CALCULATOR ===== */
@@ -533,7 +562,7 @@
         </select>
       </div>
       <button type="submit" class="btn btn-gold btn-lg" style="width:100%;justify-content:center;">Create Free Account →</button>
-      <p style="font-size:11px;color:var(--text3);text-align:center;margin-top:10px;line-height:1.6;">No spam — only relevant vehicle alerts. Unsubscribe anytime.</p>
+      <p style="font-size:11px;color:var(--text3);text-align:center;margin-top:10px;line-height:1.6;">No spam, only relevant vehicle alerts. Unsubscribe anytime.</p>
     </form>
     <span class="search-close" onclick="closeSignupModal()">✕ Close</span>
   </div>
@@ -703,7 +732,7 @@
             <div>
               <div class="sdi-verb">Bid</div>
               <div class="sdi-noun">Auction Access</div>
-              <div class="sdi-desc">We identify vehicles from Copart, IAAI & Manheim — real inventory at market pricing.</div>
+              <div class="sdi-desc">We identify vehicles from Copart, IAAI & Manheim. Real inventory at market pricing.</div>
             </div>
           </div>
           <div class="services-drop-item">
@@ -713,7 +742,7 @@
             <div>
               <div class="sdi-verb">Buy</div>
               <div class="sdi-noun">Secure Purchase</div>
-              <div class="sdi-desc">We manage bidding through licensed U.S. dealer access — you approve before purchase.</div>
+              <div class="sdi-desc">We manage bidding through licensed U.S. dealer access. You approve before purchase.</div>
             </div>
           </div>
           <div class="services-drop-item">
@@ -736,35 +765,6 @@
           <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="nav-drop-panel" id="whyPanel" style="min-width:620px;padding:16px;">
-          <!-- Car photo strip -->
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">
-            <div style="border-radius:8px;overflow:hidden;height:80px;">
-              <img src="https://images.unsplash.com/photo-1594502184342-2e12f877aa73?w=300&q=70&auto=format&fit=crop" alt="Land Cruiser" style="width:100%;height:100%;object-fit:cover;" />
-            </div>
-            <div style="border-radius:8px;overflow:hidden;height:80px;">
-              <img src="https://images.unsplash.com/photo-1621993202323-4b3d05a6d9db?w=300&q=70&auto=format&fit=crop" alt="Lexus RX" style="width:100%;height:100%;object-fit:cover;" />
-            </div>
-            <div style="border-radius:8px;overflow:hidden;height:80px;">
-              <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=300&q=70&auto=format&fit=crop" alt="Toyota Tacoma" style="width:100%;height:100%;object-fit:cover;" />
-            </div>
-            <div style="border-radius:8px;overflow:hidden;height:80px;">
-              <img src="https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=300&q=70&auto=format&fit=crop" alt="Ford Explorer" style="width:100%;height:100%;object-fit:cover;" />
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">
-            <div style="border-radius:8px;overflow:hidden;height:72px;">
-              <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&q=70&auto=format&fit=crop" alt="Toyota Camry" style="width:100%;height:100%;object-fit:cover;" />
-            </div>
-            <div style="border-radius:8px;overflow:hidden;height:72px;">
-              <img src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=300&q=70&auto=format&fit=crop" alt="Honda CR-V" style="width:100%;height:100%;object-fit:cover;" />
-            </div>
-            <div style="border-radius:8px;overflow:hidden;height:72px;">
-              <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=300&q=70&auto=format&fit=crop" alt="Luxury Car" style="width:100%;height:100%;object-fit:cover;" />
-            </div>
-            <div style="border-radius:8px;overflow:hidden;height:72px;">
-              <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=300&q=70&auto=format&fit=crop" alt="Vehicle" style="width:100%;height:100%;object-fit:cover;" />
-            </div>
-          </div>
           <!-- Reasons grid -->
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;border-top:1px solid var(--border);padding-top:12px;">
             <div class="why-drop-item">
@@ -781,7 +781,7 @@
             </div>
             <div class="why-drop-item">
               <div class="wdi-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-              <div><div class="wdi-title">End-to-End Service</div><div class="wdi-desc">Auction to your door — we handle everything.</div></div>
+              <div><div class="wdi-title">End-to-End Service</div><div class="wdi-desc">Auction to your door. We handle everything.</div></div>
             </div>
             <div class="why-drop-item" style="grid-column:span 2;">
               <div class="wdi-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
@@ -877,6 +877,62 @@
   </div>
 </div>
 
+<!-- WHY CHOOSE US -->
+<section class="section why-choose-us" id="why-choose-us" style="background:var(--bg2);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <span class="label">Why Luxx Motors</span>
+      <h2 class="section-title">Why Choose Us</h2>
+      <div class="divider" style="margin:20px auto;"></div>
+      <p class="section-sub" style="max-width:540px;margin:0 auto;">We make it simple to source the right vehicle from the U.S. and get it to your door.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="why-title">Direct Auction Access</h3>
+        <p class="why-desc">Real U.S. auction inventory. No reseller markups.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="why-title">100% Transparent</h3>
+        <p class="why-desc">You approve before any purchase is made. No surprises.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3 class="why-title">U.S.-Based Team</h3>
+        <p class="why-desc">Licensed dealer access and local U.S. operations on the ground.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3 class="why-title">End-to-End Service</h3>
+        <p class="why-desc">Auction to your door. We handle everything.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="why-title">Dedicated Support</h3>
+        <p class="why-desc">Direct WhatsApp and email access to our team at every step.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 class="why-title">Fast Turnaround</h3>
+        <p class="why-desc">We move quickly. From request to sourced vehicle in days, not weeks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- POSITIONING / WHO WE ARE -->
 <section class="section positioning" id="positioning">
   <div class="container">
@@ -886,7 +942,7 @@
       <div class="divider" style="margin:20px auto 32px;"></div>
       <p style="font-size:16px;color:var(--text2);line-height:1.9;margin-bottom:18px;">Luxx Motors is a U.S.-based vehicle sourcing and export company.</p>
       <p style="font-size:16px;color:var(--text2);line-height:1.9;margin-bottom:18px;">We are not a traditional dealership. We are not brokers or middlemen.</p>
-      <p style="font-size:16px;color:var(--text2);line-height:1.9;margin-bottom:32px;">We provide access to vehicles across the U.S. market — including auto auctions, dealerships, and supplier networks — and coordinate the entire process from sourcing to export.</p>
+      <p style="font-size:16px;color:var(--text2);line-height:1.9;margin-bottom:32px;">We provide access to vehicles across the U.S. market, including auto auctions, dealerships, supplier networks and dealer channels. We coordinate the entire process from sourcing to export.</p>
     </div>
   </div>
 </section>
@@ -1293,7 +1349,7 @@
         <span class="label">Auction Access</span>
         <h2 class="section-title">Access to Major U.S. Auto Auctions</h2>
         <div class="divider"></div>
-        <p class="section-sub">We source vehicles directly from leading U.S. auction platforms — giving you access to real inventory at market pricing, not markup from resellers.</p>
+        <p class="section-sub">We source vehicles directly from leading U.S. auction platforms, giving you access to real inventory at market pricing, not markup from resellers.</p>
         <p style="font-size:12px;color:var(--text3);margin-top:10px;">Logos shown for reference only. Luxx Motors is not affiliated with or endorsed by these companies.</p>
         <a href="#request-form" class="btn btn-gold" style="margin-top:24px;">Get Auction Options</a>
       </div>
@@ -1479,7 +1535,7 @@
             <span class="ract-date" id="c_date"></span>
           </div>
 
-          <div class="rfootnote">Auction fees follow published buyer fee schedules. Transportation to port and ocean freight vary by location and route — contact us for an exact quote. <a href="#request-form" style="color:var(--gold);font-weight:700;">Get a full quote →</a></div>
+          <div class="rfootnote">Auction fees follow published buyer fee schedules. Transportation to port and ocean freight vary by location and route. Contact us for an exact quote. <a href="#request-form" style="color:var(--gold);font-weight:700;">Get a full quote →</a></div>
         </div>
 
       </div>
@@ -1619,7 +1675,7 @@
         <p style="font-size:15px;color:var(--text2);line-height:1.8;">Tell us what you're looking for and we'll provide real auction options based on your budget.</p>
         <ul class="form-features">
           <li><span class="check">✓</span> No commitment required to request options</li>
-          <li><span class="check">✓</span> Real auction options — not recycled listings</li>
+          <li><span class="check">✓</span> Real auction options, not recycled listings</li>
           <li><span class="check">✓</span> Real auction vehicles matched to your budget</li>
           <li><span class="check">✓</span> You approve before any purchase is made</li>
           <li><span class="check">✓</span> Response within 24 hours</li>
@@ -1836,7 +1892,7 @@
       <div class="chat-head-avatar">🚗</div>
       <div>
         <div class="chat-head-name">Luxx Motors Support</div>
-        <div class="chat-head-status">Online — typically replies instantly</div>
+        <div class="chat-head-status">Online, typically replies instantly</div>
       </div>
     </div>
     <div class="chat-messages">
